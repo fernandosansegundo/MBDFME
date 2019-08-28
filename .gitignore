@@ -1,10 +1,5 @@
 ## Temporal exclusions
 
-TutorialesPython/Tutorial-05-py.*
-TutorialesPython/code/Tutorial05-code.py
-TutorialesPython/code/Tut-05-*.py
-TutorialesPython/rptAux/
-
 ## Exclude folder
 
 exclude/
@@ -19,12 +14,6 @@ exclude/
 ## R history files
 
 .Rhistory
-TutorialesR/.Rhistory
-
-## Tex files that are output of Rnw files:
-
-TutorialesR/Tutorial*.tex
-TutorialesPython/Tutorial*.tex
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -42,7 +31,7 @@ TutorialesPython/Tutorial*.tex
 # these rules might exclude image files for figures etc.
 # *.ps
 # *.eps
-*.pdf
+
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

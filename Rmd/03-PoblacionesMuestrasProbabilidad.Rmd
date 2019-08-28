@@ -1,0 +1,44 @@
+---
+title: "Sesión 3. Poblaciones, muestras y probabilidad."
+author: 'MBD. Fundamentos  matemáticos  del  análisis  de  datos.'
+date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
+#subtitle: 'Máster en Big Data. ICAI, Universidad Pontificia Comillas.' 
+fontsize: 9pt
+output:
+  beamer_presentation:
+    toc: true
+    keep_tex: false
+    includes:
+      #after_body: afterbody.txt
+      in_header: beamer-header-simple.txt
+    colortheme: seahorse
+    incremental: no
+    slide_level: 2
+    theme: Boadilla
+#classoption: "handout"    
+bibliography: MBDFME.bib
+csl: ams-review.csl
+---
+
+```{r echo=FALSE, eval=FALSE}
+output:
+  beamer_presentation:
+    keep_tex: true
+classoption: "handout"
+```
+
+
+
+```{r set-options, echo=FALSE}
+options(width = 60)
+library(knitr)
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+```
+
+# Población y muestra.
+
+---

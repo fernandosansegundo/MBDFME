@@ -49,6 +49,11 @@ La estructura básica de un Análisis de Datos es, según H. Wickham [ver @Wickh
 include_graphics("../fig/01-fig00.png")
 ```
 
+<!-- # Motivación -->
+
+<!-- https://datos.madrid.es/portal/site/egob -->
+
+<!-- https://www.ipcc.ch/site/assets/uploads/2018/02/SYR_AR5_FINAL_full.pdf -->
 
 ## Recursos disponibles
 
@@ -445,13 +450,13 @@ R descargará e instalará la librería. Si tienes problemas, pide ayuda al prof
   ```
   Esta librería contiene datos de todos los vuelos que despegaron de aeropuertos de Nueva York en 2013. 
 
-+ **Ejercicio** ¿Cuántas filas y columnas tiene la tabla? ¿Cuántos vuelos despegaron del aeropuerto JFK? Indicación: usa la función `str` para empezar.
++ **Ejercicio** ¿Cuántas filas y columnas tiene la tabla? ¿Cuántos vuelos despegaron del aeropuerto JFK? Indicación: usa la función `str` para empezar. **¡¡Es una de las funciones esenciales de R!!**
 ```{r echo=FALSE, eval = FALSE}
 library(nycflights13)
 str(flights)
 library(tidyverse)
 ggplot(data = flights) + 
-  geom_boxplot(mapping = aes(origin, distance, color = origin))
+  geom_boxplot(mapping = aes(origin, distance, color = origin)) 
 ```
 
 ## Un primer encuentro con dplyr
@@ -496,7 +501,8 @@ ggplot(data = flights) +
     filter(year == 2007) %>% # Hasta aquí dplyr, ahora entra en acción ggplot
   ggplot() +
     geom_point(mapping = aes(x = lifeExp, log(gdpPercap, 10), 
-                             color = continent, size = pop))
+                             color = continent, size = pop)) +
+    scale_size(range = c(.1, 24), name="Population (M)")
   ```
 ¿Qué preguntas te haces a la vista de este gráfico? 
 

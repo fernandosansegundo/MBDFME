@@ -1,0 +1,297 @@
+---
+title: "Sesión 2: Tipos de Variables y Análisis Exploratorio"
+author: 'MBD. Fundamentos  matemáticos  del  análisis  de  datos.'
+date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
+#subtitle: 'Máster en Big Data. ICAI, Universidad Pontificia Comillas.' 
+fontsize: 9pt
+output:
+  beamer_presentation:
+    toc: true
+    keep_tex: false
+    includes:
+      #after_body: afterbody.txt
+      in_header: beamer-header-simple.txt
+    colortheme: seahorse
+    incremental: no
+    slide_level: 2
+    theme: Boadilla
+#classoption: "handout"    
+bibliography: MBDFME.bib
+csl: ams-review.csl
+---
+
+```{r echo=FALSE, eval=FALSE}
+output:
+  beamer_presentation:
+    keep_tex: true
+classoption: "handout"
+```
+
+
+
+```{r set-options, echo=FALSE}
+options(width = 60)
+library(knitr)
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+```
+
+# Trabajando con ficheros de datos.
+
+---
+
++ En la primera sesión hemos usado tablas de datos incorporadas en R (o en librerías). Pero para nuestro trabajo necesitaremos a menudo importar datos procedentes de fuentes externas. Hoy aprenderemos a usar datos almacenados en:
+  - ficheros de texto
+  - ficheros Excel
+  - ficheros de otros programas estadísticos (SAS, SPSS, etc.)
+  - ficheros RData propios de R
+Vamos a ver como leer estos ficheros para usar los datos en R y también veremos como guardar datos desde R en algunos de esos formatos. 
+
+${ }$  
+    
++ En otro momento del curso hablaremos de formas alternativas de acceder a datos no almacenados en ficheros (APIs, bases de datos tipo SQL, Web Scrapping, etc.)  
+
+## Ficheros de tipo csv
+
++ El nombre csv proviene de *comma separated values*, valores separados por comas, aunque vamosa ver enseguida que no hay que tomarse el nombre al pie de la letra.
+
++ Un fichero csv es un fichero de *texto plano* que contiene una tabla de datos. Cada fila del fichero contiene una fila de la tabla y, dentro de esa fila, los elementos correspondientes a cada columna de la tabla se separan mediante comas o espacios o tabuladores, etc. La siguiente figura muestra uno de esos ficheros abierto en el *Bloc de Notas* de Windows y la tabla correspondiente (se muestran las primeras filas).
+  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "80%"}
+  include_graphics("../fig/02-fig01-FicherosCsv.png")
+  # clase = read.table("../datos/sesion02-ejemploCsv.csv", header = TRUE, sep=",")
+  ```
+
+---
+
+## Ficheros csv con R.
+
++ Vamos a empezar descargando uno de estos ficheros, llamado `movies.csv` que contiene datos sobre las  [\textcolor{blue}{\underline{películas más taquilleras  entre 2007 y 2011}}](https://gist.githubusercontent.com/tiangechen/b68782efa49a16edaf07dc2cdaa855ea/raw/0c794a9717f18b094eabab2cd6a6b9a226903577/movies.csv). 
+
++ Recuerda que debes indicarle a RStudio el *Directorio de Trabajo* y que el fichero descargado debe estar almacenado en la subcarpeta *datos* de ese directorio de trabajo.
+
++ Empieza abriendo ese fichero en un editor de texto (tipo *Bloc de Notas*) para hacer una exploración preliminar. 
+
++ Para abrir ese fichero con R vamos a empezar usando:
+  ```{r size="small"}
+  movies = read.csv(file = "../datos/movies.csv", header = TRUE)
+  ```
+  
++ El resultado de este comando es un data.frame de R. Las opciones de la función son:
+
+  - *file*: el nombre y directorio del fichero relativo (a la carpeta de trabajo).
+  - *header*: que puede ser TRUE o FALSE, para indicar si la primera fila del csv contiene los nombres de las variables.
+
+  Veremos más adelante otras opciones importantes de esta función y funciones similares.
+  
++ **Ejercicio:** Usa `head` y `str` para explorar la tabla. ¿Cuáles son sus dimensiones? ¿Cuál es la película más taquillera? ¿Cuál es el género de esa película?  
+
+
+## Usando readr para leer y escribir ficheros csv.
+
++ La librería `readr`, que forma parte del tidyverse, incluye la función `read_csv`, que a menudo es muy fácil de usar y muy rápida para ficheros grandes. Explora esta tabla como hemos hecho con la primera versión.  
+  ```{r size="small", message=FALSE, warning=FALSE}
+  library(tidyverse)
+  movies2 = read_csv("../datos/movies.csv")
+  ```
+
++ También puedes usar readr para crear ficheros csv a partir de una tabla (por ejemplo un data.frame) en R. El siguiente código genera primero una tabla con tres variables A, B y C y a continuación guarda esa tabla a un fichero csv. Asegúrate de abrir el fichero csv en un editor de texto para ver el resultado.
+  ```{r echo=-1, results='hold', size="small"}
+  set.seed(2019)
+  datos = 
+    data.frame(A = sample(1:100, 10), B = sample(LETTERS, 10), C = rnorm(10))
+  head(datos, 2)
+  write_csv(datos, path = "../datos/sesion02-guardarCsv.csv")
+  ```  
+
++ Las funciones `write.table` y `write.csv` de R funcionan de manera parecida. Veremos algún ejemplo de uso más adelante.
+
+<!-- --- -->
+
+<!-- ### Otros datos -->
+
+<!-- https://biolincc.nhlbi.nih.gov/media/teachingstudies/FHS_Teaching_Longitudinal_Data_Documentation.pdf?link_time=2019-08-26_14:42:24.487245 -->
+
+<!-- ### Base de datos de la Comisión Electoral Federal para las Elecciones Presidenciales de 2012, USA. -->
+
+<!-- https://books.google.es/books?id=UWlo-c4WEpAC&pg=PA278&lpg=PA278&dq=P00000001-ALL.csv&source=bl&ots=rzFtAYakyq&sig=ACfU3U0iax5dLW8A9834uaEwz4sJ8vT5Jw&hl=es&sa=X&ved=2ahUKEwj2m6f7haHkAhXP4IUKHV7aABYQ6AEwBnoECAkQAQ#v=onepage&q=P00000001-ALL.csv&f=false -->
+
+
+## Ficheros Excel
+
++ Las hojas de cálculo y en particular Excel son una herramienta muy utilizada. Por eso no es infrecuente encontrarse con ficheros de datos que se han almacenado en alguno de los formatos propios de diferentes versiones de Excel. 
+
++ Descarga para usar como ejemplo [este fichero](http://users.stat.ufl.edu/~winner/data/train_acc_2010.xls) en formato 
+xls, que contiene datos sobre accidentes ferroviarios ocurridos en 2010 en los Estados Unidos. Puedes encontrar más detalles sobre el fichero en [\textcolor{blue}{\underline{este documento auxiliar}}](http://users.stat.ufl.edu/~winner/data/train_acc_2010.txt).
+
++ Para leer esos datos vamos a usar la librería `readxl` de esta forma
+  ```{r}
+  library(readxl)
+  accidentes = read_excel("../datos/train_acc_2010.xls")
+  ```
+
++ **Ejercicio:** exporta esta tabla de R a un fichero en formato csv llamado `accidentes.csv`. 
+
+
+## Ficheros de otros programas estadísticos.
+
++ Aunque existen muchos otros programas estadísticos, aquí solo vamos a ver como se usa la libraría `haven` del tidyverse para importar en R ficheros de datos de SPSS, Stata y SAS. Si necesitas importar datos almacenados en un formato propio de otro programa lo mejor es buscar en Internet algo como *import from ... to R*. Recuerda empezar cargando la librería. 
+  ```{r}
+  library(haven)
+  ```
+
+
+##### Fichero SAV de SPSS
+
++ Descarga el fichero `CH10_Planet_distances_and_y.SAV` a la carpeta datos desde [\textcolor{blue}{\underline{este enlace}}](http://media.pearsoncmg.com/aw/aw_deveaux_stats_2/activstats/spss/CH10_Planet_distances_and_y.SAV) y ábrelo con:
+  ```{r size="scriptsize", echo=-1}
+  options(width=190)
+  library(haven)
+  planetas = read_spss("../datos/CH10_Planet_distances_and_y.SAV")
+  head(planetas, 3) # Veamos las tres primeras filas.
+  ```
+
+---
+
+##### Ficheros sas7bdat de SAS y dta de Stata
+
++ Usa [\textcolor{blue}{\underline{este enlace}}](http://www.principlesofeconometrics.com/sas/transport.sas7bdat) para descargar el fichero `transport.sas7bdat` a la carpeta datos y ábrelo con:
+  ```{r size="scriptsize", echo=-1}
+  options(width=150)
+  transport = read_sas("../datos/transport.sas7bdat")
+  head(transport, 3) 
+  ```
+
+${ }$  
+
++ Procede de forma análoga con [\textcolor{blue}{\underline{este fichero}}](http://www.stata-press.com/data/r8/auto2.dta)  llamado `auto2.dta` en formato de Stata   
+  ```{r size="tiny"}
+  auto2 = read_dta("../datos/auto2.dta")
+  head(auto2, 3) 
+  ```
+ 
+####
+
++ Como ves todos los casos se gestionan de forma muy parecida. En ejemplos posteriores veremos otras situaciones; como tratar por ejemplo con ficheros comprimidos tipo zip.
+
+## Ficheros RData.
+
++ R también posee su propio formato de almacenamiento de objetos, usando ficheros tipo RData. Estos ficheros pueden contener varias tablas de datos, variables y otros objetos de R. Por ejemplo podemos guardar la tabla de accidentes ferroviarios y la de planetas que hemos usado antes mediante:
+  ```{r size="small"}
+  save("accidentes", "planetas", file = "../datos/accidentes_planetas.RData")
+  ```
+
++ Fíjate en que hemos añadido la extensión RData manualmente, porque R no lo hace por defecto. Ahora vamos a eliminar por ejemplo la tabla planetas con:
+  ```{r}
+  rm(planetas)
+  ```
+Comprueba mirando el panel de entorno que en efecto la tabla ha desaparecido y si intentas usarla R lanzará un mensaje de error. Y ahora para recuperar esos datos usa:
+  ```{r size="scriptsize"}
+  load(file = "../datos/accidentes_planetas.RData")
+  head(planetas, 3)
+  ```
+
++ Para aprender más sobre manejo de ficheros con R recomendamos consultar [@Boehmke2016] y la [\textcolor{blue}{\underline{hoja de referencia}}](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf) creada por RStudio.
+  
+# Tipos de Variables. 
+
+
+---
+
++ Los tablas de datos que hemos leído en los ficheros de la sección previa contienen variables de distintos tipos: números enteros, con decimales, fechas, variables binarias de tipo sí/no, hombre/mujer, ubicaciones, etc. Existen muchos tipos de datos distintos, que permiten distintas operaciones con ellos. 
+
+${ }$  
+
++ En las próximas secciones vamos a conocer las categorías básicas de datos y las formas más adecuadas de describirlos.
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "100%"} -->
+<!-- library(RXKCD) -->
+<!-- getXKCD("688") -->
+<!-- ``` -->
+
+## Clasificación inicial.
+
++ Los datos que han ido apareciendo en nuestros ejemplos se pueden clasificar en:
+
+  - **Datos Cuantitativos (Numéricos):** que a su vez se dividen en **discretos** y **continuos**.  
+  - **Datos Cualitativos (Factores)**: que pueden ser o no ordenados.
+
++ Esta es la clasificación tradicional en muchos cursos de introducción a la Estadística y enseguida vamos a ver ejemplos para entender la diferencia entre estos tipos de datos, Pero queremos subrayar que existen muchos tipos de datos estructurados de uso frecuente que superan esta clasificación tradicional (fechas, imágenes, ficheros de audio o vídeo). 
++ Primero vamos a aprender a analizar variables individuales, por separado, antes de preguntarnos por las relaciones entre ellas. 
+
+# Variables cuantitativas discretas: enteros.
+
+## Tablas de frecuencia absolutas y relativas
+
+# Variables cuantitativas continuas,
+
+## Discreto vs continuo.
+
+## Histogramas 
+
+## Curvas de densidad
+
+# Valores centrales, de posición y dispersión.
+
+## Medidas de posición
+
+## Boxplots y violinplots. 
+
+
+## Dispersión
+
++ La siguiente figura contiene los boxplots de dos muestras, ambas con media 0 y el mismo número de puntos. ¿Qué diferencia a estas muestras?
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
+library(tidyverse)
+set.seed(2019)
+n = 400
+library(MASS)
+muestra1 = mvrnorm(n, mu = 0, Sigma = 1, empirical = TRUE)
+min1 = min(muestra1)
+max1 = max(muestra1)
+muestra1 = c(muestra1[-(1:10)], runif(10, 2 * min1, 2 * max1))
+muestra2 = runif(n, 2 * min1, 2 * max1)
+muestras = 
+  data.frame(x = c(muestra1, muestra2), tipo = gl(2, n))
+
+ggplot(data = muestras) +
+   # geom_boxplot(mapping = aes(tipo, x, color = tipo))+
+  geom_point(mapping = aes(tipo, y = x, color = tipo), 
+             position =  position_jitter(w = 0.05, h = 0)) + 
+  coord_flip()
+
+```
+
+
+# Factores.
+
+## De nuevo, tablas de frecuencia. 
+
+## Moda y represenctación gráfica de factores. 
+
+## Factores ordenados.
+
+# Cadenas de caracteres (texto).
+
+
+## Tareas para casa
+
+----
+
+- 
+- Lee el capítulo 1 del libro.
+
+---
+
+## Referencias para la sesión
+
+**Enlaces**
+
+[\textcolor{blue}{\underline{Resumen de importación de datos elaborado por RStudio.}}](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+
+
+
+
+**Bibliografía**
