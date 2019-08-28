@@ -39,6 +39,84 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 })
 ```
 
-# Población y muestra.
+# Población y muestra. 
+
+## Construir vectores aleatorias con R.
+
+## Un primer vistazo al Teorema Central del Límite. La distribución normal. 
+
+```{r eval=FALSE}
+#####################################################################
+# Uniforme continua
+#####################################################################
+
+tamPoblacion = 100000
+poblacion = runif(tamPoblacion, min = 0, max = 10)
+head(poblacion, 100)
+
+
+hist(poblacion)
+plot(density(poblacion))
+```
+
+```{r eval=FALSE}
+mean(poblacion)
+
+Tmuestra = 20
+
+# ¿Cuántas muestras distintas hay?
+choose(tamPoblacion, Tmuestra)
+
+# La población es moderadamente grande, pero el espacio de muestras es enorme.
+```
+
+
+```{r eval=FALSE}
+# Vamos a tomar muchas muestras y en cada una calculamos una media muestral.
+numMuestras = 100000
+
+# Repetiremos esto varias veces para hacernos una idea.
+(muestra = sample(poblacion, size = Tmuestra, replace = TRUE))
+mean(muestra)
+
+mediasMuestrales = replicate(numMuestras, {
+  muestra = sample(poblacion, size = Tmuestra, replace = TRUE)
+  mean(muestra)
+})
+
+# ¿Cómo se distibuyen esas medias muestrales?
+head(mediasMuestrales)
+hist(mediasMuestrales)
+hist(mediasMuestrales, breaks = 40, main="")
+plot(density(mediasMuestrales, adjust = 1.5), main="")
+```
+
+
+```{r eval=FALSE}
+# ¿Cuál es la media de las me?
+(mu = mean(poblacion))
+mean(mediasMuestrales)
+
+# ¿Cuál es su desviación típica?
+(desvTipPob = sqrt(sum((poblacion - mu)^2) / tamPoblacion))
+
+sd(mediasMuestrales)
+desvTipPob / sqrt(Tmuestra)
+```
+
+## ¿Por qué funciona la Estadística?
+
+# Probabilidad básica.
+
+## Experimentos del Caballero de Méré. 
+
+## Regla de Laplace.
+
+## Tablas de frecuencia relativas, probabilidades. Modelos, primera visita.
+
+## Axiomas de la Probabilidad.
+
+## Regla de Bayes.
+
 
 ---
