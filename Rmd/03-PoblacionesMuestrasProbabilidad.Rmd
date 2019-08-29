@@ -110,11 +110,15 @@ desvTipPob / sqrt(Tmuestra)
 
 ## Experimentos del Caballero de Méré. 
 
+## La paradoja del cumpleaños.
+
 ## Regla de Laplace.
 
 ## Tablas de frecuencia relativas, probabilidades. Modelos, primera visita.
 
 ## Axiomas de la Probabilidad.
+
+## Probabilidad condicionada e independencia.
 
 ## Regla de Bayes.
 

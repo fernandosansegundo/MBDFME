@@ -27,3 +27,7 @@
 \newtranslation[to=spanish]{Subsection}{Subsecci\'on}
 
 \usepackage{keystroke}
+
+
+% logo of my university
+\titlegraphic{\includegraphics[width=2cm]{../fig/logoICAI.png}}
