@@ -30,4 +30,4 @@
 
 
 % logo of my university
-\titlegraphic{\includegraphics[width=2cm]{../fig/logoICAI.png}}
+\titlegraphic{\includegraphics[width=4cm]{../fig/logoICAI.png}}

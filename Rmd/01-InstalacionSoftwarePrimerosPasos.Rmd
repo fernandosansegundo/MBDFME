@@ -1,8 +1,8 @@
 ---
-title: "Sesión 1: Presentación. Instalación de Software y Primeros Pasos"
-author: 'MBD. Fundamentos  matemáticos  del  análisis  de  datos.'
+title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
+author: "Fernando San Segundo"
 date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
-#subtitle: 'Máster en Big Data. ICAI, Universidad Pontificia Comillas.' 
+subtitle: "Sesión 1: Presentación. Instalación de Software y Primeros Pasos"
 fontsize: 9pt
 output:
   beamer_presentation:
@@ -55,9 +55,6 @@ include_graphics("../fig/01-fig00.png")
 
 <!-- https://www.ipcc.ch/site/assets/uploads/2018/02/SYR_AR5_FINAL_full.pdf -->
 
-## Recursos disponibles
-
-- [\textcolor{blue}{\underline{Repositorio en  GitHub}}](https://github.com/fernandosansegundo/MBDFME).
 
 # Instalación de software
 
@@ -520,8 +517,14 @@ ggplot(data = flights) +
 
 **Enlaces**
 
-[\textcolor{blue}{\underline{R for Data Science (Wickham).}}](https://r4ds.had.co.nz/)
+Junto con el material alojado en Moodle tenéis a vuestra disposición estos recursos:
 
-[\textcolor{blue}{\underline{Resumen de uso de dplyr elaborado por RStudio.}}](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+- [\textcolor{blue}{\underline{R for Data Science (Wickham).}}](https://r4ds.had.co.nz/)
+
+- [\textcolor{blue}{\underline{Repositorio del curso}}](https://github.com/fernandosansegundo/MBDFME)  en  GitHub.
+
+- Web del libro [\textcolor{blue}{\underline{PostData}}](http://www.postdata-statistics.com) y los tutoriales asociados.
+
+- [\textcolor{blue}{\underline{Resumen de uso de dplyr}}](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)  elaborado por RStudio.
 
 **Bibliografía**
