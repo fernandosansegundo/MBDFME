@@ -30,4 +30,7 @@
 
 
 % logo of my university
-\titlegraphic{\includegraphics[width=4cm]{../fig/logoICAI.png}}
+\titlegraphic{\includegraphics[width=4cm]{../fig/logoDMAsmall.png}}
+
+\newcommand{\link}[2]{\textcolor{blue}{{\href{#1}{#2}}}}
+

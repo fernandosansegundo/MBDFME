@@ -15,6 +15,7 @@ output:
     incremental: no
     slide_level: 2
     theme: Boadilla
+always_allow_html: yes
 #classoption: "handout"    
 bibliography: MBDFME.bib
 csl: ams-review.csl
@@ -41,19 +42,97 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 # Presentación del curso.
 
----
+## Preliminares.
 
-La estructura básica de un Análisis de Datos es, según H. Wickham [ver @Wickham2016], esta:
++ **Profesor:** Fernando San Segundo, Contacto: \link{mailto://fsansegundo@icai.comillas.edu}{fsansegundo@icai.comillas.edu}
 
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "70%"}
-include_graphics("../fig/01-fig00.png")
++ La Guía Docente de la asignatura, así como el resto del material está accesible desde \link{https://sifo.comillas.edu/course/view.php?id=28578}{Moodle}.
+
++ La asignatura se plantea con un enfoque práctico y conceptual. Se trata de presentar las ideas fundamentales de la Estadística y el Análisis de Datos y hacerlo mediante la práctica computacional, usando el ecosistema de R como plataforma computacional.
+
++ La estructura básica de un Análisis de Datos es, según [@Wickham2016], esta:
+  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "70%"}
+  include_graphics("../fig/01-fig00.png")
+  ```
+  Vamos a conocer las herramientas que R nos aporta para facilitar cada uno de los pasos de este proceso. 
+
+## El diagrama de Venn del Análisis de Datos.
+
++ Este diagrama creado por \link{http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram}{Drew Conway} es uno de los más usados para describir el Análisis de Datos. 
+  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "50%"}
+  include_graphics("../fig/Data_Science_VD.png")
+  ```
+  Nuestro curso se va a mover en la parte superior del diagrama, para proporcionaros las competencias necesarias para otras asignaturas del máster.
+
+## El ecosistema de R.
+
++ R es uno de los lenguajes de programación más usados para el análisis de datos y uno de los que han experimentado un crecimiento más rápido \link{https://www.oreilly.com/ideas/2017-european-data-science-salary-survey}{en los últimos años}. 
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "80%"}
+include_graphics("../fig/DataScienceProgLanguageSurvey2017.png")
 ```
 
-<!-- # Motivación -->
++ La comunidad de usuarios de R es uno de los pilares que fundamentan el éxito del lenguaje. La documentación disponible hace extremadamente fácil encontrar respuestas a casi todas las preguntas que vas a plantearte como usuario de R. Además hay un amplísimo catálogo bibliográfico y cientos de cursos disponibles para dominar cualquier aspecto de R.Aquí os enseñaremos algunos de nuestros favoritos.
 
-<!-- https://datos.madrid.es/portal/site/egob -->
+## Motivación 
 
-<!-- https://www.ipcc.ch/site/assets/uploads/2018/02/SYR_AR5_FINAL_full.pdf -->
++ Recuerda siempre dónde nos sitúa el diagrama de Venn de Data Science cuando descuidamos en nuestros análisis la componente estadístico-matemático-rigurosa.   
+
++ El lenguaje de la estadística es el lenguaje de todas las disciplinas científico-técnicas. Algunos ejemplos:
+  - Encuestas electorales: \link{http://www.cis.es}{CIS}, \link{https://fivethirtyeight.com}{fivethirtyeight}
+  - La presencia cada vez mayor de portales de datos en todas las instituciones: \link{https://datos.gob.es}{datos.gob.es} \link{https://datos.madrid.es}{datos.madrid.es}, \link{https://www.data.gov}{www.data.gov}, \link{www.ine.es}{INE}, \link{https://ec.europa.eu/eurostat/web/main/home}{eurostat}, etc.
+  - \link{https://report.ipcc.ch/sr15/pdf/sr15\_spm\_final.pdf}{Informe del IPCC sobre calentamiento global 2018.}
+  - \link{https://nadaesgratis.es/sergi-jimenez/sobre-las-diferencias-en-mortalidad-segun-el-genero}{Un artículo reciente del blog económico Nada es Gratis}.
+  - \link{https://1drv.ms/b/s!AvZ_M-Uw1d6PhOcKzNQeCAlYt4rPUw?e=phsziV}{Casi cualquier -sin exagerar- artículo de investigación de una revista científica como Nature, Science, etc.}
+  - \link{https://nycdatascience.com/blog/student-works/r-shiny/visualization-of-gun-violence-incidents-in-us/} {Un ejemplo reciente de visualización sobre violencia y armas en Estados Unidos}
+
+```{r echo=FALSE, eval= FALSE, comment=NULL, fig.align='center', out.width = "80%"}
+# Un ejemplo de https://plot.ly/r/choropleth-maps/
+
+library(plotly)
+df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv")
+df$hover <- with(df, paste(state, '<br>', "Beef", beef, "Dairy", dairy, "<br>",
+                           "Fruits", total.fruits, "Veggies", total.veggies,
+                           "<br>", "Wheat", wheat, "Corn", corn))
+# give state boundaries a white border
+l <- list(color = toRGB("white"), width = 2)
+# specify some map projection/options
+g <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showlakes = TRUE,
+  lakecolor = toRGB('white')
+)
+
+plot_geo(df, locationmode = 'USA-states') %>%
+  add_trace(
+    z = ~total.exports, text = ~hover, locations = ~code,
+    color = ~total.exports, colors = 'Purples'
+  ) %>%
+  colorbar(title = "Millions USD") %>%
+  layout(
+    title = '2011 US Agriculture Exports by State<br>(Hover for breakdown)',
+    geo = g
+  )
+```
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- library("eurostat") -->
+<!-- library("dplyr") -->
+<!-- query = search_eurostat("fertility", type = "table") -->
+<!-- View(query) -->
+
+<!-- fertility <- get_eurostat("tgs00100") %>%  -->
+<!--   filter(time == "2014-01-01") %>% -->
+<!--   mutate(cat = cut_to_classes(values, n=7, decimals=1)) -->
+
+<!-- mapdata <- merge(fertility, resolution = "20") -->
+
+
+<!-- ``` -->
+
 
 
 # Instalación de software
@@ -66,9 +145,9 @@ include_graphics("../fig/01-fig01.png")
 
 
 - La página oficial de R es  
-[\textcolor{blue}{\underline{www.r-project.org}}](https://www.r-project.org/)
+[\textcolor{blue}{{www.r-project.org}}](https://www.r-project.org/)
 
-- Para descargar el instalador de R para tu sistema usa directamente [\textcolor{blue}{\underline{este enlace}}](https://cloud.r-project.org/). Si vas a instalar en Mac o Linux y tienes alguna duda habla con tu profesor. Si tu nombre de usuario en Windows tiene acentos, ñ, etc. habla con tu profesor.
+- Para descargar el instalador de R para tu sistema usa directamente [\textcolor{blue}{{este enlace}}](https://cloud.r-project.org/). Si vas a instalar en Mac o Linux y tienes alguna duda habla con tu profesor. Si tu nombre de usuario en Windows tiene acentos, ñ, etc. habla con tu profesor.
 
 - **¡Instala R antes de continuar!**
 
@@ -80,17 +159,17 @@ include_graphics("../fig/01-fig02.png")
 ```
 
 
-- Trabajar con R directamente no es muy cómodo, así que usaremos un entorno de trabajo llamado [RStudio](https://www.rstudio.com/). Descarga la versión gratuita (free) para tu sistema de RStudio Desktop usando [este enlace](https://www.rstudio.com/products/rstudio/download/).
+- Trabajar con R directamente no es muy cómodo, así que usaremos un entorno de trabajo llamado \link{https://www.rstudio.com/}{RStudio}. Descarga la versión gratuita (free) para tu sistema de RStudio Desktop usando \link{https://www.rstudio.com/products/rstudio/download/}{este enlace}.
 
 - **¡Instala RStudio antes de continuar!**
 
 ## Software adicional
 
-- Como lector de documentos pdf puedes usar [Adobe Reader](https://get.adobe.com/es/reader/), aunque en Windows te recomendamos [Sumatra Pdf](https://www.sumatrapdfreader.org/free-pdf-reader.html) y en Mac recomendamos [Skim](https://skim-app.sourceforge.io/).
+- Como lector de documentos pdf puedes usar \link{https://get.adobe.com/es/reader/}{Adobe Reader}, aunque en Windows te recomendamos \link{{Sumatra Pdf}https://www.sumatrapdfreader.org/free-pdf-reader.html} y en Mac recomendamos \link{https://skim-app.sourceforge.io/}{Skim}.
 
-- En algún momento puede ser necesario usar un editor de texto. El que incluye RStudio sirve para tareas sencillas, pero en Windows recomendamos [Notepad++](https://notepad-plus-plus.org/) y en Mac [BBedit](https://www.barebones.com/products/bbedit/).
+- En algún momento puede ser necesario usar un editor de texto. El que incluye RStudio sirve para tareas sencillas, pero en Windows recomendamos \link{https://notepad-plus-plus.org/}{Notepad++} y en Mac \link{https://www.barebones.com/products/bbedit/}{BBedit}.
 
-- Para abrir ficheros de datos es conveniente disponer de una hoja de cálculo como Excel de Microsoft o, preferiblemente, Calc (de [Open Office](https://www.openoffice.org/es/) o de [Libre Office](https://es.libreoffice.org/)).
+- Para abrir ficheros de datos es conveniente disponer de una hoja de cálculo como Excel de Microsoft o, preferiblemente, Calc (de \link{https://www.openoffice.org/es/}{Open Office} o de \link{https://es.libreoffice.org/}{Libre Office}).
 
 # La interfaz de RStudio
 
@@ -249,8 +328,6 @@ include_graphics("../fig/01-fig10-RStudio-EntornoLimpieza.png")
   ```
   Acepta haciendo clic en *Yes* y estaremos listos para seguir.
 
-
-
 # El editor de RStudio. Ficheros de comandos de R.
 
 ## Abriendo el editor
@@ -313,9 +390,9 @@ include_graphics("../fig/01-fig15-RStudio-ElegirWorkDir.png")
 
 + Es recomendable que uses el *Explorador de Archivos* de Windows (o el *Finder* de Mac, etc.)  para navegar a la carpeta en la que has guardado ese fichero y lo abras con un *editor de texto* (como el Bloc de Notas). Habla con tu profesor si tienes dudas de como hacer esto. Comprueba que se trata de un fichero de texto que contiene simplemente los comandos que hemos escrito en el Editor de RStudio. 
 
-+ También puedes abrir un fichero de comandos escrito por otra persona. De hecho en el curso vamos a usar a menudo ficheros de comandos prediseñados para dirigir nuestro trabajo. Empieza descargando este fichero de comandos [\textcolor{blue}{\underline{sesion01-01.R}}](../scripts/sesion01-01.R) y guárdalo *en la subcarpeta scripts* de tu directorio de trabajo. En la próxima sección lo abriremos y usaremos para seguir avanzando con R.
++ También puedes abrir un fichero de comandos escrito por otra persona. De hecho en el curso vamos a usar a menudo ficheros de comandos prediseñados para dirigir nuestro trabajo. Empieza descargando este fichero de comandos [\textcolor{blue}{{sesion01-01.R}}](../scripts/sesion01-01.R) y guárdalo *en la subcarpeta scripts* de tu directorio de trabajo. En la próxima sección lo abriremos y usaremos para seguir avanzando con R.
 
-# Estructuras de datos básicas em R. 
+# Estructuras de datos básicas en R. 
 
 ## Vectores.
 
@@ -476,7 +553,7 @@ ggplot(data = flights) +
 
 ## Y un primer encuentro con ggplot
 
-+ La librería `gapminder` que hemos instalado antes contiene una tabla de datos con algunas características socioeconómicas de casi todos los paises del mundo a lo largo de varios lustros (proceden de [\textcolor{blue}{\underline{www.gapminder.org}}](https://www.gapminder.org)). Carga la tabla y examínala con
++ La librería `gapminder` que hemos instalado antes contiene una tabla de datos con algunas características socioeconómicas de casi todos los paises del mundo a lo largo de varios lustros (proceden de [\textcolor{blue}{{www.gapminder.org}}](https://www.gapminder.org)). Carga la tabla y examínala con
   ```{r eval=FALSE}
   library(gapminder)
   View(gapminder)
@@ -503,28 +580,30 @@ ggplot(data = flights) +
   ```
 ¿Qué preguntas te haces a la vista de este gráfico? 
 
-# Tareas para casa
-
-----
-
-- Termina de instalar todo el software necesario si aún no lo has hecho.
-
-- Lee el capítulo 1 del libro.
-
 ---
 
 ## Referencias para la sesión
 
 **Enlaces**
 
+```{r eval=FALSE, echo=FALSE, purl=FALSE, message=FALSE, error=FALSE}
+sessionName = "01-InstalacionSoftwarePrimerosPasos"
+RmdName = paste0(sessionName,".Rmd")
+ScriptName = paste0(sessionName,".R")
+lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
+knitr::purl(RmdName, output = paste0("../scripts/", ScriptName))
+```
+
 Junto con el material alojado en Moodle tenéis a vuestra disposición estos recursos:
 
-- [\textcolor{blue}{\underline{R for Data Science (Wickham).}}](https://r4ds.had.co.nz/)
+- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/01-InstalacionSoftwarePrimerosPasos.R}{Código de esta sesión}
 
-- [\textcolor{blue}{\underline{Repositorio del curso}}](https://github.com/fernandosansegundo/MBDFME)  en  GitHub.
+- [\textcolor{blue}{{R for Data Science (Wickham).}}](https://r4ds.had.co.nz/)
 
-- Web del libro [\textcolor{blue}{\underline{PostData}}](http://www.postdata-statistics.com) y los tutoriales asociados.
+- [\textcolor{blue}{{Repositorio del curso}}](https://github.com/fernandosansegundo/MBDFME)  en  GitHub.
 
-- [\textcolor{blue}{\underline{Resumen de uso de dplyr}}](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)  elaborado por RStudio.
+- Web del libro [\textcolor{blue}{{PostData}}](http://www.postdata-statistics.com). Para esta sesión se recomienda el Capítulo 1.
+
+- [\textcolor{blue}{{Resumen de uso de dplyr}}](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)  elaborado por RStudio.
 
 **Bibliografía**
