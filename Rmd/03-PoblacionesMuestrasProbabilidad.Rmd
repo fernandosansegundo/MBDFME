@@ -17,17 +17,8 @@ output:
     theme: Boadilla
 #classoption: "handout"    
 bibliography: MBDFME.bib
-csl: ams-review.csl
+# csl: ams-review.csl
 ---
-
-```{r echo=FALSE, eval=FALSE}
-output:
-  beamer_presentation:
-    keep_tex: true
-classoption: "handout"
-```
-
-
 
 ```{r set-options, echo=FALSE}
 options(width = 60)
@@ -43,7 +34,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 ## Inferencia Estadística.
 
-+ El objetivo central de la Estadística es obtener información fiable sobre las características de una **población** a partir de **muestras**. Ese término significa aquí un conjunto de entidades individuales (individuos), no necesariamente seres vivos. La poblacion pueden ser los vehículos matriculados en 2015 o las órdenes de compra recibidas por una empresa cierto mes o  las especies de ave que visitan un comedero en Costa Rica en los últimos 10 años, etc.
++ El objetivo central de la Estadística es obtener información fiable sobre las características de una **población** a partir de **muestras**. Ese término significa aquí un conjunto de entidades individuales (individuos), no necesariamente seres vivos. La poblacion pueden ser los vehículos matriculados en 2015 o las órdenes de compra recibidas por una empresa cierto mes o  las especies de colibrí que visitan un comedero en Costa Rica en los últimos 10 años, etc.
 
 + Muchas veces estudiar toda la población es demasiado difícil, indeseable o imposible. Entonces surge la pregunta de si podemos usar las muestras para *inferir*, o *predecir* las características de la población. ¿Hasta qué punto los datos de la muestra son *representativos*de la población? 
 
@@ -283,18 +274,142 @@ desvTipPob / sqrt(Tmuestra)
   mean(pruebas > 1) # ¿qué proporción de salas tienen coincidencias?
   ```
 
-
 ## Regla de Laplace.
 
-## Tablas de frecuencia relativas, probabilidades. Modelos, primera visita.
++ Fue históricamente el primer resultado que hizo posible calcular probabilidades de una manera sistemática, aunque como veremos no está libre de problemas.  
 
-# Axiomas de la Probabilidad.
++ Vamos a fijar el lenguaje necesario para entender esa regla.  
+  $(a)$  Estudiamos un experimento aleatorio con $n$ *resultados elementales* posibles (no simultáneos) que además son *equiprobables*; es decir, sus frecuencias relativas son igaules cuando el experimento se repite muchas veces.:
+  $$\{a_1,a_2,\ldots,a_n,\}$$
+  
+  $(b)$  El *suceso aleatorio* $A$ es un {\sf subconjunto del conjunto de resultados elementales}. Por ejemplo, si lanzamos un dado, $A$ puede ser: obtener un número par. 
+  
+  $(c)$ Los resultados elementales que forman $A$ son los {\sf resultados favorables} a $A$. Por ejemplo, si lanzamos un dado, los resultados favorables al suceso 
+  $$A= \text{obtener un número par}$$ 
+  son $\{2,4,6\}$. 
+  
++ **Regla de Laplace:** En esas condiciones la probabilidad de $A$ es
+$$P(A)=\dfrac{\text{número de sucesos elementales favorables a }A}{\text{n (número de sucesos elementales posibles)}}
+$$
+
+## Aplicaciones y limitaciones de la Regla de Laplace.
+
++ Con la Regla de Laplace y un poco de Combinatoria (don`t panic!) es posible responder a preguntas como estas:  
+  
+  - ¿Cual es la probabilidad de que la suma de los resultados al lanzar dos dados sea igual a siete?  
+  - ¿Cuál es la probabilidad de que al tirar tres dados aparezca el seis en uno de los dados (no importa cual), pero sólo en uno de ellos?
+  - En un paquete hay 20 tarjetas numeradas del 1 al 20. Se escogen al azar dos tarjetas. ¿Cuál es la probabilidad de que las dos que se han elegido sean la número 1 y la número 20? ¿Hay alguna diferencia entre sacar las dos tarjetas a la vez, o sacarlas consecutivamente sin reemplazamiento? ¿Y si es con reemplazamiento?   
+  
++ Pero es necesario entender que la Regla de Laplace *no es una definición de Probabilidad*. En primer lugar porque sería una definición circular. Y en segundo lugar porque no sirve para responder a preguntas sencillas que tienen respuestas intuitivamente obvias como esta:  
+  
+  - Si elegimos al azar un número real $x$ en el intervalo $[0,1]$, ¿cuál es la probabilidad de que sea $1/3\leq x\leq 2/3$? ¿Qué dice (a gritos) la intuición? Y ahora trata de pensar en este problema usando la regla de Laplace. ¿Cuántos casos posibles (valores de $x$) hay? ¿Cuántos son los casos favorables? Experimenta con este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion03-02-ProbabilidadGeometrica}{fichero de código R}.
+  
+  La Regla de Laplace no se diseñó para tratar con valores continuos, como el $x$ de este ejemplo. Necesitamos una noción de Probabilidad más general.
+
+## Teoría Axiomática de la Probabilidad. 
+
++ Los detalles técnicos son complicados pero, simplificando mucho hay tres ingredientes:$\quad\vspace{1mm}$
+
+    (a) Tenemos un *espacio muestral* $\Omega$ que  es el conjunto de todos los posibles resultados de un experimento.  
+    
+    (b) Un *suceso aleatorio* es (casi) cualquier subconjunto de $\Omega$ (no *demasiado raro*).   
+    
+    (c) Una *función probabilidad* que representaremos con la letra $P$ que  asigna un  número $P(A)$ a cada suceso aleatorio $A$ del espacio muestral $\Omega$. La función probabilidad debe cumplir  tres propiedades: $\quad\vspace{0.5mm}$
+    
+        1. $P(\Omega) = 1$.
+        2. Sea cual sea el suceso aleatorio $A$, se tiene $0\leq P(A)\leq 1$.
+        3. Si $A_1$ y $A_2$ son  dos sucesos aleatorios entonces 
+        $$P(A_1\cup A_2) = P(A_1) + P(A_2) - P(A_1 \cap A_2)$$
+
++ Aquí $A_1\cup A_2$ es la *unión* de sucesos y $A_1 \cap A_2$ la *intersección*, como ilustra el diagrama de Venn (cambia probabilidades por áreas e imagina que el área del rectángulo es 1).
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%"}
+include_graphics("../fig/03-fig02-DiagramaVennInterseccionSucesos.png")
+```
+## Propiedades adicionales.
+
++ En la próxima sesión veremos ejemplos concretos y útiles de como construir esas funciones de probabilidad tanto en casos discretos como continuos. 
+
++ La probabilidad del *suceso vacío* $\emptyset$ es $0$; es decir $P(\emptyset)=0.$  
++ Dos sucesos $A_1$ y $A_2$ se llaman *incompatibles* o *disjuntos* si su intersección es vacía; es decir, no pueden ocurrir a la vez. En tal caso:
+$$P(A_1\cup A_2) = P(A_1) + P(A_2)$$
++  Dado un suceso aleatorio $A$, el *suceso complementario* $A^c$ se define como ``no ocurre $A$''. Y siempre se cumple que
+$$P(A^c)=1-P(A).$$
+
++ Si $A\subset B$ (se lee: si $A$ es un subconjunto de $B$) entonces
+$$P(A)\leq P(B)$$ 
+
++ **Ejercicio:** Calcular la probabilidad de que un número de cuatro cifras tenga alguna repetida. Extra: diseña una simulación con R para comprobar tu resultado.
 
 # Probabilidad condicionada e independencia.
 
-# Regla de Bayes.
+## Probabilidad condicionada.
+
++ El concepto de probabilidad condicionada trata de reflejar los cambios que se producen en el valor de probabilidad $P(A)$ de un suceso cuando tenemos alguna *información adicional (pero parcial)* sobre el resultado de un experimento aleatorio. 
+
++ *Ejemplo.* ¿Cuál es la probabilidad de que al lanzar un dado obtengamos un número par? Está claro que es 0.5. Pero y si te dijera, sin revelarte el resultado, que al lanzar el dado hemos obtenido un número estrictamente mayor que 3. ¿Segurías pensando que esa probabilidad es 0.5?
+
++ Lo que ocurre en situaciones como esa es que queremos calcular la probabilidad de un suceso $A$ *sabiendo con certeza que* ha ocurrido otro suceso $B$, lo que se denomina probabilidad de $A$ condicionada por $B$ y se representa mediante $P(A\,|\,B)$. La definición, que se puede justificar con la Regla de Laplace, es:
+$$P(A\,|\,B) = \dfrac{P(A \cap B)}{P(B)}$$
+
++ *Ejemplo (continuación):* \small
+$$P(\text{dado par}|\text{sabiendo que dado > 3}) = 
+\dfrac{P(\text{dado par y a la vez dado > 3})}{P(\text{dado > 3})} = 
+\dfrac{2/6}{3/6} =\dfrac{2}{3} 
+$$
+\normalsize
+
++ El denominado \link{http://docentes.educacion.navarra.es/msadaall/geogebra/figuras/azar_monty.htm}{Problema de Monty Hall} es un ejemplo famoso de como la información adicional altera nuestra estimación de probabilidades (\link{https://www.geogebra.org/m/wa5qtjpp}{ver también}).
+
+## Sucesos independientes.
+
++ El suceso $A$ es independiente del suceso $B$ si el hecho de saber que el suceso $B$ ha ocurrido no afecta a nuestra cálculo de la probabilidad de que ocurra $A$. Es decir, la independencia significa que $P(A\,|\,B) = P(A)$. Hay una manera equivalente de escribir esto que deja claro que la independencia es simétrica:
+$$
+A\text{ y }B\text{ son independientes significa que }P(A\cap B) = P(A)\,P(B)
+$$
+
++ **Nunca confundas sucesos independientes e incompatibles** Los sucesos incompatibles no pueden ser independientes.
+
++ Esta noción de independencia es una abstracción matemática, que raras veces coincidirá en la práctica con nuestra noción intuitiva de que dos fenómenos son independientes.  Más adelante tendremos ocasión de profundizar en esta discusión y hablaremos de como medir en casos reales la independencia. 
+
+# Probabilidad total y Regla de Bayes.
+
+## Teorema de la probabilidad total. 
+
++ Este resultado sirve para calcular la probabilidad de un suceso $A$ que puede ocurrir a través de uno de entre $k$ mecanismos excluyentes. 
+
++ *Ejemplo:* una fábrica produce un tipo de piezas usando tres máquinas. (a) Cada pieza proviene de una y una sola de esas máquinas. (b) Cada una de las máquinas produce una fracción conocida de las piezas y (c) tiene una tasa de piezas defectuosas también conocida. Con esa información queremos calcular la tasa total de piezas defectuosas.   
+
+\begin{columns}
+\begin{column}{0.48\textwidth}
+\qquad\begin{minipage}{0.80\textwidth}
+$\bullet$ Sea $A$ el suceso {\em la pieza es defectuosa}; lo que queremos calcular es $P(A)$. Sean
+$M_1, M_2, M_3$ los sucesos \em{la pieza se fabrica en la máquina 1} o en la 2 o 3 respectivamente.
+\end{minipage}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=4cm]{../fig/03-fig03-ProbabilidadTotal}
+\end{column}
+\end{columns}
+
++ T conocemos las tres probabilidades condicionadas $P(A\,|\,M_1)$, $P(A\,|\,M_2)$ y $P(A\,|\,M_3)$.
+
++ En problemas como este el Teorema de la Probabilidad Total afirma que:
+$$
+P(A) = \underbrace{P(A\,|\,M_1) P(M_1) + P(A\,|\,M_2) P(M_2) + P(A\,|\,M_3) P(M_3) }_{\text{un término para cada máquina / camino}}
+$$
+
+## Teorema de Bayes
+
++ El Teorema de Bayes se usa en situaciones idénticas a la que acabamos de ver, pero sirve para hacer una *pregunta inversa*. *Sabiendo que la pieza es defectuosa*, ¿cuál es la probabilidad de que provenga de la máquina M1 (por ejemplo)? Se trata por tanto de calcular $P(M_1\,|\, A)$. Y el resultado es:
+$$P(M_1\,|\, A) = 
+\dfrac{P(A\,|\, M_1) P(M_1)}{P(A\,|\, M_1) P(M_1) + P(A\,|\, M_2) P(M_2)+ P(A\,|\, M_3) P(M_3)}
+$$
+  Fíjate en que el denominador es $P(A)$.
 
 # Tablas de Contingencia.
+
+---
+
 
 ---
 

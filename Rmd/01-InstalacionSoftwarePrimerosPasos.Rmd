@@ -21,14 +21,6 @@ bibliography: MBDFME.bib
 csl: ams-review.csl
 ---
 
-```{r echo=FALSE, eval=FALSE}
-output:
-  beamer_presentation:
-    keep_tex: true
-classoption: "handout"
-```
-
-
 
 ```{r set-options, echo=FALSE}
 options(width = 60)
@@ -84,55 +76,6 @@ include_graphics("../fig/DataScienceProgLanguageSurvey2017.png")
   - \link{https://nadaesgratis.es/sergi-jimenez/sobre-las-diferencias-en-mortalidad-segun-el-genero}{Un artículo reciente del blog económico Nada es Gratis}.
   - \link{https://1drv.ms/b/s!AvZ_M-Uw1d6PhOcKzNQeCAlYt4rPUw?e=phsziV}{Casi cualquier -sin exagerar- artículo de investigación de una revista científica como Nature, Science, etc.}
   - \link{https://nycdatascience.com/blog/student-works/r-shiny/visualization-of-gun-violence-incidents-in-us/} {Un ejemplo reciente de visualización sobre violencia y armas en Estados Unidos}
-
-```{r echo=FALSE, eval= FALSE, comment=NULL, fig.align='center', out.width = "80%"}
-# Un ejemplo de https://plot.ly/r/choropleth-maps/
-
-library(plotly)
-df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv")
-df$hover <- with(df, paste(state, '<br>', "Beef", beef, "Dairy", dairy, "<br>",
-                           "Fruits", total.fruits, "Veggies", total.veggies,
-                           "<br>", "Wheat", wheat, "Corn", corn))
-# give state boundaries a white border
-l <- list(color = toRGB("white"), width = 2)
-# specify some map projection/options
-g <- list(
-  scope = 'usa',
-  projection = list(type = 'albers usa'),
-  showlakes = TRUE,
-  lakecolor = toRGB('white')
-)
-
-plot_geo(df, locationmode = 'USA-states') %>%
-  add_trace(
-    z = ~total.exports, text = ~hover, locations = ~code,
-    color = ~total.exports, colors = 'Purples'
-  ) %>%
-  colorbar(title = "Millions USD") %>%
-  layout(
-    title = '2011 US Agriculture Exports by State<br>(Hover for breakdown)',
-    geo = g
-  )
-```
-
-
-<!-- --- -->
-
-<!-- ```{r} -->
-<!-- library("eurostat") -->
-<!-- library("dplyr") -->
-<!-- query = search_eurostat("fertility", type = "table") -->
-<!-- View(query) -->
-
-<!-- fertility <- get_eurostat("tgs00100") %>%  -->
-<!--   filter(time == "2014-01-01") %>% -->
-<!--   mutate(cat = cut_to_classes(values, n=7, decimals=1)) -->
-
-<!-- mapdata <- merge(fertility, resolution = "20") -->
-
-
-<!-- ``` -->
-
 
 
 # Instalación de software
@@ -192,8 +135,6 @@ include_graphics("../fig/Tut02-01.png")
 Escribe `3^2` y pulsa `Enter`
 
 ![](../fig/01-fig03.png)
-
-<!-- - El símbolo `[1]` indica que esa es la primera línea de la respuesta. Más  -->
 
 - El uno entre corchetes es la forma en la que R nos indica que esta es la primera línea de su respuesta. Enseguida veremos respuestas que ocupan varias líneas. Debajo hay un nuevo prompt listo para seguir trabajando.
 
@@ -354,7 +295,7 @@ include_graphics("../fig/01-InterfazRstudio-Editor.png")
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "35%"}
   include_graphics("../fig/01-fig12-RStudio-Editor.png")
   ```
-  Si ahora pulsas la tecla *Enter* $\text{\Return}$ verás que ese códig no se ejecuta (mira la consola y el entorno), simplemente pasas a la siguiente línea del editor. Para ejecutar el código vuelve a hacer clic en la línea `a = 4` y ahora pulsa a la vez  `Ctrl + Enter`. Veras que el código aparece copiado en la consola como si lo hubieras ejecutado allí.  
+  Si ahora pulsas la tecla *Enter* $\text{\Return}$ verás que ese código no se ejecuta (mira la consola y el entorno), simplemente pasas a la siguiente línea del editor. Para ejecutar el código vuelve a hacer clic en la línea `a = 4` y ahora pulsa a la vez  `Ctrl + Enter`. Veras que el código aparece copiado en la consola como si lo hubieras ejecutado allí.  
 
 ## Ejecutando varios comandos a la vez. 
 
@@ -377,7 +318,6 @@ include_graphics("../fig/01-InterfazRstudio-Editor.png")
 + Dentro de tu carpeta de usuario crea una carpeta para usar como directorio de trabajo en este curso (llámala por ejemplo FME, aunque el nombre no es importante). Si tu nombre de usuario contiene acentos, espacios, la letra ñ, etc. y experimentas algún problema al usar R, habla con tu profesor. 
 
 + Crea también dos *subcarpetas* dentro del directorio de trabajo que se llamen *datos* y *scripts* **(¡así, en  minúsculas!)**. 
-<!-- Usar una estructura de carpetas adecuada forma parte de las buenas prácticas del análisis de datos.  -->
 
 + Ahora usa el menú *Session $\to$ Set Working Directory $\to$ Choose Directory*:
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%"}
@@ -540,7 +480,7 @@ ggplot(data = flights) +
   - `arrange`: para reordenar las filas.
   - `select`: para seleccionar columnas (variables)
   - `mutate`: para añadir nuevas columnas calculadas a partir de las existentes. 
-  - `summarize`: para obtener estimadores estadíticos, por ejemplo medias.
+  - `summarize`: para obtener estimadores estadísticos, por ejemplo medias.
 
 + Además con `dplyr` vamos a empezar a usar el operador `pipe`, que en R es `%>%`. Este operador pasa el resultado de una operación como primer argumento de la siguiente. El uso de `%>%` normalmente resulta más claro que la sintaxis básica de R.
 
@@ -553,7 +493,7 @@ ggplot(data = flights) +
 
 ## Y un primer encuentro con ggplot
 
-+ La librería `gapminder` que hemos instalado antes contiene una tabla de datos con algunas características socioeconómicas de casi todos los paises del mundo a lo largo de varios lustros (proceden de [\textcolor{blue}{{www.gapminder.org}}](https://www.gapminder.org)). Carga la tabla y examínala con
++ La librería `gapminder` que hemos instalado antes contiene una tabla de datos con algunas características socioeconómicas de casi todos los países del mundo a lo largo de varios lustros (proceden de [\textcolor{blue}{{www.gapminder.org}}](https://www.gapminder.org)). Carga la tabla y examínala con
   ```{r eval=FALSE}
   library(gapminder)
   View(gapminder)
@@ -564,7 +504,7 @@ ggplot(data = flights) +
   ggplot(data = <DATA>) +
     <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
   ```
-  Vamos a usar dplyr y ggplot para dibujar un gráfico de la relación entre esperanza de vida y renta per cápita para el aó 2007. 
+  Vamos a usar dplyr y ggplot para dibujar un gráfico de la relación entre esperanza de vida y renta per cápita para el año 2007. 
 
 ---
 

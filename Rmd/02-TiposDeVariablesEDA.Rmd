@@ -20,14 +20,6 @@ bibliography: MBDFME.bib
 csl: ams-review.csl
 ---
 
-```{r echo=FALSE, eval=FALSE}
-output:
-  beamer_presentation:
-    keep_tex: true
-classoption: "handout"
-```
-
-
 
 ```{r set-options, echo=FALSE}
 options(width = 60)
@@ -148,17 +140,6 @@ ${ }$
 
 + Las funciones `write.table` y `write.csv` de R funcionan de manera parecida. Veremos algún ejemplo de uso más adelante.
 
-<!-- --- -->
-
-<!-- ### Otros datos -->
-
-<!-- https://biolincc.nhlbi.nih.gov/media/teachingstudies/FHS_Teaching_Longitudinal_Data_Documentation.pdf?link_time=2019-08-26_14:42:24.487245 -->
-
-<!-- ### Base de datos de la Comisión Electoral Federal para las Elecciones Presidenciales de 2012, USA. -->
-
-<!-- https://books.google.es/books?id=UWlo-c4WEpAC&pg=PA278&lpg=PA278&dq=P00000001-ALL.csv&source=bl&ots=rzFtAYakyq&sig=ACfU3U0iax5dLW8A9834uaEwz4sJ8vT5Jw&hl=es&sa=X&ved=2ahUKEwj2m6f7haHkAhXP4IUKHV7aABYQ6AEwBnoECAkQAQ#v=onepage&q=P00000001-ALL.csv&f=false -->
-
-
 ## Ficheros Excel
 
 + Las hojas de cálculo y en particular Excel son una herramienta muy utilizada. Por eso no es infrecuente encontrarse con ficheros de datos que se han almacenado en alguno de los formatos propios de diferentes versiones de Excel. 
@@ -244,7 +225,7 @@ ${ }$
 
 + Los tablas de datos que hemos leído en los ficheros de la sección previa contienen variables de distintos tipos: números enteros, con decimales, fechas, variables binarias de tipo sí/no, hombre/mujer, ubicaciones, etc. Existen muchos tipos de datos distintos, que permiten distintas operaciones con ellos. 
 
-+ En las próximas secciones vamos a conocer las categorías básicas de datos y las formas más adecuadas de describirlos. Como ejemplos iniciales vamos a usar la tabla `mpg` conyenida en la librería `tidyverse` y también una tabla con datos relativos a un estudio sobre enfermades coronarias llevado a cabo a Framingham (UK). Puedes descargar el fichero csv desde [\textcolor{blue}{{este enlace}}](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/framingham.csv) y leer más detalles sobre el estudio [\textcolor{blue}{{aquí}}.](https://biolincc.nhlbi.nih.gov/media/teachingstudies/FHS_Teaching_Longitudinal_Data_Documentation.pdf?link_time=2019-08-26_14:42:24.487245).
++ En las próximas secciones vamos a conocer las categorías básicas de datos y las formas más adecuadas de describirlos. Como ejemplos iniciales vamos a usar la tabla `mpg` contenida en la librería `tidyverse` y también una tabla con datos relativos a un estudio sobre enfermedades coronarias llevado a cabo en Framingham (UK). Puedes descargar el fichero csv desde [\textcolor{blue}{{este enlace}}](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/framingham.csv) y leer más detalles sobre el estudio [\textcolor{blue}{{aquí}}.](https://biolincc.nhlbi.nih.gov/media/teachingstudies/FHS_Teaching_Longitudinal_Data_Documentation.pdf?link_time=2019-08-26_14:42:24.487245).
 
 + **Ejercicio:** lee el fichero a una tabla de R llamada fhs (de Framingham Heart Study). Explora esa tabla con las funciones `str` y `glimpse`. Piensa en qué tipo de información contiene cada variable de la tabla. Lee también la documentación sobre `mpg` en [\textcolor{blue}{{este enlace}}](https://ggplot2.tidyverse.org/reference/mpg.html).
 ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "80%"}
@@ -324,20 +305,12 @@ fhs = read_csv("../datos/framingham.csv")
   sum(prop.table(table(mpg$cty)))
   ```
 
-+ Además las frecuencias relativas están relacionadas con la idea de *probabilidad emprírica*. Es decir, si elegimos aleatoriamente un valor de la variable `cty` y repetimos esa elección muchas veces, la probabilidad de cada uno de los distintos valores es la frecuencia relativa que hemos calculado. 
-
-<!-- Vamos a comprobarlo. -->
-<!-- ```{r} -->
-<!-- N = 100000 # Vamos a elegir N veces un valor de cty al azar  -->
-<!-- muestra = sample(mpg$cty, N, replace = TRUE) -->
-<!-- prop.table(table(muestra)) -->
-<!-- prop.table(table(mpg$cty)) -->
-<!-- ``` -->
++ Además las frecuencias relativas están relacionadas con la idea de *probabilidad empírica*. Es decir, si elegimos aleatoriamente un valor de la variable `cty` y repetimos esa elección muchas veces, la probabilidad de cada uno de los distintos valores es la frecuencia relativa que hemos calculado. 
 
 
 ### Frecuencias acumuladas.
 
-+ Las *frecuencias acumuladas* se usan con variables discretas para responder a la pregunta *"¿cuántos valores hay que sean menores o guales que ...?"* En R se obtienen con:
++ Las *frecuencias acumuladas* se usan con variables discretas para responder a la pregunta *"¿cuántos valores hay que sean menores o iguales que ...?"* En R se obtienen con:
   ```{r echo=-1}
   options(width = 60)
   cumsum(table(mpg$cty))
@@ -365,15 +338,6 @@ fhs = read_csv("../datos/framingham.csv")
 + La variable `cholLevels` que hemos fabricado es un *factor ordenado*, Veremos más ejemplos cuando aprendamos más sobre factores.  
 
 ---
-
-<!-- +  Con `dplyr` se puede conseguir algo parecido, pero en este caso lo que obtenemos es el *número* de intervalo al que pertenece cada valor (su *rango*).   -->
-<!--     ```{r} -->
-<!--     fhs = fhs  %>%  -->
-<!--       mutate(cholLevels = ntile(totChol, n = 10)) %>%  -->
-<!--       select(cholLevels) -->
-
-<!--     head(fhs$cholLevels) # Veamos el comienzo del resultado -->
-<!--     ``` -->
 
 + Con las variables puramente continuas no suele haber demasiado dudas a la hora de reconocerlas. Pero con las variables discretas el problema puede ser más complicado, porque depende esencialmente del número de valores distintos que tome la variable. Al final, en muchos casos, tratar a una variable como discreta o continua es decisión de quien realiza el análisis. 
 
@@ -431,7 +395,7 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
     geom_density(mapping = aes(cty), color="red", fill="lightblue", size=1.5)
   ```
 
-+ **¿Curvas de densidad o histogramas?** ¡Ambos! En general, cuando analicemos un conjunto de datos es mejor empezar en la fase de exloración dibujando muchos gráficos. Al presentar nuestras conclusiones seleccionaremos aquellos que ilustren mejor la historia que queremos contar.
++ **¿Curvas de densidad o histogramas?** ¡Ambos! En general, cuando analicemos un conjunto de datos es mejor empezar en la fase de exploración dibujando muchos gráficos. Al presentar nuestras conclusiones seleccionaremos aquellos que ilustren mejor la historia que queremos contar.
  
 
 ## Relación entre curvas de densidad e histogramas. 
@@ -448,7 +412,7 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 
 ---
 
-+ En un ejercicio previo proponíamos dibujar las curvas de densidad de varias variables de la tabla `auto2`. Si lo haces obtendras curvas como estas:
++ En un ejercicio previo proponíamos dibujar las curvas de densidad de varias variables de la tabla `auto2`. Si lo haces obtendrás curvas como estas:
   ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "70%"}
   library(gridExtra)
   library(tidyverse)
@@ -519,7 +483,7 @@ par(mfrow = c(1, 1))
   include_graphics("../fig/02-fig04-ProbabilidadIntervaloVariableDiscreta.png")
   ```
 
-+ ¡No hace falta que sepas calcular integrales! Pero es importante entender que el cálculo de probabilidades está estrechamente relacionado con el cálculo de áreas.
++ Don't panic! No hace falta que sepas calcular integrales. Pero es importante entender que el cálculo de probabilidades está estrechamente relacionado con el cálculo de áreas.
 
 # Valores centrales, de posición y dispersión.
 
@@ -573,7 +537,7 @@ $$
   (ordenados = sort(valores))
   (mediana = ordenados[9])
   ```
-  Aunque lo mejor, claro, es usar la funcion de R:
+  Aunque lo mejor, claro, es usar la función de R:
   ```{r}
   median(valores)
   ```
@@ -610,7 +574,7 @@ $$
 
 ## Dispersión
 
-+ La siguiente figura muestra dos conjuntos de valores, ambas con media 0 y el mismo número de puntos. Las coordenadas verticales de los puntos se han modficado con un poco de *ruido* para hacer mejorar la visualización de ambos conjuntos. Puedes mirar el código de esta sesión para ver como se ha construido esta figura. 
++ La siguiente figura muestra dos conjuntos de valores, ambas con media 0 y el mismo número de puntos. Las coordenadas verticales de los puntos se han modificado con un poco de *ruido* para hacer mejorar la visualización de ambos conjuntos. Puedes mirar el código de esta sesión para ver como se ha construido esta figura. 
   ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
   library(tidyverse)
   set.seed(2019)
@@ -642,7 +606,7 @@ $$
        xlim = c(-12, 12), lwd = 2, main = "", xlab= "")
   lines(density(muestra2, adjust = 2), col="red", lwd = 2, sub="")
   ```
-  Este diagrama ilustra lo que la mostraban las nubes de puntos de la figura previa: los puntos de un conjunto están máa agrupados en torno al centro que los del otro conjunto. La diferencia entre ambos conjuntos está en la **dispersión**.  
+  Este diagrama ilustra lo que la mostraban las nubes de puntos de la figura previa: los puntos de un conjunto están más agrupados en torno al centro que los del otro conjunto. La diferencia entre ambos conjuntos está en la **dispersión**.  
 
 + La idea intuitiva de la dispersión está clara: se trata de medir como de agrupados en torno al centro están los valores. ¿Como se define rigurosamente? Al igual que sucedía con los valores centrales (media vs mediana) hay varias posibilidades.
 
@@ -716,7 +680,7 @@ include_graphics("../fig/02-fig05-BoxPlotEstructura.png")
 
 ## Desviación absoluta mediana
 
-+ Además del rango intercuartílico se usan otras medidas de dispersión. Las más comunes tán basadas en la idea de medir la *desviación absoluta* de cada dato individual con respecto a un valor central. Si los datos son $x_1, x_2, \cdots, x_n$ y el valor central (puede ser la media o la mediana) es $c$ entonces las desviaciones absolutas son:
++ Además del rango intercuartílico se usan otras medidas de dispersión. Las más comunes están basadas en la idea de medir la *desviación absoluta* de cada dato individual con respecto a un valor central. Si los datos son $x_1, x_2, \cdots, x_n$ y el valor central (puede ser la media o la mediana) es $c$ entonces las desviaciones absolutas son:
 $$
 d_1 = |x_1 - c|,\quad d_2 = |x_2 - c|,\quad\cdots\quad d_n = |x_n - c|
 $$
@@ -727,9 +691,9 @@ Usamos valores absolutos para evitar que las desviaciones por exceso compensen a
   mad(accidentes$Speed, constant = 1)
   ```
 
-+ **Ejericicio:** calcula este valor a partir de los datos usando `median`. Mira lo que sucede si quitas la opción `constant = 1`. Lee la ayuda de `mad` y [\textcolor{blue}{{esta página}}](https://en.wikipedia.org/wiki/Median_absolute_deviation).
++ **Ejercicio:** calcula este valor a partir de los datos usando `median`. Mira lo que sucede si quitas la opción `constant = 1`. Lee la ayuda de `mad` y [\textcolor{blue}{{esta página}}](https://en.wikipedia.org/wiki/Median_absolute_deviation).
 
-+ **Ejericicio:**  calcula `mean(accidentes$Speed - mean(accidentes$Speed))`. Cambia de variable y de tabla y  repite el cálculo. ¿Por qué pasa esto?
++ **Ejercicio:**  calcula `mean(accidentes$Speed - mean(accidentes$Speed))`. Cambia de variable y de tabla y  repite el cálculo. ¿Por qué pasa esto?
 
 ## Varianza y desviación típica (definición poblacional).
 
