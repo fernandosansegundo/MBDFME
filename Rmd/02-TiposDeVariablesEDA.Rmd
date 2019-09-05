@@ -21,7 +21,7 @@ csl: ams-review.csl
 ---
 
 
-```{r set-options, echo=FALSE}
+```{r set-options, echo = FALSE, purl=FALSE}
 options(width = 60)
 library(knitr)
 def.chunk.hook  <- knitr::knit_hooks$get("chunk")
@@ -35,7 +35,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 ---
 
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "60%"}
+```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "60%", purl=FALSE}
 include_graphics("../fig/02-fig00-XKCDfileExtensions.png")
 ```
 
@@ -60,7 +60,7 @@ ${ }$
 + El nombre csv proviene de *comma separated values*, valores separados por comas, aunque vamos a ver enseguida que no hay que tomarse el nombre al pie de la letra.
 
 + Un fichero csv es un fichero de *texto plano* que contiene una tabla de datos. Cada fila del fichero contiene una fila de la tabla y, dentro de esa fila, los elementos correspondientes a cada columna de la tabla se separan mediante comas o espacios o tabuladores, etc. La siguiente figura muestra uno de esos ficheros abierto en el *Bloc de Notas* de Windows y la tabla correspondiente (se muestran las primeras filas).
-  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "80%"}
+  ```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "80%", purl=FALSE}
   include_graphics("../fig/02-fig01-FicherosCsv.png")
   # clase = read.table("../datos/sesion02-ejemploCsv.csv", header = TRUE, sep=",")
   ```
@@ -104,7 +104,7 @@ ${ }$
   ${ }$
 
 + Recuerda asimismo que puedes seleccionar por condiciones. Por ejemplo para ver el género de las películas de 2010 con:
-  ```{r  eval=FALSE}
+  ```{r  eval = FALSE}
   movies$Genre[movies$Year == 2010]
   ```
   También sabemos usar `dplyr` para seleccionar:
@@ -228,7 +228,7 @@ ${ }$
 + En las próximas secciones vamos a conocer las categorías básicas de datos y las formas más adecuadas de describirlos. Como ejemplos iniciales vamos a usar la tabla `mpg` contenida en la librería `tidyverse` y también una tabla con datos relativos a un estudio sobre enfermedades coronarias llevado a cabo en Framingham (UK). Puedes descargar el fichero csv desde [\textcolor{blue}{{este enlace}}](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/framingham.csv) y leer más detalles sobre el estudio [\textcolor{blue}{{aquí}}.](https://biolincc.nhlbi.nih.gov/media/teachingstudies/FHS_Teaching_Longitudinal_Data_Documentation.pdf?link_time=2019-08-26_14:42:24.487245).
 
 + **Ejercicio:** lee el fichero a una tabla de R llamada fhs (de Framingham Heart Study). Explora esa tabla con las funciones `str` y `glimpse`. Piensa en qué tipo de información contiene cada variable de la tabla. Lee también la documentación sobre `mpg` en [\textcolor{blue}{{este enlace}}](https://ggplot2.tidyverse.org/reference/mpg.html).
-```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "80%"}
+```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"}
 library(tidyverse)
 include_graphics("../fig/02-fig02-fhs.png")
 fhs = read_csv("../datos/framingham.csv")
@@ -250,10 +250,6 @@ fhs = read_csv("../datos/framingham.csv")
 
 + Una variable cuantitativa es *discreta* si se mide en una escala de unidades enteras (paso a paso, los valores se miden *contando*). Y la variable *continua* si la escala de medida se puede dividir arbitrariamente (se usan valores decimales). Pero como veremos en ejemplos, la división discreto/continuo también es sutil y se refiere en realidad a la forma en la que *usamos* la variable.
 
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "20%"}
-# include_graphics("../fig/02-fig03-DiscretoContinuo.png")
-```
-
 + Podría pensarse entonces que las variables cuantitativas son las variables numéricas y las cualitativas las no numéricas. La diferencia es, en realidad, un poco más sutil. Una variable es *cualitativa (nominal)* o un *factor (no ordenado)* cuando *solo* se utiliza para 	  establecer categorías, para *clasificar*. Podemos *representar* los valores de una de estas variables con números, pero el valor numérico concreto es arbitrario, es una *etiqueta*.
 
 + **Ejercicio:** Examina las variables  `cty`, `disp`, `class` y `cyl` de la tabla `mpg`. ¿De qué tipo crees que es cada variable?
@@ -274,7 +270,7 @@ fhs = read_csv("../datos/framingham.csv")
   ```
  
  + También se puede usar la función `count` de dplyr así (se omite el resultado):
-    ```{r eval=FALSE}
+    ```{r eval = FALSE}
     mpg %>%
       count(cty)
     ```
@@ -290,7 +286,7 @@ fhs = read_csv("../datos/framingham.csv")
   ```
 
 + También se puede usar `dplyr` aunque en este caso la solución es más complicada que el R básico.
-  ```{r eval=FALSE, size="small"}
+  ```{r eval = FALSE, size="small"}
       mpg %>% 
         count(cty) %>%
           mutate(cty, freq = n / sum(n), n=NULL) # NULL aquí es como un select
@@ -322,7 +318,7 @@ fhs = read_csv("../datos/framingham.csv")
 ## Discreto vs continuo.
 
 + Las tablas de frecuencias por valores no son útiles cuando hay muchos valores distintos. La tabla de frecuencias de `cty` ya era un poco excesiva. Pero  si tratamos de calcular una tabla de frecuencia para la variable `age` de la tabla `fhs` 
-  ```{r eval=FALSE}
+  ```{r eval = FALSE}
   table(fhs$totChol)
   ```
   puedes comprobar que la tabla que se obtiene no es una representación útil de la información. 
@@ -383,7 +379,7 @@ fhs = read_csv("../datos/framingham.csv")
   De nuevo el eje horizontal contiene los valores de la variable y la altura de la curva indica la frecuencia de cada valor. La opción `lwd` controla el grosor de la curva.
   
 + **Ejercicio:** Usando los datos de `auto2` dibuja la curva de densidad de cada una de las variables  `length`, `price`, `displacement` y `rep78`.   
-```{r echo=FALSE, eval=FALSE, message=FALSE, fig.align='center', out.width = "50%"}
+```{r echo = FALSE, eval = FALSE, message=FALSE, fig.align='center', out.width = "50%", purl=FALSE}
 plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 ```
 
@@ -413,7 +409,7 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 ---
 
 + En un ejercicio previo proponíamos dibujar las curvas de densidad de varias variables de la tabla `auto2`. Si lo haces obtendrás curvas como estas:
-  ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "70%"}
+  ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "70%"}
   library(gridExtra)
   library(tidyverse)
   
@@ -438,12 +434,12 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 ## Distribuciones unimodales y multimodales. 
 
 + Una distribución que presenta un único máximo se denomina *unimodal*
-  ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "40%"}
+  ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "40%"}
   curve(dchisq(x, df=6), from = 0, to = 16, ylab="density", col="red", lwd=4, main="")
   ```
 
 + Mientas que una distribución con dos máximos locales claramente definidos como la de la figura se denomina *bimodal* (o *multimodal* cuando son más de dos).
-  ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "40%"}
+  ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "40%"}
   set.seed(2014)
   N = 10000
   mu1 = 12
@@ -463,7 +459,7 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 ## Distribuciones asimétricas.
 
 + Otra característica de las distribuciones en la que nos vamos a fijar a menudo es su simetría. Fíjate en que es la *cola* más larga de la distribución la que da nombre a la asimetría. En inglés esta característica se denomina [\textcolor{blue}{{skewness}}](https://en.wikipedia.org/wiki/Skewness)
-```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "80%"}
+```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"}
 par(mfrow = c(3, 1))
 curve(dchisq(x, df=6), from = 0, to = 16, 
       ylab="density", col="blue", lwd=4, main="Asimétrica a derecha", cex.main=2)  
@@ -479,7 +475,7 @@ par(mfrow = c(1, 1))
 + La distribución de una variable discreta con valores enteros se representa adecuadamente mediante un histograma. Si las alturas de las barras del histograma representan frecuencias relativas entonces la probabilidad de que un valor elegido al azar caiga en el intervalo $[a, b]$ se obtiene sumando el área de todas las barras desde $a$ hasta $b$, como se ilustra en la parte izquierda de la figura.
   
 + Por su parte, La distribución de una variable continua se representa mediante una curva de densidad. Y entonces la probabilidad de que un valor elegido al azar caiga en el intervalo $[a, b]$ se obtiene calculando (con una integral) el área bajo la curva desde $a$ hasta $b$
-  ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "90%"}
+  ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "90%", purl=FALSE}
   include_graphics("../fig/02-fig04-ProbabilidadIntervaloVariableDiscreta.png")
   ```
 
@@ -575,7 +571,7 @@ $$
 ## Dispersión
 
 + La siguiente figura muestra dos conjuntos de valores, ambas con media 0 y el mismo número de puntos. Las coordenadas verticales de los puntos se han modificado con un poco de *ruido* para hacer mejorar la visualización de ambos conjuntos. Puedes mirar el código de esta sesión para ver como se ha construido esta figura. 
-  ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
+  ```{r echo = FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
   library(tidyverse)
   set.seed(2019)
   n = 400
@@ -601,7 +597,7 @@ $$
 ### Dispersión en los diagramas de densidad.
 
 + En esta otra figura puedes ver juntas las curvas de densidad de esos dos conjuntos de datos. 
-  ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
+  ```{r echo = FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
   plot(density(muestra1, adjust = 2), col="blue", 
        xlim = c(-12, 12), lwd = 2, main = "", xlab= "")
   lines(density(muestra2, adjust = 2), col="red", lwd = 2, sub="")
@@ -633,7 +629,7 @@ $$
 ## Boxplots 
 
 + El *boxplot* o diagrama de caja y bigotes (box and whiskers) es una forma de representar gráficamente estas medidas de posición. La estructura de un boxplot es la que se describe en esta figura:
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "60%"}
+```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "60%", purl=FALSE}
 include_graphics("../fig/02-fig05-BoxPlotEstructura.png")
 ```
 
@@ -811,7 +807,7 @@ puedes comprobar que esto es lo mismo que:
 
 **Enlaces**
 
-```{r eval=FALSE, echo=FALSE, purl=FALSE, message=FALSE, error=FALSE}
+```{r eval = FALSE, echo = FALSE, purl=FALSE, message=FALSE, error=FALSE}
 sessionName = "02-TiposDeVariablesEDA"
 RmdName = paste0(sessionName,".Rmd")
 ScriptName = paste0(sessionName,".R")

@@ -45,13 +45,47 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 ## Modelos teóricos frente a datos empíricos.
 
-+ Vamos a proponerte un pequeño experimento mental. Imagínate que lanzamos un dado (honesto, no cargado) un millón de veces y que calcumamos las frecuencias relativas de cada uno de los valores. 
++ Vamos a proponerte un pequeño experimento mental. Imagínate que lanzamos un dado (honesto, no cargado) un millón de veces y que calcumamos las *frecuencias relativas* de cada uno de los valores. ¿Qué números crees que habrá en la segunda fila de esta tabla?
+$$
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+\text{valor del dado} & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+\text{frecuencia relativa} & ? & ? & ? & ? & ? & ? \\
+\hline
+\end{array}
+$$
+  Esos valores que ves con claridad en tu cabeza son un modelo teórico del experimento aleatorio que consiste en lanzar un dado. Y esa es precisamente la idea que trata de captar una variable aleatoria discreta: *un modelo teórico de un experineto aleatorio cuyos resultados son un conjunto discreto de valores.*
+
++ Para describir una variable aleatoria discreta $X$ tenemos por tanto que dar su **tabla de densidad de probabilidad**: una tabla de valores posibles de $X$ y sus correspondientes probabilidades:
+$$
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+\text{valor de }X & x_1 & x_2 & \cdots & x_k \\
+\hline
+\text{Probabilidad de ese valor }P(X = x_i) & p_1 & p_2 & \cdots & p_k \\
+\hline
+\end{array}
+$$
+con $p_1 + p_2 + \cdots + p_k = 1$.
+
+**Ejercicio:** usa R para hacer ese experimento y compara los datos empíricos con el modelo. 
+
+
 
 # Variables aleatorias discretas importantes.
 
 ## Distribución Binomial.
 
 ## Distribución de Poisson.
+
+
+
+# ¿Qué es una variablea aleatoria continua?
+
+---
+
+
 
 
 

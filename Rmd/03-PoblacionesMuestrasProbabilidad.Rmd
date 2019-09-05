@@ -1,5 +1,5 @@
 ---
-title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
+title: 'Máster en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
 author: "Fernando San Segundo"
 date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
 subtitle: "Sesión 3. Poblaciones, muestras y probabilidad."
@@ -9,7 +9,7 @@ output:
     toc: true
     keep_tex: false
     includes:
-      #after_body: afterbody.txt
+      before_body: before_body.txt
       in_header: beamer-header-simple.txt
     colortheme: seahorse
     incremental: no
@@ -20,7 +20,7 @@ bibliography: MBDFME.bib
 # csl: ams-review.csl
 ---
 
-```{r set-options, echo=FALSE}
+```{r set-options, warning=FALSE, message=FALSE, echo=FALSE, purl=FALSE}
 options(width = 60)
 library(knitr)
 def.chunk.hook  <- knitr::knit_hooks$get("chunk")
@@ -34,21 +34,21 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 ## Inferencia Estadística.
 
-+ El objetivo central de la Estadística es obtener información fiable sobre las características de una **población** a partir de **muestras**. Ese término significa aquí un conjunto de entidades individuales (individuos), no necesariamente seres vivos. La poblacion pueden ser los vehículos matriculados en 2015 o las órdenes de compra recibidas por una empresa cierto mes o  las especies de colibrí que visitan un comedero en Costa Rica en los últimos 10 años, etc.
++ El objetivo central de la Estadística es obtener información fiable sobre las características de una **población** a partir de **muestras**. Ese término significa aquí un conjunto de entidades individuales (individuos), no necesariamente seres vivos. La población pueden ser los vehículos matriculados en 2015 o las órdenes de compra recibidas por una empresa cierto mes o  las especies de colibrí que visitan un comedero en Costa Rica en los últimos 10 años, etc.
 
 + Muchas veces estudiar toda la población es demasiado difícil, indeseable o imposible. Entonces surge la pregunta de si podemos usar las muestras para *inferir*, o *predecir* las características de la población. ¿Hasta qué punto los datos de la muestra son *representativos*de la población? 
 
 + La *Inferencia Estadística* es el núcleo de la Estadística porque da sentido a estas preguntas, las formaliza y responde.
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "40%"}
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "40%", purl=FALSE}
 include_graphics("../fig/03-fig01-inferenciaPoblacionMuestra.png")
 ```
 
 
-## Poblaciones y muestras aleatorias simples con vectores con R.
+## Poblaciones y muestras aleatorias simples con vectores usando R.
 
-+ Al estudiar una población nos interesan determinadas características individuaes, que pueden cambiar de un individuo a otro y que constituyen las *variables de interés*. Cuando tomamos una muestra obtenemos los valores de esas variables en algunos individuos de la población. 
++ Al estudiar una población nos interesan determinadas características individuales, que pueden cambiar de un individuo a otro y que constituyen las *variables de interés*. Cuando tomamos una muestra obtenemos los valores de esas variables en algunos individuos de la población. 
 
-+ Para que la muestra sea representativa lo mejor es que sea una **muestra aleatoria simple**: elegimos a los individuos al azar y con remplazamiento (podemos incluri al mismo individuo más de una vez en la muestra). 
++ Para que la muestra sea representativa lo mejor es que sea una **muestra aleatoria simple**: elegimos a los individuos al azar y con remplazamiento (podemos incluir al mismo individuo más de una vez en la muestra). 
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%", size="small"}
 set.seed(2019)
@@ -56,12 +56,13 @@ N = 158000
 poblacion = as.integer(2 * rchisq(N, df = 13), 0)
 ```
 
-+ Para entenderlo mejor  haremos un experimento con R. En este caso vamos a suponer una población de $N = 158000$ individuos. Por ejemplo, los viajeros que pasan por un aeropuerto en un día y sea la variable de interés su edad. El código de esta sesión construye un vector `poblacion` con las edades de los viajeros. Vamos a hacer una pequeña trampa y mostraremos el histograma de las edades. La línea de puntos indica *la media poblacional de la edad.* ¿Cuál crees que es? 
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "40%", size="small"}
++ Para entenderlo mejor  haremos un experimento con R. En este caso vamos a suponer una población de $N = 158000$ individuos. Por ejemplo, los viajeros que pasan por un aeropuerto en un día y sea la variable de interés su edad. El código de esta sesión construye un vector `poblacion` con las edades de los viajeros. Vamos a hacer una pequeña trampa y mostraremos el histograma de las edades. La línea de puntos indica *la media poblacional de la edad.* ¿Cuál crees que es? \small
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "40%", purl=FALSE}
 # summary(poblacion)
 hist(poblacion, main="", col="orange")
 abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
 ```
+\normalsize
 
 ---
 
@@ -133,7 +134,7 @@ $$
 ---
 
 + En lugar de examinar una a una esas 10000 medias muestrales vamos a representarlas en un histograma y una curva de densidad. Además, aprovechándonos de que en este caso tenemos acceso a la población completa hemos añadido su curva de densidad:
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "65%", size="small"}
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "65%", size="small", purl=FALSE}
 hist(mediasMuestrales, breaks = 40, main="", 
      col="peachpuff", probability = TRUE, xlim=range(poblacion))
 lines(density(mediasMuestrales), lwd=4, col="red")
@@ -164,7 +165,7 @@ abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
   })
   ```
   \normalsize El  gráfico del resultado muestra el mismo comportamiento de las medias  muestrales, lo que se conoce como **Teorema Central del Límite**:
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "45%", size="small"}
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "45%", size="small", purl=FALSE}
 hist(mediasMuestrales, breaks = 40, main="", 
      col="peachpuff", probability = TRUE, xlim=range(poblacion))
 lines(density(mediasMuestrales, adjust = 1.5), lwd=4, col="red")
@@ -172,7 +173,7 @@ lines(x = c(0, 0, 20, 20), c(0, 1/20, 1/20, 0), lwd=4, col="blue")
 abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
 ```
   
-```{r eval=FALSE}
+```{r eval=FALSE, comment=NULL}
 Otras poblaciones:
   
 #####################################################################
@@ -186,9 +187,7 @@ head(poblacion, 100)
 
 hist(poblacion)
 plot(density(poblacion))
-```
 
-```{r eval=FALSE}
 mean(poblacion)
 
 Tmuestra = 20
@@ -197,10 +196,7 @@ Tmuestra = 20
 choose(tamPoblacion, Tmuestra)
 
 # La población es moderadamente grande, pero el espacio de muestras es enorme.
-```
 
-
-```{r eval=FALSE}
 # Vamos a tomar muchas muestras y en cada una calculamos una media muestral.
 numMuestras = 100000
 
@@ -218,10 +214,7 @@ head(mediasMuestrales)
 hist(mediasMuestrales)
 hist(mediasMuestrales, breaks = 40, main="")
 plot(density(mediasMuestrales, adjust = 1.5), main="")
-```
 
-
-```{r eval=FALSE}
 # ¿Cuál es la media de las me?
 (mu = mean(poblacion))
 mean(mediasMuestrales)
@@ -259,7 +252,7 @@ desvTipPob / sqrt(Tmuestra)
 
 ## La paradoja del cumpleaños.
 
-+ Otro experimento que puede sevrir para afianzar la idea de que la probabilidad es poco intuitiva. Si en una sala hay 1000 personas entonces es seguro que hay dos que cumplen años el mismo día. De hecho basta con que haya 367 personas. Si hay menos de ese número, la probabilidad de que dos cumpleaños coincidan disminuye. ¿Cuál es el *menor número de personas* que nos garantiza una probabiidad mayor del 50% de coincidencia?
++ Otro experimento que puede servir para afianzar la idea de que la probabilidad es poco intuitiva. Si en una sala hay 1000 personas entonces es seguro que hay dos que cumplen años el mismo día. De hecho basta con que haya 367 personas. Si hay menos de ese número, la probabilidad de que dos cumpleaños coincidan disminuye. ¿Cuál es el *menor número de personas* que nos garantiza una probabilidad mayor del 50% de coincidencia?
 
 + Usemos R para averiguar ese número. Repite el experimento varias veces para convencerte..\small
   ```{r}
@@ -279,7 +272,7 @@ desvTipPob / sqrt(Tmuestra)
 + Fue históricamente el primer resultado que hizo posible calcular probabilidades de una manera sistemática, aunque como veremos no está libre de problemas.  
 
 + Vamos a fijar el lenguaje necesario para entender esa regla.  
-  $(a)$  Estudiamos un experimento aleatorio con $n$ *resultados elementales* posibles (no simultáneos) que además son *equiprobables*; es decir, sus frecuencias relativas son igaules cuando el experimento se repite muchas veces.:
+  $(a)$  Estudiamos un experimento aleatorio con $n$ *resultados elementales* posibles (no simultáneos) que además son *equiprobables*; es decir, sus frecuencias relativas son iguales cuando el experimento se repite muchas veces.:
   $$\{a_1,a_2,\ldots,a_n,\}$$
   
   $(b)$  El *suceso aleatorio* $A$ es un {\sf subconjunto del conjunto de resultados elementales}. Por ejemplo, si lanzamos un dado, $A$ puede ser: obtener un número par. 
@@ -298,7 +291,7 @@ $$
   
   - ¿Cual es la probabilidad de que la suma de los resultados al lanzar dos dados sea igual a siete?  
   - ¿Cuál es la probabilidad de que al tirar tres dados aparezca el seis en uno de los dados (no importa cual), pero sólo en uno de ellos?
-  - En un paquete hay 20 tarjetas numeradas del 1 al 20. Se escogen al azar dos tarjetas. ¿Cuál es la probabilidad de que las dos que se han elegido sean la número 1 y la número 20? ¿Hay alguna diferencia entre sacar las dos tarjetas a la vez, o sacarlas consecutivamente sin reemplazamiento? ¿Y si es con reemplazamiento?   
+  - En un paquete hay 20 tarjetas numeradas del 1 al 20. Se escogen al azar dos tarjetas. ¿Cuál es la probabilidad de que las dos que se han elegido sean la número 1 y la número 20? ¿Hay alguna diferencia entre sacar las dos tarjetas a la vez, o sacarlas consecutivamente sin remplazamiento? ¿Y si es con remplazamiento?   
   
 + Pero es necesario entender que la Regla de Laplace *no es una definición de Probabilidad*. En primer lugar porque sería una definición circular. Y en segundo lugar porque no sirve para responder a preguntas sencillas que tienen respuestas intuitivamente obvias como esta:  
   
@@ -322,7 +315,7 @@ $$
         $$P(A_1\cup A_2) = P(A_1) + P(A_2) - P(A_1 \cap A_2)$$
 
 + Aquí $A_1\cup A_2$ es la *unión* de sucesos y $A_1 \cap A_2$ la *intersección*, como ilustra el diagrama de Venn (cambia probabilidades por áreas e imagina que el área del rectángulo es 1).
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%"}
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%", purl=FALSE}
 include_graphics("../fig/03-fig02-DiagramaVennInterseccionSucesos.png")
 ```
 ## Propiedades adicionales.
@@ -346,7 +339,7 @@ $$P(A)\leq P(B)$$
 
 + El concepto de probabilidad condicionada trata de reflejar los cambios que se producen en el valor de probabilidad $P(A)$ de un suceso cuando tenemos alguna *información adicional (pero parcial)* sobre el resultado de un experimento aleatorio. 
 
-+ *Ejemplo.* ¿Cuál es la probabilidad de que al lanzar un dado obtengamos un número par? Está claro que es 0.5. Pero y si te dijera, sin revelarte el resultado, que al lanzar el dado hemos obtenido un número estrictamente mayor que 3. ¿Segurías pensando que esa probabilidad es 0.5?
++ *Ejemplo.* ¿Cuál es la probabilidad de que al lanzar un dado obtengamos un número par? Está claro que es 0.5. Pero y si te dijera, sin revelarte el resultado, que al lanzar el dado hemos obtenido un número estrictamente mayor que 3. ¿Seguirías pensando que esa probabilidad es 0.5?
 
 + Lo que ocurre en situaciones como esa es que queremos calcular la probabilidad de un suceso $A$ *sabiendo con certeza que* ha ocurrido otro suceso $B$, lo que se denomina probabilidad de $A$ condicionada por $B$ y se representa mediante $P(A\,|\,B)$. La definición, que se puede justificar con la Regla de Laplace, es:
 $$P(A\,|\,B) = \dfrac{P(A \cap B)}{P(B)}$$
@@ -405,13 +398,167 @@ $$P(M_1\,|\, A) =
 \dfrac{P(A\,|\, M_1) P(M_1)}{P(A\,|\, M_1) P(M_1) + P(A\,|\, M_2) P(M_2)+ P(A\,|\, M_3) P(M_3)}
 $$
   Fíjate en que el denominador es $P(A)$.
+  
++ *Ejemplos:* 
+    - responde a la pregunta con la que se abre esta página.   
+    - Lo más difícil al usar el Teorema de Bayes suele ser identificar los datos de forma correcta, Un ejemplo típico se ilustra en este problema: *Un hospital tiene dos quirófanos en funcionamiento. En el primero se han producido incidentes en el 20\% de sus operaciones y el segundo sólo en el 4\%. El número de operaciones es el mismo en ambos quirófanos. La inspección hospitalaria analiza el expediente de una operación, elegido  al azar y observa que en esa operación se produjo un incidente. ¿Cuál es la probabilidad de que la operación se realizara en el primer quirófano?*
+
+## Jugando con el Teorema de Bayes y R
+
++ Vamos a usar una tabla de datos sobre spam en mensajes de correo electrónico. La tabla se llama `spam` y pertenece a la librería `kernlab`. Instala la librería y carga la tabla con `data(spam)`, La tabla contiene datos sobre varios miles de mensajes de correo. La última columna contiene la clasificación como spam o no spam. Las primeras 48 columnas indican el porcentaje de palabras del mensaje que coinciden con el título de la columna. Aquí se muestra una parte de la tabla:
+  \scriptsize
+  ```{r echo = 3}
+  library(kernlab)
+  data(spam)
+  spam[1:4, c(1:10, 58)]
+  ```
+  \normalsize
+
++ Con estos datos y usando funciones de R responde a estas preguntas:
+  - ¿Cuál es la probabilidad de que un mensaje elegido al azar sea spam?
+  - ¿Cuál es la probabilidad de que un mensaje elegido al azar contenga la palabra *order*?
+  - *Sabiendo* que un mensaje es spam, ¿cuál es la probabilidad de que contenga la palabra *order*?
+  - Y ahora, usando la fórmula de Bayes, vamos a construir el programa antispam más simple del mundo: sabiendo que un mensaje contiene la palabra *order*, ¿cuál es la probabilidad de que sea spam?
+  
++ Este método es muy rudimentario, pero cuando aprendas algoritmos de clasificación estudiarás el método Naive Bayes (Bayes ingenuo) que se basa en ideas similares.
 
 # Tablas de Contingencia.
 
 ---
 
+## Tablas de contingencia 2x2
 
----
++ En el problema anterior nos hemos encontrado con una situación típica en la que hay dos factores binarios. Un factor S con valores  *spam / no spam* y un factor O, con valores "contiene order/ no contiene order". Al combinarlos hay cuatro casos posibles que podemos representar en una tabla dos por dos. 
+
++ Primero usaremos `dplyr` para obtener una tabla en la que solo aparezcan esos dos factores, aprendiendo de paso alguna manipulación adicional:\small
+  ```{r message=FALSE}
+  library(tidyverse)
+  spam = spam %>%
+    select(order, type) %>% 
+    mutate(hasOrder = factor(order > 0, # Creamos el factor hasOrder
+                              levels = c(TRUE, FALSE), 
+                              labels = c("order", "no order")),
+           type = relevel(type, ref = "spam"), # Reordenamos los niveles
+           -order) # y elminamos el factor order original
+  ```
+  \normalsize Ahora podemos obtener la tabla con \small
+  ```{r comment = NULL}
+  table(spam$hasOrder, spam$type)
+  ```
+  <!-- spam %>% group_by(type, hasOrder) %>% summarise(n = n()) %>% spread() -->
+  \normalsize
+
+## Vocabulario adicional para tablas de contingencia 2x2
+
++ El lenguaje de las tablas de contingencia proviene en buena medida del contexto de las pruebas diagnósticas para enfermedades. Esas pruebas no son infalibles: a veces  dan como resultado que una persona padece la enfermedad, cuando en realidad no es así. Es lo que se llama un *falso positivo* (FP). En otras ocasiones será al contrario. La prueba dirá que la persona está sana, aunque de hecho está enfermo. Eso es un *falso negativo* (FN). Los resultados correctos, que están en la diagonal principal de la tabla, son los TP (true positives) y los TN (true negatives).
+
++ Por ejemplo, podemos tener una tabla como esta:
+\begin{tabular}{llccc}
+&&\multicolumn{3}{c}{\underline{\bf Padecen la enfermedad}}\\
+
+                          &          & Enfermo &  Sano & Total\\
+\hline
+\underline{\bf Resultado de la Prueba} & Positivo & TP = 192&  FP = 158&   350\\
+                          & Negativo &  FN = 4 & TN = 9646&  9650\\
+\hline
+                          & Total    & 196& 9804& 10000\\
+\hline
+\end{tabular}
+
++ Vamos a usar este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion03-03-TablasContingencia.R}{script de R} para aprender algo más de lenguaje sobre tablas de contingencia y de como manejarlas con R.
+
++ Una prueba diagnóstica es un *clasificador* de pacientes. Más adelante vamos a encontrar muchos algoritmos clasificadores, porque \link{https://en.wikipedia.org/wiki/Statistical_classification}{clasificar} es una de las tareas básicas en *Machine Learning*. Veremos entonces que en ese contexto se usa mucho el vocabulario de pruebas diagnósticas.
+
+# Conocimientos suplementarios sobre R.
+
+## Operaciones básicas con factores.
+
++ Podemos crear un factor a partir de un vector de strings con la función `factor`:
+  \small
+  ```{r echo=-1}
+  options(width = 70)
+  (ardeida = factor(c("martinete", "garzaReal", "avetorillo", "garzaReal",
+                      "cangrejera", "martinete", "martinete"), ))
+  ```
+ \normalsize Dos detalles sobre la salida: fíjate en la ausencia de comillas y en que el orden de los niveles es alfabético. Si quieres otro orden (por ejemplo para las tablas de frecuencia) puedes hacerlo explícito:
+  \small
+  ```{r echo=-1}
+  options(width = 70)
+  (ardeida = factor(c("martinete", "garzaReal", "avetorillo", "garzaReal",
+                    "cangrejera", "martinete", "martinete"), 
+  levels = c("garzaReal", "martinete",  "cangrejera", "avetorillo")))  
+  ```
+\normalsize
+
++ El factor puede ser *ordenado* si además incorporamos la opción `ordered = TRUE`. *No se debe confundir con el uso de levels* para fijar un orden "estético"  de los niveles. En un factor ordenado el orden aporta información *relevante* sobre los niveles.
+
+
+## Más funciones que generan factores
+
++ Ya hemos visto que el resultado de `cut` es un factor ordenado cuyos niveles son los intervalos en que se divide el recorrido de la variable.
+
++ La función `gl` sirve para generar factores a medida y es un complemento para otras funciones como `rep`. Un ejemplo en el que fabricamos un factor con tres niveles y 4 repeticiones: 
+\small
+  ```{r echo=-1}
+  options(width = 70)
+  gl(n = 3, k = 4, labels = c("piedra", "papel", "tijera"))
+  ```
+\normalsize  
+
++ A veces, por cuestiones de diseño del experimento o del conjunto de datos, querremos que los niveles del factor aparezcan intercalados.
+\small
+  ```{r}
+  gl(n = 3, k=1, length = 30, labels = c("piedra", "papel", "tijera"))
+  ```
+\normalsize
+
++ Puedes consultar el Capítulo 7 de [@Boehmke2016], el \link{https://r4ds.had.co.nz/factors.html}{Capítulo 12 (15 en la versión online)} de [@Wickham2016], o el Capítulo 6 de [@Matloff2011].
+
+## Matrices
+
++ Para trabajar sobre un ejemplo concreto, vamos a colocar los números del 1 al 36 en una matriz de R, llamada `M`, de 4 filas y 9 columnas (diremos que es una matriz $4\times 9$). El código es este:
+  \scriptsize
+  ```{r}
+  (M = matrix(1:36, nrow=4) )
+  ```
+  \normalsize Fíjate en que R rellena la matriz columna por columna. Para rellenar por filas:
+    \scriptsize
+  ```{r}
+  (M = matrix(1:36, nrow=4, byrow = TRUE) )
+  ```
+  \normalsize 
+  
++ Podemos usar `dim` para cambiar las dimensiones de la matriz:
+    \scriptsize
+  ```{r}
+  dim(M) = c(3, 12)
+  M
+  ```
+  \normalsize 
+
+## Operaciones con matrices.
+
++ Podemos convertir matrices en vectores aplicándoles la función `c`. Esta operación es útil para modificar el orden de los elementos de un vector (especialmente de uno que no hemos generado nosotros). Por ejemplo, dado este vector:
+    \small
+  ```{r echo  = FALSE, comment=NULL}
+  v = rep(c(1, 2, 3), each=6)
+  cat(paste0("v = c(", paste0(v,collapse = ", "), ")"))
+  ```
+  \normalsize
+  Si queremos intercalar los unos y doses hacemos:
+  \small
+  ```{r }
+  Mv = matrix(v, nrow=3, byrow = TRUE)
+  (v = c(Mv))
+  ```
+  \normalsize
+    
+
++ **Funciones matriciales**. Muchas funciones actúan sobre las matrices vectorialmente (elemento a elemento). Pero hay funciones que tienen en cuenta la estructura matricial.  La función `t` traspone matrices (intercambia filas y columnas). Las funciones `rowSums` y `colMeans` calculan sumas o medias por filas o columnas como indican sus nombres. Las funciones `cbind` y `rbind` unen (pegan) matrices compatibles por filas o columnas.
+
++ Cuando veamos funciones de la familia `apply` volveremos sobre esto. Y si alguna vez necesitas Álgebra Matricial, el Capítulo 12 de [@Boehmke2016] o el libro [@Braun2016] pueden ser útiles.
+
+
 
 ## Referencias para la sesión
 

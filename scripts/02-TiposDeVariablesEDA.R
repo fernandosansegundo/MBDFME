@@ -1,29 +1,3 @@
-## ----echo=FALSE, eval=FALSE----------------------------------------------
-## output:
-##   beamer_presentation:
-##     keep_tex: true
-## classoption: "handout"
-
-
-## ----set-options, echo=FALSE---------------------------------------------
-options(width = 60)
-library(knitr)
-def.chunk.hook  <- knitr::knit_hooks$get("chunk")
-knitr::knit_hooks$set(chunk = function(x, options) {
-  x <- def.chunk.hook(x, options)
-  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
-})
-
-
-## ----echo=FALSE, comment=NULL, fig.align='center', out.width = "60%"-----
-include_graphics("../fig/02-fig00-XKCDfileExtensions.png")
-
-
-## ----echo=FALSE, comment=NULL, fig.align='center', out.width = "80%"-----
-include_graphics("../fig/02-fig01-FicherosCsv.png")
-# clase = read.table("../datos/sesion02-ejemploCsv.csv", header = TRUE, sep=",")
-
-
 ## ----size="small"--------------------------------------------------------
 movies = read.csv(file = "../datos/movies.csv", header = TRUE)
 
@@ -36,7 +10,7 @@ movies[7, ]
 tail(movies$Year, 20) # se muestran las 20 últimas
 
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval = FALSE--------------------------------------------------------
 ## movies$Genre[movies$Year == 2010]
 
 
@@ -101,14 +75,10 @@ load(file = "../datos/accidentes_planetas.RData")
 head(planetas, 3)
 
 
-## ----echo=FALSE, message=FALSE, fig.align='center', out.width = "80%"----
+## ----echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"----
 library(tidyverse)
 include_graphics("../fig/02-fig02-fhs.png")
 fhs = read_csv("../datos/framingham.csv")
-
-
-## ----echo=FALSE, comment=NULL, fig.align='center', out.width = "20%"-----
-# include_graphics("../fig/02-fig03-DiscretoContinuo.png")
 
 
 ## ----comment=NULL, echo=-1, size="small"---------------------------------
@@ -116,7 +86,7 @@ options(width = 100)
 table(mpg$cty)
 
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval = FALSE--------------------------------------------------------
 ## mpg %>%
 ##   count(cty)
 
@@ -126,7 +96,7 @@ options(width = 70)
 signif(prop.table(table(mpg$cty)), 2)
 
 
-## ----eval=FALSE, size="small"--------------------------------------------
+## ----eval = FALSE, size="small"------------------------------------------
 ##     mpg %>%
 ##       count(cty) %>%
 ##         mutate(cty, freq = n / sum(n), n=NULL) # NULL aquí es como un select
@@ -141,7 +111,7 @@ options(width = 60)
 cumsum(table(mpg$cty))
 
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval = FALSE--------------------------------------------------------
 ## table(fhs$totChol)
 
 
@@ -169,8 +139,6 @@ ggplot(data = mpg) +
 plot(density(mpg$cty), col="red", main="", lwd = 3)
 
 
-## ----echo=FALSE, eval=FALSE, message=FALSE, fig.align='center', out.width = "50%"----
-## plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 
 
 ## ----message=FALSE, fig.align='center', out.width = "50%", size="small"----
@@ -183,7 +151,7 @@ hist(x = fhs$sysBP, breaks=150, probability = TRUE, main="")
 lines(density(fhs$sysBP), col="red", lwd=4)
 
 
-## ----echo=FALSE, message=FALSE, fig.align='center', out.width = "70%"----
+## ----echo = FALSE, message=FALSE, fig.align='center', out.width = "70%"----
 library(gridExtra)
 library(tidyverse)
 
@@ -202,11 +170,11 @@ p4 = ggplot(auto2) +
 grid.arrange(p1, p2, p3, p4, nrow = 2)
 
 
-## ----echo=FALSE, message=FALSE, fig.align='center', out.width = "40%"----
+## ----echo = FALSE, message=FALSE, fig.align='center', out.width = "40%"----
 curve(dchisq(x, df=6), from = 0, to = 16, ylab="density", col="red", lwd=4, main="")
 
 
-## ----echo=FALSE, message=FALSE, fig.align='center', out.width = "40%"----
+## ----echo = FALSE, message=FALSE, fig.align='center', out.width = "40%"----
 set.seed(2014)
 N = 10000
 mu1 = 12
@@ -221,7 +189,7 @@ plot(density(mezcla), col="red", lwd=4, main="")
 
 
 
-## ----echo=FALSE, message=FALSE, fig.align='center', out.width = "80%"----
+## ----echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"----
 par(mfrow = c(3, 1))
 curve(dchisq(x, df=6), from = 0, to = 16, 
       ylab="density", col="blue", lwd=4, main="Asimétrica a derecha", cex.main=2)  
@@ -232,8 +200,6 @@ curve(dchisq(15-x, df=6), from = 0, to = 16,
 par(mfrow = c(1, 1))
 
 
-## ----echo=FALSE, message=FALSE, fig.align='center', out.width = "90%"----
-include_graphics("../fig/02-fig04-ProbabilidadIntervaloVariableDiscreta.png")
 
 
 ## ----echo = -1, size="scriptsize"----------------------------------------
@@ -280,7 +246,7 @@ quantile(mpg$cty, probs = 0.43)
 summary(mpg$cty)
 
 
-## ----echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"----
+## ----echo = FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"----
 library(tidyverse)
 set.seed(2019)
 n = 400
@@ -299,7 +265,7 @@ ggplot(data = muestras) +
   coord_flip()
 
 
-## ----echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"----
+## ----echo = FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"----
 plot(density(muestra1, adjust = 2), col="blue", 
      xlim = c(-12, 12), lwd = 2, main = "", xlab= "")
 lines(density(muestra2, adjust = 2), col="red", lwd = 2, sub="")
@@ -317,8 +283,6 @@ summary(mpg$cty)
 unname(quantile(mpg$cty, probs = c(1/4, 3/4)) + c(-1, 1) * 1.5 * IQR(mpg$cty))
 
 
-## ----echo=FALSE, comment=NULL, fig.align='center', out.width = "60%"-----
-include_graphics("../fig/02-fig05-BoxPlotEstructura.png")
 
 
 ## ----echo=TRUE, comment=NULL, fig.align='center', out.width = "50%", size="small"----
