@@ -78,7 +78,7 @@ abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
   ```
   \normalsize Esas son las 20 edades $x_1, \ldots, x_{20}$ de los viajeros de la muestra. Para *estimar* la edad media de *todos los viajeros* a partir de estos valores calcularíamos la **media muestral**.
 $$
-\bar X = \dfrac{x_1 + \cdots + x_{20}}{n} = 
+\bar x = \dfrac{x_1 + \cdots + x_{20}}{n} = 
 \dfrac{`r  muestra[1]` + `r  muestra[2]` + \cdots + `r  muestra[20]`}{`r  n`} \approx
 `r  signif(mean(muestra), 5)` = \text{mean(muestra) en R}
 $$

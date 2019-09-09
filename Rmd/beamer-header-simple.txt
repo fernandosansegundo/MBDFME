@@ -34,3 +34,6 @@
 
 \newcommand{\link}[2]{\textcolor{blue}{{\href{#1}{#2}}}}
 
+\definecolor{Gris050}{gray}{0.50}
+\definecolor{Gris025}{gray}{0.75}
+\definecolor{Gris010}{gray}{0.90}
