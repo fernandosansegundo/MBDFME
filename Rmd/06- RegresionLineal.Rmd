@@ -20,15 +20,6 @@ bibliography: MBDFME.bib
 csl: ams-review.csl
 ---
 
-```{r echo=FALSE, eval=FALSE}
-output:
-  beamer_presentation:
-    keep_tex: true
-classoption: "handout"
-```
-
-
-
 ```{r set-options, echo=FALSE}
 options(width = 60)
 library(knitr)
