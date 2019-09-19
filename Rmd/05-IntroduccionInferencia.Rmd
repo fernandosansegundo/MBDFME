@@ -7,7 +7,7 @@ fontsize: 9pt
 output:
   beamer_presentation:
     toc: true
-    keep_tex: true
+    keep_tex: false
     includes:
       before_body: before_body.txt
       in_header: beamer-header-simple.txt
@@ -102,7 +102,7 @@ y nuestra estimación de $\mu$ será **en forma de intervalo** $(a, b) = (\bar X
 ## El error es aleatorio porque la muestra es aleatoria.
 
 + En esta figura (mira el código que la ha generado) hemos obtenido 20 muestras de tamaño $n = 30$. La marca roja indica la media de la población, que es $\mu =0$. Los puntos de cada muestra (puntos azules) están todos a la misma altura y se señala la media de esa muestra con un rombo naranja. Como ves, el error es aleatorio. Recuerda que en un caso real no sabemos donde está la línea roja.
-  ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "75%"}
+  ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "75%"}
   par(mar = c(5.1,4.1,1,2.1)) 
   set.seed(2019)
   library(tidyverse)
