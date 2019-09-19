@@ -2,12 +2,12 @@
 title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
 author: "Fernando San Segundo"
 date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
-subtitle: "Tema 5: Introducción a la Inferencia Estadística. BORRADOR."
+subtitle: "Tema 5: Introducción a la Inferencia Estadística."
 fontsize: 9pt
 output:
   beamer_presentation:
     toc: true
-    keep_tex: false
+    keep_tex: true
     includes:
       before_body: before_body.txt
       in_header: beamer-header-simple.txt
@@ -19,7 +19,7 @@ bibliography: MBDFME.bib
 ---
 
 
-```{r set-options, echo=FALSE, purl=FALSE}
+```{r set-options, echo=FALSE, purl=FALSE, message=FALSE, warning=FALSE}
 options(width = 60)
 library(knitr)
 def.chunk.hook  <- knitr::knit_hooks$get("chunk")
@@ -1210,14 +1210,13 @@ $$
 
 + Las ecuaciones de potencia permiten dibujar las llamadas *curvas de potencia* que, para valores de $n$, $\alpha$ y $s$ fijos, muestran como depende la potencia del tamaño del efecto (medido en "unidades" $s$). El aspecto típico de una de estas curvas es:
   ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "50%"}
-  require(asbio)
+  # require(asbio)
   alfa = 0.01
   s = 0.5
   deltas = seq(0, s, length.out=1000)
   n0 = 100
-  
-  powers = power.z.test(sigma=s,n=n0,alpha=alfa,effect=deltas,test="one.tail",strict=FALSE)$power
-  
+  powers = power.t.test(sd = s, n=n0, sig.level =alfa, delta = deltas, 
+                        type = "one.sample", alternative = "two.sided", strict=FALSE)$power
   plot(deltas, powers,pch=20,col="blue",lwd=0.6,ylab="Potencia",xlab=expression(delta==mu-mu[0]),font.lab=2,cex.axis=1.5,cex.lab=1.3)
   
   ```
