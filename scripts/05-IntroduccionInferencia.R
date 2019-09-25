@@ -187,6 +187,10 @@ hist(normales, #breaks = cortes,
 title(ylab="Frecuencias", line=2, cex.lab=0.7)
 lines(altDens, col="red", lwd=4)
 
+hist(normales, freq = FALSE)
+lines(altDens)
+
+
 set.seed(2017)
 tamMuestra = 500
 noNormales = rchisq(tamMuestra, df = 4)
