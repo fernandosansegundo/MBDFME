@@ -2,7 +2,7 @@
 title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
 author: "Fernando San Segundo"
 date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
-subtitle: "Tema 6: Regresión Lineal."
+subtitle: "Tema 6: Regresión Lineal. BORRADOR"
 fontsize: 8pt
 output:
   beamer_presentation:
