@@ -848,39 +848,6 @@ gvlma(modelo)
   ```
   \normalsize Y está claro que el primero es mucho mayor. En general los puntos con hatvalue mayor que $4/n$ se consideran puntos influyentes ($n$ es el tamaño muesral). Y como pasaba con los atípicos, al encontrar puntos influyentes tenemos que investigar específicamente qué ocurre con esos puntos, si se deben a errores o algún otra particularidad de los datos. 
   
-<!-- # Regresión más allá del modelo simple.  -->
-
-<!-- ## Regresión no lineal con una variable explicativa. -->
-
-<!-- XKCD fitting curves -->
-
-<!-- ## Regresión multivariable -->
-
-<!-- *Caffo: one of the main uses of multivariate regression (is) to consider a relationship between a predictor and response, while accounting for other variables.* -->
-
-<!-- ## Expresión de los coeficientes estimados en términos de residuos. -->
-
-<!-- ## Interpretación de los coeficientes. -->
-
-<!-- the interpretation of a multivariate regression coefficient is the expected change in the response per unit change in the regressor, holding all of the other regressors fixed *(adjusting for the other regressors)*. -->
-
-
-<!-- ##  Simpson's  -->
-
-<!-- ```{r} -->
-<!-- n = 100 -->
-<!-- x2 <- 1 : n -->
-<!-- x1 = 0.1 * x2 + 4 * runif(n, -.1, .1) -->
-<!-- y = - x1 + x2 + rnorm(n, sd = .01) -->
-<!-- summary(lm(y ~ x1))$coef -->
-<!-- summary(lm(y ~ x1 + x2))$coef -->
-<!-- summary(lm(x1 ~ x2)) -->
-<!-- datos = data.frame(x1, x2, y) -->
-<!-- colores = as.integer(cut(x2, breaks = 10)) -->
-<!-- ggplot(datos) + -->
-<!--   geom_point(aes(x1, y), color = heat.colors(10)[colores]) -->
-
-<!-- ``` -->
 
 # Complementos de R.
 
