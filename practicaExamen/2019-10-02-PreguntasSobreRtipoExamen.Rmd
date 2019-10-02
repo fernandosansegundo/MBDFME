@@ -1,0 +1,323 @@
+---
+title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
+author: "Fernando San Segundo"
+date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
+subtitle: "Preguntas sobre R tipo examen"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 1. 
+
+1. Carga el set [AustinCityLimits](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/AustinCityLimits.csv) y haz un análisis exploratorio inicial:
+
+Cargamos los datos:
+```{r}
+library(tidyverse)
+austin = read.table("../datos/AustinCityLimits.csv", 
+                    header= TRUE, sep=",")
+
+# austin = read_csv("../datos/AustinCityLimits.csv")
+```
+
+```{r}
+str(austin)
+```
+
+
+```{r}
+glimpse(austin)
+summary(austin)
+```
+
+
+
+    - ¿Cuántos artistas hay en el dataset?
+    
+```{r}
+length(unique(austin$Artist))
+```
+    
+    
+    
+    - ¿Cuántos de los 10 primeros artistas ganaron un Grammy?
+    
+    
+```{r}
+austin %>% 
+  head(10) %>% 
+  filter(Grammy == "Y")
+  
+```
+    
+    - ¿Qué género toca la primera mujer del dataset de más de 60 años?
+    
+    
+```{r}
+austin %>% 
+  filter(Gender == "F", Age > 60) %>% 
+  select(Genre) %>% 
+  head(1)
+```
+    
+
+2. Crea una tabla de probabilidad marginal del género y sexo
+
+
+```{r}
+(tablaP = addmargins(prop.table(table(austin$Gender, austin$Genre))))
+
+# Probabilidad de Rock sabiendo que es mujer
+
+tablaP[1, 3] / tablaP[1, 5]
+
+```
+
+
+3. Selecciona los artistas mayores de 30 años y muestra la tabla de contingencia para el sexo y el género de música
+
+
+```{r}
+fTabla = function(df)table(df$Gender, df$Genre)
+
+austin %>% 
+  filter(Age > 30) %>%
+  fTabla
+
+
+
+
+age30 = austin %>% 
+  filter(Age > 30)
+
+fTabla(age30)
+
+
+
+(tablaP = addmargins(prop.table(table(age30$Gender, age30$Genre))))
+
+```
+
+
+
+4. Calcula la probabilidad de que se toque cada uno de los géneros. Ahora calcula esta misma probabilidad sabiendo el sexo del artista: ¿Cuál es la probabilidad de que una artista femenina toque rock/folk/indie? ¿Cuál es la probabilidad de que un artista masculino toque rock/folk/indie?
+
+```{r}
+(tablaP = addmargins(prop.table(table(austin$Gender, austin$Genre), margin = 2)))
+
+```
+
+
+
+
+5. Con los datos anteriores calcula la proporción de cantantes de jazz que eran hombres y la proporción de hombres que cantaban jazz.
+
+6. ¿Existe alguna relación entre el estilo de música que toca un artista masculino y ganar un Grammy?
+    - Selecciona sólo los artistas masculinos
+    - Crea una tabla que muestre las distribuciones marginales para el estilo y los Grammy
+    - Crear una tabla de contingencia para mostrar las distribuciones condicionadas para el estilo y los Grammy
+    
+    ```{r eval=FALSE}
+    austin %>% 
+      filter(Gender == "M") %>% 
+      select(Grammy, Genre) %>% 
+      table %>% 
+      prop.table(margin= 1) %>% 
+      addmargins
+
+      maleSingers =   austin %>% 
+      filter(Gender == "M")
+
+      addmargins(prop.table(table(maleSingers$Grammy, maleSingers$Genre)))
+
+    ```
+
+    - Haz un diagrama de barras para visualizar cuántos artistas de cada estilo obtuvieron un Grammy.
+    ```{r}
+    austin %>% 
+      filter(Grammy=="Y", Gender=="M") %>% 
+      ggplot() + 
+      geom_bar(aes(x = Genre, fill= Season))
+    
+    
+    barplot(table(austin$Genre[austin$Grammy=="Y" & austin$Gender=="M"]), cex.names = 0.5)
+    ```
+
+    - Calcula la probabilidad de ganar un Grammy
+    - Calcula la probabilidad de ganar un Grammy en función del estilo.
+    - Interpreta la relación entre el género que se toca y ganar un Grammy
+
+
+
+
+## Ejercicio 2.
+
+El set de datos [FilmData.csv](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/FilmData.csv)  recoge datos de las películas más taquilleras del cine:
+
+```{r}
+library(tidyverse)
+filmData = read_csv("../datos/FilmData.csv")
+
+
+
+glimpse(filmData)
+summary(filmData)
+all(complete.cases(filmData))
+which(!complete.cases(filmData))
+filmData[98, ]
+
+
+```
+
+
+
+```{r}
+table(filmData$Studio)
+
+filmData$Studio = factor(filmData$Studio)
+glimpse(filmData)
+```
+
+
+  
+1. ¿Existe alguna relación entre el género de la película y el estudio? ¿Existe alguna relación entre el número de días que permanece una película en el cine y el estudio? Justifica la respuesta al menos gráficamente. 
+
+```{r}
+filmData$Genre = factor(filmData$Genre)
+
+table(filmData$Genre,filmData$Studio)
+
+mosaicplot(Genre ~ Studio, data = filmData, col=terrain.colors(5), las=1)
+mosaicplot(Studio ~ Genre, data = filmData, col=terrain.colors(5), las=1)
+```
+
+Días vs studio
+
+```{r}
+boxplot(Days ~ Studio, data = filmData)
+```
+
+
+```{r}
+
+
+ggplot(filmData) + 
+  geom_density(aes(x = Days, color = Studio), size=1)
+
+```
+
+
+
+
+2. ¿Existe relación entre el presupuesto de una película y su recaudación? ¿Y entre la recaudación y la nota obtenida en Rotten Tomatoes?
+
+```{r}
+ggplot(filmData) + 
+  geom_point(aes(x = Budget, y = Gross)) + 
+  geom_smooth(aes(x = Budget, y = Gross), method = "lm")
+
+modelo1 = lm(Gross ~Budget, data = filmData)
+b0 = coefficients(modelo1)[1]
+b1 = coefficients(modelo1)[2]
+
+```
+
+Parece que hay dos atípicos, los filtramos.
+
+
+```{r}
+filmData %>% 
+  arrange(desc(Gross)) %>% 
+  .[-(1:2), ] %>% 
+  ggplot() + 
+  geom_point(aes(x = Budget, y = Gross)) + 
+  geom_smooth(aes(x = Budget, y = Gross), method = "lm") + 
+  geom_abline(slope = b1, intercept = b0, color="red")
+```
+
+
+
+
+
+3. ¿Es coherente la evaluación de Rotten y IMDB? ¿Cuál es la película en la que hubo más desacuerdo entre las dos críticas?
+
+```{r}
+
+cor(filmData$Rotten, filmData$IMDB)
+modelo2 = lm(IMDB ~ Rotten, data = filmData)
+
+plot(filmData$Rotten, filmData$IMDB) 
+abline(modelo2)
+```
+
+
+4. Crea un modelo de regresión para poder predecir la valoración de la crítica en Rotten o en IMDB (se supone que no se dispone de ninguna de las dos). Contempla la idea de hacer segmentación.
+
+```{r}
+
+```
+
+
+
+
+## Ejercicio 3.
+
+Carga los datos de [airbnb.csv](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/airbnb.csv) en Madrid compilados en septiembre de 2017.
+
+1. Analiza el set de datos:
+    + Tipo de variables
+    + Si hay datos incompletos
+    + Variables categóricas: (selecciona las dos que consideres más significativas) conteo,
+    moda, gráfico
+    + Variables continuas: (selecciona las tres que consideres más significativas) estadísticos
+    básicos, gráficos
+    
+```{r}
+airbnb = read_csv("../datos/airbnb.csv")
+```
+     
+    
+    
+
+2. Analiza la información que nos dan estos datos:
+    + El anfitrión que más viviendas tiene, ¿cuántas tiene?¿Son viviendas que tiene destinadas
+    al alquiler? Se considera que están destinadas al alquiler cuando están disponible más
+    de la mitad del año para este fin.
+    + ¿Qué barrio (neighbourhood_group) tiene mayor proporción de casas alquiladas,
+    habitaciones privadas y habitaciones compartidas?
+    
+```{r}
+airbnb %>% 
+  select(neighborhood, room_type) %>% 
+  group_by(neighborhood) %>% 
+  count(room_type)
+
+
+prop.table(table(airbnb$neighborhood, airbnb$room_type))
+  
+ordenCompartidas = order(prop.table(table(airbnb$neighborhood, airbnb$room_type))[,3], decreasing = T)  
+  
+
+prop.table(table(airbnb$neighborhood, airbnb$room_type))[ordenCompartidas, ]
+```
+    
+    
+    
+    
+    
+    + ¿Es rentable alquilar una habitación compartida en lugar de una privada? Suponemos
+    que es rentable cuando sale por al menos la mitad de precio. Analiza esta cuestión por
+    barrios.
+    + ¿Cuál es el máximo del número de noches mínimo que se pide para alquilar una
+    habitación compartida?
+
+3. Relación entre variables
+    + En los pisos que se alquila una habitación privada ¿Existe dependencia entre el barrio y
+    el precio?
+    + Suponiendo que todos los que alquilan escriben una review, ¿existe alguna relación
+    entre el precio y las reviews totales?
+    + ¿Existe relación entre el barrio y el tipo de alquiler que se ofrece?
+
