@@ -293,8 +293,8 @@ airbnb = read_csv("../datos/airbnb.csv")
 airbnb %>% 
   select(neighborhood, room_type) %>% 
   group_by(neighborhood) %>% 
-  count(room_type)
-
+  count(room_type) %>% 
+  spread(key = room_type, value = n)
 
 prop.table(table(airbnb$neighborhood, airbnb$room_type))
   
