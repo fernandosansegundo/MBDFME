@@ -36,7 +36,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 ## Preliminares.
 
-+ **Profesor:** Fernando San Segundo, Contacto: \link{mailto://fsansegundo@icai.comillas.edu}{fsansegundo@icai.comillas.edu}
++ **Profesor:** Fernando San Segundo, Contacto: \link{mailto://fsansegundo@icai.comillas.edu}{fsansegundo@comillas.edu}
 
 + La Guía Docente de la asignatura, así como el resto del material está accesible desde \link{https://sifo.comillas.edu/course/view.php?id=28578}{Moodle}.
 
@@ -55,6 +55,22 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   include_graphics("../fig/Data_Science_VD.png")
   ```
   Nuestro curso se va a mover en la parte superior del diagrama, para proporcionaros las competencias necesarias para otras asignaturas del máster.
+
+## Danger zone number 2!
+
++ El diagrama de Conway avisa de una zona de peligro para quienes rehuyen el uso correcto de la Estadística. Pero hay que tener cuidado también con otra zona de peligro para los practicantes de Machine Learning, que ilustra bien esta tira de [\textcolor{blue}{{XKCD}}](https://xkcd.com/).  
+
+
+```{r echo=FALSE, eval=FALSE, purl=FALSE}
+library(RXKCD)
+xkcdpic = getXKCD(which = "1831", saveImg = TRUE)
+file.copy(from = "Here to Help.png", to = "../fig/xkcd_here_to_help.png")
+file.remove("Here to Help.png")
+```
+  ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "100%", purl=FALSE}
+  include_graphics("../fig/xkcd_here_to_help.png")
+  ```
+
 
 ## El ecosistema de R.
 
