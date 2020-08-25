@@ -36,11 +36,11 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 ## Preliminares.
 
-- **Profesor:** Fernando San Segundo, Contacto: \link{mailto://fsansegundo@icai.comillas.edu}{fsansegundo@comillas.edu}
++ **Profesor:** Fernando San Segundo, Contacto: \link{mailto://fsansegundo@icai.comillas.edu}{fsansegundo@comillas.edu}
 
-- La Guía Docente de la asignatura, así como el resto del material está accesible desde \link{https://sifo.comillas.edu/course/view.php?id=28578}{Moodle}.
++ La Guía Docente de la asignatura, así como el resto del material está accesible desde \link{https://sifo.comillas.edu/course/view.php?id=28578}{Moodle}.
 
-- La asignatura se plantea con un enfoque práctico y conceptual. Se trata de presentar las ideas fundamentales de la Estadística y el Análisis de Datos y hacerlo mediante la práctica computacional, usando el ecosistema de R como plataforma computacional.
++ La asignatura se plantea con un enfoque práctico y conceptual. Se trata de presentar las ideas fundamentales de la Estadística y el Análisis de Datos y hacerlo mediante la práctica computacional, usando el ecosistema de R como plataforma computacional.
 
 - La estructura básica de un Análisis de Datos es, según [@Wickham2016], esta:
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "70%",  purl=FALSE}
