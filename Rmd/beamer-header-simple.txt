@@ -1,0 +1,21 @@
+% Adaptado de http://rmarkdown.rstudio.com/articles_beamer.html
+\usepackage[spanish, es-nodecimaldot]{babel}
+\usepackage{multirow}
+\usepackage{graphicx}
+%\usepackage{rotating}
+%\setbeamertemplate{caption}[numbered]
+%\usepackage{hyperref}
+%\usepackage{caption}
+%\usepackage[normalem]{ulem}
+%	\mode<presentation>
+%\usepackage{wasysym}
+\usepackage{amsmath}
+%\usepackage{array}
+%\usetheme{Warsaw}
+%\usecolortheme{spruce}
+\usepackage{attachfile}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{DarkGreen}{HTML}{009900}
+
+
+
