@@ -1,7 +1,7 @@
 ---
 title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
 author: "Fernando San Segundo"
-date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
+date: 'Curso 2020-21. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
 subtitle: "Sesión 1: Presentación. Instalación de Software y Primeros Pasos"
 fontsize: 9pt
 output:
@@ -36,31 +36,29 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 
 ## Preliminares.
 
-+ **Profesor:** Fernando San Segundo, Contacto: \link{mailto://fsansegundo@icai.comillas.edu}{fsansegundo@comillas.edu}
+- **Profesor:** Fernando San Segundo, Contacto: \link{mailto://fsansegundo@icai.comillas.edu}{fsansegundo@comillas.edu}
 
-+ La Guía Docente de la asignatura, así como el resto del material está accesible desde \link{https://sifo.comillas.edu/course/view.php?id=28578}{Moodle}.
+- La Guía Docente de la asignatura, así como el resto del material está accesible desde \link{https://sifo.comillas.edu/course/view.php?id=28578}{Moodle}.
 
-+ La asignatura se plantea con un enfoque práctico y conceptual. Se trata de presentar las ideas fundamentales de la Estadística y el Análisis de Datos y hacerlo mediante la práctica computacional, usando el ecosistema de R como plataforma computacional.
+- La asignatura se plantea con un enfoque práctico y conceptual. Se trata de presentar las ideas fundamentales de la Estadística y el Análisis de Datos y hacerlo mediante la práctica computacional, usando el ecosistema de R como plataforma computacional.
 
-+ La estructura básica de un Análisis de Datos es, según [@Wickham2016], esta:
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "70%",  purl=FALSE}
-figPath = normalizePath("../fig/01-fig00.png")
-include_graphics(figPath)
-```
+- La estructura básica de un Análisis de Datos es, según [@Wickham2016], esta:
+  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "70%",  purl=FALSE}
+  include_graphics("../fig/01-fig00.png")
+  ```
   Vamos a conocer las herramientas que R nos aporta para facilitar cada uno de los pasos de este proceso. 
 
 ## El diagrama de Venn del Análisis de Datos.
 
-+ Este diagrama creado por \link{http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram}{Drew Conway} es uno de los más usados para describir el Análisis de Datos. 
+- Este diagrama creado por \link{http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram}{Drew Conway} es uno de los más usados para describir el Análisis de Datos. 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "50%",  purl=FALSE}
-  figPath = normalizePath("../fig/Data_Science_VD.png")
-  include_graphics(figPath)
+  include_graphics("../fig/Data_Science_VD.png")
   ```
   Nuestro curso se va a mover en la parte superior del diagrama, para proporcionaros las competencias necesarias para otras asignaturas del máster.
 
 ## Danger zone number 2!
 
-+ El diagrama de Conway avisa de una zona de peligro para quienes rehuyen el uso correcto de la Estadística. Pero hay que tener cuidado también con otra zona de peligro para los practicantes de Machine Learning, que ilustra bien esta tira de [\textcolor{blue}{{XKCD}}](https://xkcd.com/).  
+- El diagrama de Conway avisa de una zona de peligro para quienes rehuyen el uso correcto de la Estadística. Pero hay que tener cuidado también con otra zona de peligro para los practicantes de Machine Learning, que ilustra bien esta tira de [\textcolor{blue}{{XKCD}}](https://xkcd.com/).  
 
 
 ```{r echo=FALSE, eval=FALSE, purl=FALSE}
@@ -70,32 +68,28 @@ file.copy(from = "Here to Help.png", to = "../fig/xkcd_here_to_help.png")
 file.remove("Here to Help.png")
 ```
   ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "100%", purl=FALSE}
-    figPath = normalizePath("../fig/xkcd_here_to_help.png")
-    include_graphics(figPath)
+  include_graphics("../fig/xkcd_here_to_help.png")
   ```
 
 
 ## El ecosistema de R.
 
-+ R es uno de los lenguajes de programación más usados para el análisis de datos y uno de los que han experimentado un crecimiento más rápido \link{https://www.oreilly.com/ideas/2017-european-data-science-salary-survey}{en los últimos años}. 
+- R es uno de los lenguajes de programación más usados para el análisis de datos y uno de los que han experimentado un crecimiento más rápido \link{https://www.oreilly.com/ideas/2017-european-data-science-salary-survey}{en los últimos años}. 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "80%",  purl=FALSE}
-    figPath = normalizePath("../fig/DataScienceProgLanguageSurvey2017.png")
-    include_graphics(figPath)
+include_graphics("../fig/DataScienceProgLanguageSurvey2017.png")
 ```
 
-+ La comunidad de usuarios de R es uno de los pilares que fundamentan el éxito del lenguaje. La documentación disponible hace extremadamente fácil encontrar respuestas a casi todas las preguntas que vas a plantearte como usuario de R. Además hay un amplísimo catálogo bibliográfico y cientos de cursos disponibles para dominar cualquier aspecto de R.Aquí os enseñaremos algunos de nuestros favoritos.
+- La comunidad de usuarios de R es uno de los pilares que fundamentan el éxito del lenguaje. La documentación disponible hace extremadamente fácil encontrar respuestas a casi todas las preguntas que vas a plantearte como usuario de R. Además hay un amplísimo catálogo bibliográfico y cientos de cursos disponibles para dominar cualquier aspecto de R. Aquí os enseñaremos algunos de nuestros favoritos.
 
 ## Motivación 
 
-+ Recuerda siempre dónde nos sitúa el diagrama de Venn de Data Science cuando descuidamos en nuestros análisis la componente estadístico-matemático-rigurosa.   
-
-+ El lenguaje de la estadística es el lenguaje de todas las disciplinas científico-técnicas. Algunos ejemplos:
+- El lenguaje de la estadística es el lenguaje de todas las disciplinas científico-técnicas. Algunos ejemplos:
   - Encuestas electorales: \link{http://www.cis.es}{CIS}, \link{https://fivethirtyeight.com}{fivethirtyeight}
   - La presencia cada vez mayor de portales de datos en todas las instituciones: \link{https://datos.gob.es}{datos.gob.es} \link{https://datos.madrid.es}{datos.madrid.es}, \link{https://www.data.gov}{www.data.gov}, \link{www.ine.es}{INE}, \link{https://ec.europa.eu/eurostat/web/main/home}{eurostat}, etc.
   - \link{https://report.ipcc.ch/sr15/pdf/sr15\_spm\_final.pdf}{Informe del IPCC sobre calentamiento global 2018.}
   - \link{https://nadaesgratis.es/sergi-jimenez/sobre-las-diferencias-en-mortalidad-segun-el-genero}{Un artículo reciente del blog económico Nada es Gratis}.
   - \link{https://1drv.ms/b/s!AvZ_M-Uw1d6PhOcKzNQeCAlYt4rPUw?e=phsziV}{Casi cualquier -sin exagerar- artículo de investigación de una revista científica como Nature, Science, etc.}
-  - \link{https://nycdatascience.com/blog/student-works/r-shiny/visualization-of-gun-violence-incidents-in-us/} {Un ejemplo reciente de visualización sobre violencia y armas en Estados Unidos}
+  - \link{https://nycdatascience.com/blog/student-works/r-shiny/visualization-of-gun-violence-incidents-in-us/}{Un ejemplo reciente de visualización sobre violencia y armas en Estados Unidos}
 
 
 # Instalación de software
@@ -103,15 +97,15 @@ file.remove("Here to Help.png")
 ## Instalación de R
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig01.png")
-    include_graphics(figPath)
+include_graphics("../fig/01-fig01.png")
 ```
 
 
 - La página oficial de R es  
-[\textcolor{blue}{{www.r-project.org}}](https://www.r-project.org/)
+[\textcolor{blue}{{www.r-project.org}}](https://www.r-project.org/)  
+Para que te sirva de referencia, la versión de R que estamos usando al escribir estas notas es: `r R.version.string`
 
-- Para descargar el instalador de R para tu sistema usa directamente [\textcolor{blue}{{este enlace}}](https://cloud.r-project.org/). Si vas a instalar en Mac o Linux y tienes alguna duda habla con tu profesor. Si tu nombre de usuario en Windows tiene acentos, ñ, etc. habla con tu profesor.
+- Para descargar el instalador de R para tu sistema usa directamente [\textcolor{blue}{{este enlace}}](https://cloud.r-project.org/). Si vas a instalar en Mac o Linux y tienes alguna duda habla con tu profesor. 
 
 - **¡Instala R antes de continuar!**
 
@@ -119,14 +113,15 @@ file.remove("Here to Help.png")
 
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig02.png")
-    include_graphics(figPath)
+include_graphics("../fig/01-fig02.png")
 ```
 
 
-- Trabajar con R directamente no es muy cómodo, así que usaremos un entorno de trabajo llamado \link{https://www.rstudio.com/}{RStudio}. Descarga la versión gratuita (free) para tu sistema de RStudio Desktop usando \link{https://www.rstudio.com/products/rstudio/download/}{este enlace}.
+- Trabajar con R directamente no es muy cómodo, así que usaremos un entorno de trabajo llamado \link{https://www.rstudio.com/}{RStudio Desktop}. Descarga la versión gratuita (free) para tu sistema de RStudio Desktop usando \link{https://www.rstudio.com/products/rstudio/download/}{este enlace}.
 
 - **¡Instala RStudio antes de continuar!**
+
+- Versión disponible en la fecha de publicación de estas notas: RStudio Desktop 1.3.1073
 
 ## Software adicional
 
@@ -134,15 +129,14 @@ file.remove("Here to Help.png")
 
 - En algún momento puede ser necesario usar un editor de texto. El que incluye RStudio sirve para tareas sencillas, pero en Windows recomendamos \link{https://notepad-plus-plus.org/}{Notepad++} y en Mac \link{https://www.barebones.com/products/bbedit/}{BBedit}.
 
-- Para abrir ficheros de datos es conveniente disponer de una hoja de cálculo como Excel de Microsoft o, preferiblemente, Calc (de \link{https://www.openoffice.org/es/}{Open Office} o de \link{https://es.libreoffice.org/}{Libre Office}).
+- Para abrir algunos ficheros de datos es conveniente disponer de una hoja de cálculo como Excel de Microsoft o, preferiblemente, Calc (de \link{https://www.openoffice.org/es/}{Open Office} o de \link{https://es.libreoffice.org/}{Libre Office}). **Ten cuidado** si abres ficheros del curso con Excel: es  fácil *romper* el fichero inadvertidamente.
 
 # La interfaz de RStudio
 
 ## Primer Contacto 
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-    figPath = normalizePath("../fig/Tut02-01.png")
-    include_graphics(figPath)
+include_graphics("../fig/Tut02-01.png")
 ```
 
 - Abre RStudio. Inicialmente verás que hay tres paneles principales, que vamos a ir conociendo:
@@ -163,7 +157,7 @@ Escribe `3^2` y pulsa `Enter`
 
 ## Ejercicio 1: R como una calculadora
 
-+ Copia o teclea cada línea en el prompt (¡practica las dos maneras!), una por una. Trata de adivinar el resultado de cada operación antes de ejecutar el código:. 
+- Copia o teclea cada línea en el prompt (¡practica las dos maneras!), una por una. Trata de adivinar el resultado de cada operación antes de ejecutar el código:. 
   ```{r eval = FALSE, comment = NULL,}
   2 + 3
   15 - 7
@@ -198,14 +192,14 @@ Escribe `3^2` y pulsa `Enter`
   ```
   y pulsa `Enter`. La respuesta `+` es la forma que tiene R de decirnos *"necesito algo más"* (no tiene nada que ver con la suma). Lo mejor es que uses la tecla `Esc` y completes la expresión.
 
-+ Escribe y ejecuta una a una estas expresiones para ver distintos tipos de errores:
+- Escribe y ejecuta una a una estas expresiones para ver distintos tipos de errores:
   ```{r eval = FALSE, comment = NULL,, comment = NULL,}
   4/*3
   2/0
   sqrt(-4)
   ```
 
-+ Escribe y ejecuta
+- Escribe y ejecuta
   ```{r eval = FALSE, comment = NULL,, comment = NULL,}
   Sqrt(4)
   ```
@@ -215,8 +209,7 @@ Escribe `3^2` y pulsa `Enter`
 ## Detalles adicionales sobre RStudio.
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "45%",  purl=FALSE}
-    figPath = normalizePath("../fig/Tut02-01.png")
-    include_graphics(figPath)
+include_graphics("../fig/Tut02-01.png")
 ```
 
 
@@ -230,16 +223,15 @@ Escribe `3^2` y pulsa `Enter`
 
 ## Variables
 
-+ Una *variable*, en R, es un símbolo que usamos para referirnos a un valor. Por ejemplo, sitúate en la Consola de Comandos y teclea
+- Una *variable*, en R, es un símbolo que usamos para referirnos a un valor. Por ejemplo, sitúate en la Consola de Comandos y teclea
   ```{r eval = FALSE, comment = NULL,}
   a = 2
   ```
   Ahora ejecuta esa instrucción. Aunque aparentemente no ha sucedido nada (porque no hay respuesta), a partir de ese momento R ha asignado el valor 2 al símbolo `a`. Fíjate en el panel superior derecho llamado *Environment* (*entorno*), en el que aparece el valor actual de la variable.
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%",  purl=FALSE}
-  figPath = normalizePath("../fig/01-fig09-RStudio-EntornoValoresVAriables.png")
-    include_graphics(figPath)
+  include_graphics("../fig/01-fig09-RStudio-EntornoValoresVariables.png")
   ```
-+ Así que si, por ejemplo, tecleas y ejecutas:
+- Así que si, por ejemplo, tecleas y ejecutas:
   ```{r eval = FALSE, comment = NULL,}
   a + 1
   ```
@@ -247,7 +239,7 @@ Escribe `3^2` y pulsa `Enter`
 
 ## Ejercicio 3. Operaciones, asignaciones y resultados.
 
-+ Ejecuta estos comandos, uno detrás de otro. Trata de imaginar el valor de las variables tras cada operación.
+- Ejecuta estos comandos, uno detrás de otro. Trata de imaginar el valor de las variables tras cada operación.
   ```{r results='hide'}
   a = 2
   b = 3
@@ -258,7 +250,7 @@ Escribe `3^2` y pulsa `Enter`
   ```
   Consulta el panel de entorno para ver cuanto valen las variables tras cada operación.
 
-+ Una orden como `c = a + b` en la que guardamos en una variable el resultado de una operación es una **asignación**. Por defecto R no muestra el resultado de las asignaciones al ejecutarlas. Si quieres ver el resultado encierra entre paréntesis *toda la asignación*
+- Una orden como `c = a + b` en la que guardamos en una variable el resultado de una operación es una **asignación**. Por defecto R no muestra el resultado de las asignaciones al ejecutarlas. Si quieres ver el resultado encierra entre paréntesis *toda la asignación*
   ```{r comment=NULL}
   (c = a + b)
   ```
@@ -266,9 +258,9 @@ Escribe `3^2` y pulsa `Enter`
 
 ---
 
-+ Es recomendable usar nombres informativos para las variables y jugar con las mayúsculas para haceros más legibles, como `precioFinal` o `poblacion1995`. Los nombres de variables no pueden empezar por un número ni contener caracteres especiales. 
+- Es recomendable usar nombres informativos para las variables y jugar con las mayúsculas para haceros más legibles, como `precioFinal` o `poblacion1995`. Los nombres de variables no pueden empezar por un número ni contener caracteres especiales. 
 
-+ Aunque hemos usado el igual `=` para asignaciones, es importante que sepas que en R se usa a menudo el símbolo `->` para las asignaciones, de manera que 
+- Aunque hemos usado el igual `=` para asignaciones, es importante que sepas que en R se usa a menudo el símbolo `->` para las asignaciones, de manera que 
   ```{r eval = FALSE, comment = NULL,}
   a = 2
   ```
@@ -276,6 +268,7 @@ Escribe `3^2` y pulsa `Enter`
   ```{r eval = FALSE, comment = NULL,}
   a <- 2
   ```
+  De hecho verás que nuestra elección de `=` es minoritaria (\link{https://google.github.io/styleguide/Rguide.html}{¿subversiva?}) en la comunidad de usarios de R. Si quieres leer algo más sobre esta discusión bizantina, \link{https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r}{puedes hacerlo aquí}. En realidad este párrafo es una excusa para hablar de Stackoverflow, de como buscar información y ayuda sobre R y de cuestiones de estilo en el código de R. 
 
 ## Haciendo limpieza antes de seguir adelante.
 
@@ -285,14 +278,12 @@ Escribe `3^2` y pulsa `Enter`
 
 - Con esto no hemos acabado. Si miras el panel de entorno verás que esa operación no ha eliminado los valores asignados a variables. Para hacer que R olvide esos valores podemos usar el icono de una escoba que aparece encima de ese panel de entorno.
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "25%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig10-RStudio-EntornoLimpieza.png")
-    include_graphics(figPath)
+include_graphics("../fig/01-fig10-RStudio-EntornoLimpieza.png")
 ```
 
-+ Al pulsarlo aparecerá un mensaje de confirmación. 
+- Al pulsarlo aparecerá un mensaje de confirmación. 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "25%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig11-RStudio-EntornoLimpieza.png")
-    include_graphics(figPath)
+  include_graphics("../fig/01-fig11-RStudio-EntornoLimpieza.png")
   ```
   Acepta haciendo clic en *Yes* y estaremos listos para seguir.
 
@@ -300,99 +291,96 @@ Escribe `3^2` y pulsa `Enter`
 
 ## Abriendo el editor
 
-+ El trabajo en la Consola de Comandos puede resultar conveniente para algunas operaciones básicas. Pero resulta incómodo para cualquier análisis de datos salvo los más triviales. Vamos a ver otra forma mejor de trabajar. 
+- El trabajo en la Consola de Comandos puede resultar conveniente para algunas operaciones básicas. Pero resulta incómodo para cualquier análisis de datos salvo los más triviales. Vamos a ver otra forma mejor de trabajar. 
 
 - Pulsa `Ctrl + Mayúsculas + N` (o, en un Mac, `Comando + Mayúsculas + N`). Alternativamente usa el menú *File* $\to$ *New File* $\to$ *R Script*, Verás aparecer un panel nuevo en la parte superior izquierda de la ventana, el *Editor* de RStudio.
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-InterfazRstudio-Editor.png")
-    include_graphics(figPath)
+include_graphics("../fig/01-InterfazRstudio-Editor.png")
 ```
 
-+ El editor va a ser el escenario principal de nuestro trabajo con RStudio. 
+- El editor va a ser el escenario principal de nuestro trabajo con RStudio. 
 
 ---
 
 ## Ejecutando código en el editor
 
-+ Empieza escribiendo esta asignación en el editor
+- Empieza escribiendo esta asignación en el editor
   ```{r results='hide'}
   a = 4
   ```
   para obtener algo como
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "35%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig12-RStudio-Editor.png")
-    include_graphics(figPath)
+  include_graphics("../fig/01-fig12-RStudio-Editor.png")
   ```
   Si ahora pulsas la tecla *Enter* $\text{\Return}$ verás que ese código no se ejecuta (mira la consola y el entorno), simplemente pasas a la siguiente línea del editor. Para ejecutar el código vuelve a hacer clic en la línea `a = 4` y ahora pulsa a la vez  `Ctrl + Enter`. Veras que el código aparece copiado en la consola como si lo hubieras ejecutado allí.  
 
 ## Ejecutando varios comandos a la vez. 
 
-+ Para empezar a ver las ventajas de esta forma de trabajar, teclea en el editor dos líneas más de código: 
+- Para empezar a ver las ventajas de esta forma de trabajar, teclea en el editor dos líneas más de código: 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "35%",  purl=FALSE}
-  figPath = normalizePath("../fig/01-fig13-RStudio-EditorVariosComandos.png")
-    include_graphics(figPath)
+  include_graphics("../fig/01-fig13-RStudio-EditorVariosComandos.png")
   ```
   y ahora selecciona esas líneas (usando el ratón o el teclado). Asegúrate de que las tres líneas aparecen completamente seleccionadas, como se muestra aquí: 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "35%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig14-RStudio-EditorVariosComandos.png")
-    include_graphics(figPath)
+  include_graphics("../fig/01-fig14-RStudio-EditorVariosComandos.png")
   ```
-+ Si ahora usas a la vez  `Ctrl + Enter` podrás comprobar en la consola que las tres líneas de código se han ejecutado todas una tras otra.  
+- Si ahora usas a la vez  `Ctrl + Enter` podrás comprobar en la consola que las tres líneas de código se han ejecutado todas una tras otra.  
 
 ## Ficheros de comandos de R. Directorio de trabajo.
 
-+ Vamos a aprender a guardar en un fichero de comandos (*script*) el trabajo que hacemos en el Editor de RStudio.
+- Vamos a aprender a guardar en un fichero de comandos (*script*) el trabajo que hacemos en el Editor de RStudio.
 
-+ Cada sesión de trabajo con R utiliza una carpeta de nuestro ordenador llamada *Working Directory (Directorio de Trabajo)* para almacenar datos, ficheros de comandos, etc. Es necesario que elijas un directorio de trabajo para este curso y que te acostumbres, al principio de cada sesión, a indicarle a R cuál es ese directorio. 
+- Cada sesión de trabajo con R utiliza una carpeta de nuestro ordenador llamada *Working Directory (Directorio de Trabajo)* para almacenar datos, ficheros de comandos, etc. Es necesario que elijas un directorio de trabajo para este curso y que te acostumbres, al principio de cada sesión, a indicarle a R cuál es ese directorio. 
 
-+ Dentro de tu carpeta de usuario crea una carpeta para usar como directorio de trabajo en este curso (llámala por ejemplo FME, aunque el nombre no es importante). Si tu nombre de usuario contiene acentos, espacios, la letra ñ, etc. y experimentas algún problema al usar R, habla con tu profesor. 
+- Dentro de tu carpeta de usuario crea una carpeta para usar como directorio de trabajo en este curso (llámala por ejemplo FME, aunque el nombre no es importante). Si tu nombre de usuario contiene acentos, espacios, la letra ñ, etc. y experimentas algún problema al usar R, habla con tu profesor. 
 
-+ Crea también dos *subcarpetas* dentro del directorio de trabajo que se llamen *datos* y *scripts* **(¡así, en  minúsculas!)**. 
+- Crea también dos *subcarpetas* dentro del directorio de trabajo que se llamen *datos* y *scripts* **(¡así, en  minúsculas!)**. 
 
-+ Ahora usa el menú *Session $\to$ Set Working Directory $\to$ Choose Directory*:
-  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%",  purl=FALSE}
-      figPath = normalizePath("../fig/01-fig15-RStudio-ElegirWorkDir.png")
-    include_graphics(figPath)
+- Ahora usa el menú *Session $\to$ Set Working Directory $\to$ Choose Directory*:
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%",  purl=FALSE}
+include_graphics("../fig/01-fig15-RStudio-ElegirWorkDir.png")
 ```
 
 ---
 
-+ A continuación usa el menú *File $\to$ Save As* y guarda el fichero de instrucciones de R con el nombre `sesion01-00` **en la subcarpeta scripts del directorio de trabajo** Al guardarlo RStudio le añadirá la extensión `.R`, que identifica a los ficheros de comandos de R. 
+- A continuación usa el menú *File $\to$ Save As* y guarda el fichero de instrucciones de R con el nombre `sesion01-00` **en la subcarpeta scripts del directorio de trabajo** Al guardarlo RStudio le añadirá la extensión `.R`, que identifica a los ficheros de comandos de R. 
 
-+ Es recomendable que uses el *Explorador de Archivos* de Windows (o el *Finder* de Mac, etc.)  para navegar a la carpeta en la que has guardado ese fichero y lo abras con un *editor de texto* (como el Bloc de Notas). Habla con tu profesor si tienes dudas de como hacer esto. Comprueba que se trata de un fichero de texto que contiene simplemente los comandos que hemos escrito en el Editor de RStudio. 
+- Es recomendable que uses el *Explorador de Archivos* de Windows (o el *Finder* de Mac, etc.)  para navegar a la carpeta en la que has guardado ese fichero y lo abras con un *editor de texto* (como el Bloc de Notas). Habla con tu profesor si tienes dudas de como hacer esto. Comprueba que se trata de un fichero de texto que contiene simplemente los comandos que hemos escrito en el Editor de RStudio. 
 
-+ También puedes abrir un fichero de comandos escrito por otra persona. De hecho en el curso vamos a usar a menudo ficheros de comandos prediseñados para dirigir nuestro trabajo. Empieza descargando este fichero de comandos [\textcolor{blue}{{sesion01-01.R}}](../scripts/sesion01-01.R) y guárdalo *en la subcarpeta scripts* de tu directorio de trabajo. En la próxima sección lo abriremos y usaremos para seguir avanzando con R.
+- También puedes abrir un fichero de comandos escrito por otra persona. De hecho en el curso vamos a usar a menudo ficheros de comandos prediseñados para dirigir nuestro trabajo. Empieza descargando este fichero de comandos [\textcolor{blue}{{sesion01-01.R}}](../scripts/sesion01-01.R) y guárdalo *en la subcarpeta scripts* de tu directorio de trabajo. En la próxima sección lo abriremos y usaremos para seguir avanzando con R.
 
 # Estructuras de datos básicas en R. 
 
 ## Vectores.
 
-+ Cierra el fichero del Editor de RStudio (usa `Ctrl + W`), cierra RStudio y vuelve a abrirlo. Ahora usa el Menú *File* $\to$ *Open File* y abre el fichero `sesion01-01.R` que acabas de descargar. Se abrirá en el Editor. 
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "60%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig17-RStudio-PrimerScriptAbierto.png")
-    include_graphics(figPath)
+- Cierra el fichero del Editor de RStudio (usa `Ctrl + W`), cierra RStudio y vuelve a abrirlo. Ahora usa el Menú *File* $\to$ *Open File* y abre el fichero `sesion01-01.R` que acabas de descargar. Se abrirá en el Editor. 
+  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "60%",  purl=FALSE}
+  include_graphics("../fig/01-fig17-RStudio-PrimerScriptAbierto.png")
   ```
   Si tienes problemas con los acentos al abrir el fichero pregunta a tu profesor.
 
-+ Lo primero en lo que debes fijarte es que R usa el símbolo `#` para introducir comentarios en un fichero de comandos e ignorará el resto de la línea a partir del `#`. 
+- Lo primero en lo que debes fijarte es que R usa el símbolo `#` para introducir comentarios en un fichero de comandos e ignorará el resto de la línea a partir del `#`. 
 
-+ Vamos a usar los comentarios de ese fichero como guía para aprender las propiedades más básicas de los vectores en R.
+- Vamos a usar los comentarios de ese fichero como guía para aprender las propiedades más básicas de los vectores en R.
 
 ## Tablas (Data Frames)
 
-- El punto de partida de nuestros análisis será a menudo una tabla de datos. Pronto aprenderemos a abrir ficheros externos de datos. Pero para empezar vamos a usar una tabla de datos de ejemplo que R trae incorporada al instalarlo. 
+  - Junto con los vectores, las tablas y listas constituyen las estructuras de datos básicos de R. Vamos a ver ahora el segundo de estos tipos de estructuras.
 
-- Ejecuta este código
-  ```{r}
-  head(iris)
-  ```
-  La tabla contiene datos sobre 150 flores de 3 especies de iris.  
-  La función `head` hace que R solo nos muestre el encabezamiento y las primeras 6 filas de la tabla (con `tail` verías las 6 últimas). Si quieres verla completa usa
-  ```{r eval = FALSE, comment = NULL,}
-  View(iris)
-  ```
-  La tabla se abrirá en otra pestaña del editor de RStudio.
+  - El punto de partida de nuestros análisis será a menudo una tabla de datos. Pronto aprenderemos a abrir ficheros externos de datos. Pero para empezar vamos a usar una tabla de datos de ejemplo que R trae incorporada al instalarlo. 
+
+  - Ejecuta este código:
+    ```{r size="small"}
+    head(iris)
+    ```
+    La tabla contiene datos sobre 150 flores de 3 especies de iris. La función `head` hace que R solo nos muestre el encabezamiento y las primeras 6 filas de la tabla (con `tail` verías las 6 últimas). 
+    
+  - Si quieres ver la tabla completa usa
+    ```{r eval=FALSE, comment=NULL}
+    View(iris)
+    ```
+    La tabla se abrirá en otra pestaña del editor de RStudio.
   
 ---
 
@@ -401,8 +389,8 @@ Escribe `3^2` y pulsa `Enter`
   head(iris)
   ```
   y observa que:
-    + cada columna corresponde a una *variable* (una propiedad observable). Todos los elementos de una columna son del mismo tipo (homogéneos).
-    + cada fila corresponde a una *observación* o *individuo* (una flor en este ejemplo). Los elementos de una misma fila pueden ser de tipos distintos (heterogéneos).
+    - cada columna corresponde a una *variable* (una propiedad observable). Todos los elementos de una columna son del mismo tipo (homogéneos).
+    - cada fila corresponde a una *observación* o *individuo* (una flor en este ejemplo). Los elementos de una misma fila pueden ser de tipos distintos (heterogéneos).
 
 - Podemos obtener las dimensiones (número de filas y columnas) de la tabla con
   ```{r}
@@ -415,7 +403,7 @@ Escribe `3^2` y pulsa `Enter`
 
 ## Selección de elementos de una tabla
 
-+ Para acceder al elemento en la fila 2, columna 3 podemos usar la notación de corchetes:
+- Para acceder al elemento en la fila 2, columna 3 podemos usar la notación de corchetes:
   ```{r}
   iris[2, 3]
   ```
@@ -427,7 +415,7 @@ Escribe `3^2` y pulsa `Enter`
 
 ## Selección de filas y columnas de una tabla
 
-+ Puesto que las columnas están formadas por elementos homogéneos podemos extraer una columna y obtenemos un vector de R. Hay dos formas de hacer esto:
+- Puesto que las columnas están formadas por elementos homogéneos podemos extraer una columna y obtenemos un vector de R. Hay dos formas de hacer esto:
 
   1. usando la notación de corchetes con el número de columna y dejando el número de fila en blanco (solo se muestra el principio de la columna).
     ```{r eval = FALSE, comment = NULL,}
@@ -447,19 +435,19 @@ Escribe `3^2` y pulsa `Enter`
 
 ---
 
-+ Para seleccionar una fila podemos usar corchetes, pero al ser heterogénea el resultado es una nueva tabla:
+- Para seleccionar una fila podemos usar corchetes, pero al ser heterogénea el resultado es una nueva tabla:
   ```{r}
   iris[2, ]
   ```
 
-+ También podemos seleccionar más de una fila o columna. Aquí vamos a seleccionar las filas de la 49 a la 52 y las columnas 1, 3 y 5:
+- También podemos seleccionar más de una fila o columna. Aquí vamos a seleccionar las filas de la 49 a la 52 y las columnas 1, 3 y 5:
   ```{r}
   iris[49:52, c(1, 3, 5)]
   ```
 
 ---
 
-+ Al igual que con los vectores también podemos seleccionar elementos de una tabla usando condiciones lógicas (típicamente comparaciones). Por ejemplo, para seleccionar las filas que corresponden a flores con longitud de sépalo mayor que 2 usamos:
+- Al igual que con los vectores también podemos seleccionar elementos de una tabla usando condiciones lógicas (típicamente comparaciones). Por ejemplo, para seleccionar las filas que corresponden a flores con longitud de sépalo mayor que 2 usamos:
   ```{r eval = FALSE, comment = NULL,}
   iris[iris$Sepal.Width > 2, ]
   ```
@@ -472,22 +460,21 @@ Escribe `3^2` y pulsa `Enter`
 
 ## Instalación y carga de librerías
 
-+ La instalación básica de R contiene muchas herramientas pero hay además miles de librerías adicionales disponibles, muchas de ellas muy especializadas para temas concretos (por ejemplo *BioConductor* agrupa miles de programas para Bioinformática). Nosotros vamos a utilizar mucho una librería de herramientas llamada `tidyverse` de H. Wickham. 
+- La instalación básica de R contiene muchas herramientas pero hay además miles de librerías adicionales disponibles, muchas de ellas muy especializadas para temas concretos (por ejemplo *BioConductor* agrupa miles de programas para Bioinformática). Nosotros vamos a utilizar mucho una librería de herramientas llamada `tidyverse` de H. Wickham. 
 
-+ Para usar una librería de R debemos  instalarla (una única vez) y cargarla (en cada sesión en la que vayamos a usarla). Para instalar una librería sigue los pasos que aparecen en la figura;
+- Para usar una librería de R debemos  instalarla (una única vez) y cargarla (en cada sesión en la que vayamos a usarla). Para instalar una librería sigue los pasos que aparecen en la figura;
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "45%",  purl=FALSE}
-    figPath = normalizePath("../fig/01-fig16-RStudio-InstalarLibreria.png")
-    include_graphics(figPath)
+include_graphics("../fig/01-fig16-RStudio-InstalarLibreria.png")
 ```
 R descargará e instalará la librería. Si tienes problemas, pide ayuda al profesor. 
 
 ---
 
-+ Cuando la instalación concluya puedes cargar la librería para usarla ejecutando 
+- Cuando la instalación concluya puedes cargar la librería para usarla ejecutando 
   ```{r message=FALSE}
   library(tidyverse)
   ```
-+ **Ejercicio** Además de la anterior instala las librerías llamadas `gapminder` y `nycflights13`.
+- **Ejercicio** Además de la anterior instala las librerías llamadas `gapminder` y `nycflights13`.
   ```{r echo=FALSE, eval = FALSE, comment = NULL,}
   library(nycflights13)
   View(flights)
@@ -498,7 +485,7 @@ R descargará e instalará la librería. Si tienes problemas, pide ayuda al prof
   ```
   Esta librería contiene datos de todos los vuelos que despegaron de aeropuertos de Nueva York en 2013. 
 
-+ **Ejercicio** ¿Cuántas filas y columnas tiene la tabla? ¿Cuántos vuelos despegaron del aeropuerto JFK? Indicación: usa la función `str` para empezar. **¡¡Es una de las funciones esenciales de R!!**
+- **Ejercicio** ¿Cuántas filas y columnas tiene la tabla? ¿Cuántos vuelos despegaron del aeropuerto JFK? Indicación: usa la función `str` para empezar. **¡¡Es una de las funciones esenciales de R!!**
 ```{r echo=FALSE, eval = FALSE, comment = NULL,}
 library(nycflights13)
 str(flights)
@@ -509,16 +496,16 @@ ggplot(data = flights) +
 
 ## Un primer encuentro con dplyr
 
-+ La librería `dplyr` es una de los componentes básicos del *tidyverse* y permite simplificar mucho nuestro trabajo con tablas como la que acabamos de examinar. En concreto `dplyr` proporciona un conjunto de funciones que incluye entre otras:
+- La librería `dplyr` es una de los componentes básicos del *tidyverse* y permite simplificar mucho nuestro trabajo con tablas como la que acabamos de examinar. En concreto `dplyr` proporciona un conjunto de funciones que incluye entre otras:
   - `filter`: para seleccionar algunas filas según sus valores.
   - `arrange`: para reordenar las filas.
   - `select`: para seleccionar columnas (variables)
   - `mutate`: para añadir nuevas columnas calculadas a partir de las existentes. 
   - `summarize`: para obtener estimadores estadísticos, por ejemplo medias.
 
-+ Además con `dplyr` vamos a empezar a usar el operador `pipe`, que en R es `%>%`. Este operador pasa el resultado de una operación como primer argumento de la siguiente. El uso de `%>%` normalmente resulta más claro que la sintaxis básica de R.
+- Además con `dplyr` vamos a empezar a usar el operador `pipe`, que en R es `%>%`. Este operador pasa el resultado de una operación como primer argumento de la siguiente. El uso de `%>%` normalmente resulta más claro que la sintaxis básica de R.
 
-+ Por ejemplo usando `iris` vamos a buscar, en las columnas que se refieren a pétalos, cuáles son las flores con anchura de pétalo mayor que 2.3.
+- Por ejemplo usando `iris` vamos a buscar, en las columnas que se refieren a pétalos, cuáles son las flores con anchura de pétalo mayor que 2.3.
   ```{r message=FALSE, size="scriptsize"}
   iris %>%
     select(c('Petal.Length', 'Petal.Width'))  %>%
@@ -527,13 +514,13 @@ ggplot(data = flights) +
 
 ## Y un primer encuentro con ggplot
 
-+ La librería `gapminder` que hemos instalado antes contiene una tabla de datos con algunas características socioeconómicas de casi todos los países del mundo a lo largo de varios lustros (proceden de [\textcolor{blue}{{www.gapminder.org}}](https://www.gapminder.org)). Carga la tabla y examínala con
+- La librería `gapminder` que hemos instalado antes contiene una tabla de datos con algunas características socioeconómicas de casi todos los países del mundo a lo largo de varios lustros (proceden de [\textcolor{blue}{{www.gapminder.org}}](https://www.gapminder.org)). Carga la tabla y examínala con
   ```{r eval = FALSE, comment = NULL,}
   library(gapminder)
   View(gapminder)
   ```
 
-+ La librería `ggplot` es otro de los componentes del tidyverse y proporciona herramientas para construir gráficas muy útiles. Su uso puede resultar un poco complejo al principio, pero pronto te acostumbraras. La plantilla básica de un gráfico con ggplot es
+- La librería `ggplot` es otro de los componentes del tidyverse y proporciona herramientas para construir gráficas muy útiles. Su uso puede resultar un poco complejo al principio, pero pronto te acostumbraras. La plantilla básica de un gráfico con ggplot es
   ```{r eval = FALSE, comment = NULL, purl = FALSE}
   ggplot(data = <DATA>) +
     <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
@@ -542,7 +529,7 @@ ggplot(data = flights) +
 
 ---
 
-+ Los colores corresponden a los distintos continentes y el tamaño de cada punto indica la población del país. La escala vertical (renta per cápita) es logarítmica de base 10. El código es: 
+- Los colores corresponden a los distintos continentes y el tamaño de cada punto indica la población del país. La escala vertical (renta per cápita) es logarítmica de base 10. El código es: 
   ```{r echo=-1, comment=NULL, fig.align='center', out.width = "65%", size="scriptsize"}
   library(gapminder)
   gapminder %>% 
