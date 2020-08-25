@@ -1,7 +1,9 @@
 % Adaptado de http://rmarkdown.rstudio.com/articles_beamer.html
-\usepackage[spanish, es-nodecimaldot]{babel}
-\usepackage{multirow}
-\usepackage{graphicx}
+
+%\usepackage[spanish, es-tabla, es-nodecimaldot]{babel}
+
+%\usepackage{multirow}
+%\usepackage{graphicx}
 %\usepackage{rotating}
 %\setbeamertemplate{caption}[numbered]
 %\usepackage{hyperref}
@@ -13,9 +15,25 @@
 %\usepackage{array}
 %\usetheme{Warsaw}
 %\usecolortheme{spruce}
-\usepackage{attachfile}
-\usepackage[dvipsnames]{xcolor}
-\definecolor{DarkGreen}{HTML}{009900}
+%\usepackage{attachfile}
+%\usepackage[dvipsnames]{xcolor}
+%\definecolor{DarkGreen}{HTML}{009900}
 
 
 
+\AtBeginSection{\frame{\sectionpage}}
+\AtBeginSubsection{\frame{\subsectionpage}}
+\newtranslation[to=spanish]{Section}{Secci\'on}
+\newtranslation[to=spanish]{Subsection}{Subsecci\'on}
+
+\usepackage{keystroke}
+
+
+% logo of my university
+\titlegraphic{\includegraphics[width=4cm]{../fig/logoDMAsmall.png}}
+
+\newcommand{\link}[2]{\textcolor{blue}{{\href{#1}{#2}}}}
+
+\definecolor{Gris050}{gray}{0.50}
+\definecolor{Gris025}{gray}{0.75}
+\definecolor{Gris010}{gray}{0.90}
