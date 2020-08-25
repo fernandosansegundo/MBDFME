@@ -1,6 +1,6 @@
 % Adaptado de http://rmarkdown.rstudio.com/articles_beamer.html
 
-\usepackage[spanish, es-tabla, es-nodecimaldot]{babel}
+%\usepackage[spanish, es-tabla, es-nodecimaldot]{babel}
 
 %\usepackage{multirow}
 %\usepackage{graphicx}

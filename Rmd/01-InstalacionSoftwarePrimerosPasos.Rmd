@@ -43,16 +43,18 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 + La asignatura se plantea con un enfoque práctico y conceptual. Se trata de presentar las ideas fundamentales de la Estadística y el Análisis de Datos y hacerlo mediante la práctica computacional, usando el ecosistema de R como plataforma computacional.
 
 + La estructura básica de un Análisis de Datos es, según [@Wickham2016], esta:
-  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "70%",  purl=FALSE}
-  include_graphics("../fig/01-fig00.png")
-  ```
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "70%",  purl=FALSE}
+figPath = normalizePath("../fig/01-fig00.png")
+include_graphics(figPath)
+```
   Vamos a conocer las herramientas que R nos aporta para facilitar cada uno de los pasos de este proceso. 
 
 ## El diagrama de Venn del Análisis de Datos.
 
 + Este diagrama creado por \link{http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram}{Drew Conway} es uno de los más usados para describir el Análisis de Datos. 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "50%",  purl=FALSE}
-  include_graphics("../fig/Data_Science_VD.png")
+  figPath = normalizePath("../fig/Data_Science_VD.png")
+  include_graphics(figPath)
   ```
   Nuestro curso se va a mover en la parte superior del diagrama, para proporcionaros las competencias necesarias para otras asignaturas del máster.
 
@@ -68,7 +70,8 @@ file.copy(from = "Here to Help.png", to = "../fig/xkcd_here_to_help.png")
 file.remove("Here to Help.png")
 ```
   ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "100%", purl=FALSE}
-  include_graphics("../fig/xkcd_here_to_help.png")
+    figPath = normalizePath("../fig/xkcd_here_to_help.png")
+    include_graphics(figPath)
   ```
 
 
@@ -76,7 +79,8 @@ file.remove("Here to Help.png")
 
 + R es uno de los lenguajes de programación más usados para el análisis de datos y uno de los que han experimentado un crecimiento más rápido \link{https://www.oreilly.com/ideas/2017-european-data-science-salary-survey}{en los últimos años}. 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "80%",  purl=FALSE}
-include_graphics("../fig/DataScienceProgLanguageSurvey2017.png")
+    figPath = normalizePath("../fig/DataScienceProgLanguageSurvey2017.png")
+    include_graphics(figPath)
 ```
 
 + La comunidad de usuarios de R es uno de los pilares que fundamentan el éxito del lenguaje. La documentación disponible hace extremadamente fácil encontrar respuestas a casi todas las preguntas que vas a plantearte como usuario de R. Además hay un amplísimo catálogo bibliográfico y cientos de cursos disponibles para dominar cualquier aspecto de R.Aquí os enseñaremos algunos de nuestros favoritos.
@@ -99,7 +103,8 @@ include_graphics("../fig/DataScienceProgLanguageSurvey2017.png")
 ## Instalación de R
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-include_graphics("../fig/01-fig01.png")
+    figPath = normalizePath("../fig/01-fig01.png")
+    include_graphics(figPath)
 ```
 
 
@@ -114,7 +119,8 @@ include_graphics("../fig/01-fig01.png")
 
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-include_graphics("../fig/01-fig02.png")
+    figPath = normalizePath("../fig/01-fig02.png")
+    include_graphics(figPath)
 ```
 
 
@@ -135,7 +141,8 @@ include_graphics("../fig/01-fig02.png")
 ## Primer Contacto 
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-include_graphics("../fig/Tut02-01.png")
+    figPath = normalizePath("../fig/Tut02-01.png")
+    include_graphics(figPath)
 ```
 
 - Abre RStudio. Inicialmente verás que hay tres paneles principales, que vamos a ir conociendo:
@@ -208,7 +215,8 @@ Escribe `3^2` y pulsa `Enter`
 ## Detalles adicionales sobre RStudio.
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "45%",  purl=FALSE}
-include_graphics("../fig/Tut02-01.png")
+    figPath = normalizePath("../fig/Tut02-01.png")
+    include_graphics(figPath)
 ```
 
 
@@ -228,7 +236,8 @@ include_graphics("../fig/Tut02-01.png")
   ```
   Ahora ejecuta esa instrucción. Aunque aparentemente no ha sucedido nada (porque no hay respuesta), a partir de ese momento R ha asignado el valor 2 al símbolo `a`. Fíjate en el panel superior derecho llamado *Environment* (*entorno*), en el que aparece el valor actual de la variable.
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%",  purl=FALSE}
-  include_graphics("../fig/01-fig09-RStudio-EntornoValoresVariables.png")
+  figPath = normalizePath("../fig/01-fig09-RStudio-EntornoValoresVAriables.png")
+    include_graphics(figPath)
   ```
 + Así que si, por ejemplo, tecleas y ejecutas:
   ```{r eval = FALSE, comment = NULL,}
@@ -276,12 +285,14 @@ include_graphics("../fig/Tut02-01.png")
 
 - Con esto no hemos acabado. Si miras el panel de entorno verás que esa operación no ha eliminado los valores asignados a variables. Para hacer que R olvide esos valores podemos usar el icono de una escoba que aparece encima de ese panel de entorno.
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "25%",  purl=FALSE}
-include_graphics("../fig/01-fig10-RStudio-EntornoLimpieza.png")
+    figPath = normalizePath("../fig/01-fig10-RStudio-EntornoLimpieza.png")
+    include_graphics(figPath)
 ```
 
 + Al pulsarlo aparecerá un mensaje de confirmación. 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "25%",  purl=FALSE}
-  include_graphics("../fig/01-fig11-RStudio-EntornoLimpieza.png")
+    figPath = normalizePath("../fig/01-fig11-RStudio-EntornoLimpieza.png")
+    include_graphics(figPath)
   ```
   Acepta haciendo clic en *Yes* y estaremos listos para seguir.
 
@@ -294,7 +305,8 @@ include_graphics("../fig/01-fig10-RStudio-EntornoLimpieza.png")
 - Pulsa `Ctrl + Mayúsculas + N` (o, en un Mac, `Comando + Mayúsculas + N`). Alternativamente usa el menú *File* $\to$ *New File* $\to$ *R Script*, Verás aparecer un panel nuevo en la parte superior izquierda de la ventana, el *Editor* de RStudio.
 
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "55%",  purl=FALSE}
-include_graphics("../fig/01-InterfazRstudio-Editor.png")
+    figPath = normalizePath("../fig/01-InterfazRstudio-Editor.png")
+    include_graphics(figPath)
 ```
 
 + El editor va a ser el escenario principal de nuestro trabajo con RStudio. 
@@ -309,7 +321,8 @@ include_graphics("../fig/01-InterfazRstudio-Editor.png")
   ```
   para obtener algo como
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "35%",  purl=FALSE}
-  include_graphics("../fig/01-fig12-RStudio-Editor.png")
+    figPath = normalizePath("../fig/01-fig12-RStudio-Editor.png")
+    include_graphics(figPath)
   ```
   Si ahora pulsas la tecla *Enter* $\text{\Return}$ verás que ese código no se ejecuta (mira la consola y el entorno), simplemente pasas a la siguiente línea del editor. Para ejecutar el código vuelve a hacer clic en la línea `a = 4` y ahora pulsa a la vez  `Ctrl + Enter`. Veras que el código aparece copiado en la consola como si lo hubieras ejecutado allí.  
 
@@ -317,11 +330,13 @@ include_graphics("../fig/01-InterfazRstudio-Editor.png")
 
 + Para empezar a ver las ventajas de esta forma de trabajar, teclea en el editor dos líneas más de código: 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "35%",  purl=FALSE}
-  include_graphics("../fig/01-fig13-RStudio-EditorVariosComandos.png")
+  figPath = normalizePath("../fig/01-fig13-RStudio-EditorVariosComandos.png")
+    include_graphics(figPath)
   ```
   y ahora selecciona esas líneas (usando el ratón o el teclado). Asegúrate de que las tres líneas aparecen completamente seleccionadas, como se muestra aquí: 
   ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "35%",  purl=FALSE}
-  include_graphics("../fig/01-fig14-RStudio-EditorVariosComandos.png")
+    figPath = normalizePath("../fig/01-fig14-RStudio-EditorVariosComandos.png")
+    include_graphics(figPath)
   ```
 + Si ahora usas a la vez  `Ctrl + Enter` podrás comprobar en la consola que las tres líneas de código se han ejecutado todas una tras otra.  
 
@@ -336,8 +351,9 @@ include_graphics("../fig/01-InterfazRstudio-Editor.png")
 + Crea también dos *subcarpetas* dentro del directorio de trabajo que se llamen *datos* y *scripts* **(¡así, en  minúsculas!)**. 
 
 + Ahora usa el menú *Session $\to$ Set Working Directory $\to$ Choose Directory*:
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%",  purl=FALSE}
-include_graphics("../fig/01-fig15-RStudio-ElegirWorkDir.png")
+  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%",  purl=FALSE}
+      figPath = normalizePath("../fig/01-fig15-RStudio-ElegirWorkDir.png")
+    include_graphics(figPath)
 ```
 
 ---
@@ -353,8 +369,9 @@ include_graphics("../fig/01-fig15-RStudio-ElegirWorkDir.png")
 ## Vectores.
 
 + Cierra el fichero del Editor de RStudio (usa `Ctrl + W`), cierra RStudio y vuelve a abrirlo. Ahora usa el Menú *File* $\to$ *Open File* y abre el fichero `sesion01-01.R` que acabas de descargar. Se abrirá en el Editor. 
-  ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "60%",  purl=FALSE}
-  include_graphics("../fig/01-fig17-RStudio-PrimerScriptAbierto.png")
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "60%",  purl=FALSE}
+    figPath = normalizePath("../fig/01-fig17-RStudio-PrimerScriptAbierto.png")
+    include_graphics(figPath)
   ```
   Si tienes problemas con los acentos al abrir el fichero pregunta a tu profesor.
 
@@ -459,7 +476,8 @@ include_graphics("../fig/01-fig15-RStudio-ElegirWorkDir.png")
 
 + Para usar una librería de R debemos  instalarla (una única vez) y cargarla (en cada sesión en la que vayamos a usarla). Para instalar una librería sigue los pasos que aparecen en la figura;
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "45%",  purl=FALSE}
-include_graphics("../fig/01-fig16-RStudio-InstalarLibreria.png")
+    figPath = normalizePath("../fig/01-fig16-RStudio-InstalarLibreria.png")
+    include_graphics(figPath)
 ```
 R descargará e instalará la librería. Si tienes problemas, pide ayuda al profesor. 
 
