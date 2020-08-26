@@ -70,12 +70,12 @@ figpath = function(figname){
 - El diagrama de Conway avisa de una zona de peligro para quienes rehuyen el uso correcto de la Estadística. Pero hay que tener cuidado también con otra zona de peligro para los practicantes de Machine Learning, que ilustra bien esta tira de [\textcolor{blue}{{XKCD}}](https://xkcd.com/).  
 
 
-```{r echo=FALSE, eval=FALSE, purl=FALSE}
-library(RXKCD)
-xkcdpic = getXKCD(which = "1831", saveImg = TRUE)
-file.copy(from = "Here to Help.png", to = "../fig/xkcd_here_to_help.png")
-file.remove("Here to Help.png")
-```
+  ```{r echo=FALSE, eval=FALSE, purl=FALSE}
+  library(RXKCD)
+  xkcdpic = getXKCD(which = "1831", saveImg = TRUE)
+  file.copy(from = "Here to Help.png", to = "../fig/xkcd_here_to_help.png")
+  file.remove("Here to Help.png")
+  ```
   ```{r echo=FALSE, message=FALSE, fig.align='center', out.width = "100%", purl=FALSE}
   include_graphics(figpath("xkcd_here_to_help.png"))
   ```
@@ -152,10 +152,9 @@ include_graphics(figpath("01-fig02.png"))
 
 + Si usas Mac o Linux ya tienes una instalación de Python en tu sistema. En Windows tienes que instalar una distribución de Python antes de usarla. **ATENCIÓN:** la instalación de Python es una fuente habitual de quebraderos de cabeza. Si dudas es *mucho mejor* que preguntes a tus profesores y te informes bien antes de hacer cambios que pueden dañar tu sistema gravemente. 
 
+### WSL 2.
 
-
-
-
++ Si eres usauario de una versión reciente de Windows 10 te puede interesar conocer el \link{https://docs.microsoft.com/es-es/windows/wsl/}{Windows Subsystem for Linux} y usarlo para acceder a muchas de las herramientas de las que vamos a hablar. Y en particular puedes usarlo para disponer de un entorno de desarrollo en Python. Pregunta a tu profesor antes de empezar si te interesa este tema: la versión más reciente de WSL es de mayo de 2020 y ha introducido cambios sustanciales en esa herramienta.  
 
 
 # La interfaz de RStudio
@@ -185,7 +184,8 @@ Escribe `3^2` y pulsa `Enter`
 ## Ejercicio 1: R como una calculadora
 
 - Copia o teclea cada línea en el prompt (¡practica las dos maneras!), una por una. Trata de adivinar el resultado de cada operación antes de ejecutar el código:. 
-  ```{r eval = FALSE, comment = NULL,}
+  ```{r eval = FALSE, comment = NULL, echo=-1}
+  # Ejercicio 1  
   2 + 3
   15 - 7
   4 * 6
@@ -207,27 +207,28 @@ Escribe `3^2` y pulsa `Enter`
 - `sin` es la función *seno* y `pi` se refiere a la constante matemática $\pi\approx 3.141593$. Enseguida hablaremos de otras funciones de R.
 
 - R es un lenguaje **numérico** (no es *simbólico*). No hemos obtenido $0$ (que es la respuesta exacta), sino un valor aproximado muy pequeño (en notación científica):
-  ```{r eval = FALSE, comment = NULL,, comment = NULL,}
+  ```{r eval = FALSE, comment = NULL, purl=FALSE}
   1.224606e-16
   ```
 
 ## Ejercicio 2: Errores. 
 
 - Prueba ahora a escribir esta expresión incompleta:  
-  ```{r eval = FALSE, comment = NULL,, comment = NULL,}
+  ```{r eval = FALSE, comment = NULL, echo = -1}
+  # Ejercicio 2
   3 + 
   ```
   y pulsa `Enter`. La respuesta `+` es la forma que tiene R de decirnos *"necesito algo más"* (no tiene nada que ver con la suma). Lo mejor es que uses la tecla `Esc` y completes la expresión.
 
 - Escribe y ejecuta una a una estas expresiones para ver distintos tipos de errores:
-  ```{r eval = FALSE, comment = NULL,, comment = NULL,}
+  ```{r eval = FALSE, comment = NULL}
   4/*3
   2/0
   sqrt(-4)
   ```
 
 - Escribe y ejecuta
-  ```{r eval = FALSE, comment = NULL,, comment = NULL,}
+  ```{r eval = FALSE, comment = NULL}
   Sqrt(4)
   ```
   y verás que se produce un error. **Es muy importante recordar que R siempre distingue mayúsculas de minúsculas.**
@@ -275,13 +276,20 @@ include_graphics(figpath("01-RStudioCloud.jpeg"))
     ```
     Fíjate en la combinación de texto, código y resultados de la ejecución del código (en este caso figuras). Este ejemplo forma parte del \link{https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/Index.ipynb}{Python Data Science Handbook} de Jake VanderPlas, que está disponible gratuitamente en ese enlace.
 
+## Docker
+
++ El uso de Docker para la asignatura es *muy experimental* en este curso. Si tienes interés en probarlo habla con tu profesor. Pero desaconsejamos firmemente usarlo en este momento como herramienta principal para el trabajo en la asignatura.  
+
++ Docker puede verse como una evolución de las máquinas virtuales. Hace unos años una asignatura como esta podría ofrecer a los alumnos una máquina virtual (por ejemplo con Linux como sistema huesped) preconfigurada con todo el software necesario. En la actualidad es posible usar imágenes de Docker o incluso Dockerfiles para conseguir algo similar, pero con todas las ventajas que aporta la tecnología de contenedores de Docker. 
+ 
  
 # Variables y asignaciones en R.
 
 ## Variables
 
 - Una *variable*, en R, es un símbolo que usamos para referirnos a un valor. Por ejemplo, sitúate en la Consola de Comandos y teclea
-  ```{r eval = FALSE, comment = NULL,}
+  ```{r eval = FALSE, comment = NULL, echo = -1}
+  # Variables y asignaciones
   a = 2
   ```
   Ahora ejecuta esa instrucción. Aunque aparentemente no ha sucedido nada (porque no hay respuesta), a partir de ese momento R ha asignado el valor 2 al símbolo `a`. Fíjate en el panel superior derecho llamado *Environment* (*entorno*), en el que aparece el valor actual de la variable.
@@ -297,7 +305,8 @@ include_graphics(figpath("01-RStudioCloud.jpeg"))
 ## Ejercicio 3. Operaciones, asignaciones y resultados.
 
 - Ejecuta estos comandos, uno detrás de otro. Trata de imaginar el valor de las variables tras cada operación.
-  ```{r results='hide'}
+  ```{r results='hide', echo=-1}
+  # Ejercicio 3
   a = 2
   b = 3
   c = a + b
@@ -363,7 +372,7 @@ include_graphics(figpath("01-InterfazRstudio-Editor.png"))
 ## Ejecutando código en el editor
 
 - Empieza escribiendo esta asignación en el editor
-  ```{r results='hide'}
+  ```{r results='hide', purl=FALSE}
   a = 4
   ```
   para obtener algo como
@@ -407,6 +416,8 @@ include_graphics(figpath("01-fig15-RStudio-ElegirWorkDir.png"))
 
 - También puedes abrir un fichero de comandos escrito por otra persona. De hecho en el curso vamos a usar a menudo ficheros de comandos prediseñados para dirigir nuestro trabajo. Empieza descargando este fichero de comandos [\textcolor{blue}{{sesion01-01.R}}](../scripts/sesion01-01.R) y guárdalo *en la subcarpeta scripts* de tu directorio de trabajo. En la próxima sección lo abriremos y usaremos para seguir avanzando con R.
 
++ En esta y en próximas sesiones dispondrás de un fichero con el  \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/01-InstalacionSoftwarePrimerosPasos.R}{código de la sesión} para agilizar el seguimiento de la explicación mientras pruebas el funcionamiento de los comandos en tu sistema.
+
 # Estructuras de datos básicas en R. 
 
 ## Vectores.
@@ -423,26 +434,24 @@ include_graphics(figpath("01-fig15-RStudio-ElegirWorkDir.png"))
 
 ## Tablas (Data Frames)
 
-  - Junto con los vectores, las tablas y listas constituyen las estructuras de datos básicos de R. Vamos a ver ahora el segundo de estos tipos de estructuras.
+- Junto con los vectores, las tablas y listas constituyen las estructuras de datos básicos de R. Vamos a ver ahora el segundo de estos tipos de estructuras.
 
-  - El punto de partida de nuestros análisis será a menudo una tabla de datos. Pronto aprenderemos a abrir ficheros externos de datos. Pero para empezar vamos a usar una tabla de datos de ejemplo que R trae incorporada al instalarlo. 
+- El punto de partida de nuestros análisis será a menudo una tabla de datos. Pronto aprenderemos a abrir ficheros externos de datos. Pero para empezar vamos a usar una tabla de datos de ejemplo que R trae incorporada al instalarlo. 
 
-  - Ejecuta este código:
-    ```{r size="small"}
-    head(iris)
-    ```
-    La tabla contiene datos sobre 150 flores de 3 especies de iris. La función `head` hace que R solo nos muestre el encabezamiento y las primeras 6 filas de la tabla (con `tail` verías las 6 últimas). 
+- Ejecuta este código:
+  ```{r size="small", echo=-1}
+  # Tablas (Data Frames)
+  head(iris)
+  ```
+        
+- La tabla contiene datos sobre 150 flores de 3 especies de iris. La función `head` hace que R solo nos muestre el encabezamiento y las primeras 6 filas de la tabla (con `tail` verías las 6 últimas). Prueba a ejecutar `head(iris, 12)`.
     
-  - Si quieres ver la tabla completa usa
-    ```{r eval=FALSE, comment=NULL}
-    View(iris)
-    ```
-    La tabla se abrirá en otra pestaña del editor de RStudio.
+- Si quieres ver la tabla completa usa `View(iris)`.  La tabla se abrirá en otra pestaña del editor de RStudio.
   
 ---
 
 - Fíjate en la tabla 
-  ```{r}
+  ```{r, echo = FALSE, purl=FALSE}
   head(iris)
   ```
   y observa que:
@@ -453,15 +462,13 @@ include_graphics(figpath("01-fig15-RStudio-ElegirWorkDir.png"))
   ```{r}
   dim(iris)
   ```
-  También podemos obtener los números de filas y columnas directamente con `nrow` y `ncol`.
+  También podemos obtener los números de filas y columnas directamente con `nrow` y `ncol`. ¡Compruébalo!
   
-
-
-
 ## Selección de elementos de una tabla
 
 - Para acceder al elemento en la fila 2, columna 3 podemos usar la notación de corchetes:
-  ```{r}
+  ```{r echo=-1}
+  # Selección de elementos de una tabla
   iris[2, 3]
   ```
   Ese acceso permite cambiar los elementos de la tabla directamente:
@@ -528,11 +535,12 @@ R descargará e instalará la librería. Si tienes problemas, pide ayuda al prof
 ---
 
 - Cuando la instalación concluya puedes cargar la librería para usarla ejecutando 
-  ```{r message=FALSE}
+  ```{r message=FALSE, echo = -1}
+  # Instalación y carga de librerías
   library(tidyverse)
   ```
 - **Ejercicio** Además de la anterior instala las librerías llamadas `gapminder` y `nycflights13`.
-  ```{r echo=FALSE, eval = FALSE, comment = NULL,}
+  ```{r echo=FALSE, eval = FALSE, comment = NULL, purl=FALSE}
   library(nycflights13)
   View(flights)
   ```
@@ -543,7 +551,7 @@ R descargará e instalará la librería. Si tienes problemas, pide ayuda al prof
   Esta librería contiene datos de todos los vuelos que despegaron de aeropuertos de Nueva York en 2013. 
 
 - **Ejercicio** ¿Cuántas filas y columnas tiene la tabla? ¿Cuántos vuelos despegaron del aeropuerto JFK? Indicación: usa la función `str` para empezar. **¡¡Es una de las funciones esenciales de R!!**
-```{r echo=FALSE, eval = FALSE, comment = NULL,}
+```{r echo=FALSE, eval = FALSE, comment = NULL, purl=FALSE}
 library(nycflights13)
 str(flights)
 library(tidyverse)
@@ -563,7 +571,8 @@ ggplot(data = flights) +
 - Además con `dplyr` vamos a empezar a usar el operador `pipe`, que en R es `%>%`. Este operador pasa el resultado de una operación como primer argumento de la siguiente. El uso de `%>%` normalmente resulta más claro que la sintaxis básica de R.
 
 - Por ejemplo usando `iris` vamos a buscar, en las columnas que se refieren a pétalos, cuáles son las flores con anchura de pétalo mayor que 2.3.
-  ```{r message=FALSE, size="scriptsize"}
+  ```{r message=FALSE, size="scriptsize", echo = -1}
+  # Un primer encuentro con dplyr
   iris %>%
     select(c('Petal.Length', 'Petal.Width'))  %>%
     filter(Petal.Width > 2.3) 
@@ -572,7 +581,7 @@ ggplot(data = flights) +
 ## Y un primer encuentro con ggplot
 
 - La librería `gapminder` que hemos instalado antes contiene una tabla de datos con algunas características socioeconómicas de casi todos los países del mundo a lo largo de varios lustros (proceden de [\textcolor{blue}{{www.gapminder.org}}](https://www.gapminder.org)). Carga la tabla y examínala con
-  ```{r eval = FALSE, comment = NULL,}
+  ```{r eval = FALSE, comment = NULL, purl = FALSE}
   library(gapminder)
   View(gapminder)
   ```
@@ -587,7 +596,8 @@ ggplot(data = flights) +
 ---
 
 - Los colores corresponden a los distintos continentes y el tamaño de cada punto indica la población del país. La escala vertical (renta per cápita) es logarítmica de base 10. El código es: 
-  ```{r echo=-1, comment=NULL, fig.align='center', out.width = "65%", size="scriptsize"}
+  ```{r comment=NULL, fig.align='center', out.width = "65%", size="scriptsize", echo = -(1:2)}
+  # Y un primer encuentro con ggplot
   library(gapminder)
   gapminder %>% 
     filter(year == 2007) %>% # Hasta aquí dplyr, ahora entra en acción ggplot
@@ -604,7 +614,7 @@ ggplot(data = flights) +
 
 **Enlaces**
 
-```{r eval = FALSE, comment = NULL,, comment = NULL,  echo=FALSE, purl=FALSE, message=FALSE, error=FALSE}
+```{r eval = FALSE, comment = NULL,  echo=FALSE, purl=FALSE, message=FALSE, error=FALSE}
 sessionName = "01-InstalacionSoftwarePrimerosPasos"
 RmdName = paste0(sessionName,".Rmd")
 ScriptName = paste0(sessionName,".R")
