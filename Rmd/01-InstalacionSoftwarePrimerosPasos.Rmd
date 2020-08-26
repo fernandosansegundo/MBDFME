@@ -30,9 +30,14 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   x <- def.chunk.hook(x, options)
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
-if(grepl(pattern = "cloud", getwd())) homeDir = "/cloud/project/"
+require(here)
+if (grepl(pattern = "cloud", getwd())){
+  homeDir = "/cloud/project/"
+  } else {
+  homeDir = "../"
+  }
 figpath = function(figname){
-  paste0(homeDir,"fig/",figname)
+  paste0(homeDir,"fig/", figname)
 } 
 ```
 
@@ -228,6 +233,12 @@ include_graphics(figpath("Tut02-01.png"))
 ## RStudio Cloud 
 
 + Los creadores de RStudio ponen a nuestra disposición una versión web gratuita de la aplicación, llamada \link{https://rstudio.cloud}{RStudio Cloud}, que puede seros de utilidad. Aunque se accede a través del navegador la interfaz es muy similar e incluso los atajos de teclado coinciden mayoritariamente. Esta opción puede resultar especialmente útil cuando se combina con el uso de repositorios en GitHub (por ejemplo para trabajar desde una tablet).
+
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "80%",  purl=FALSE}
+include_graphics(figpath("01-RStudioCloud.jpeg"))
+```
+
+
 
 ---
 
