@@ -134,11 +134,29 @@ include_graphics(figpath("01-fig02.png"))
 
 ## Software adicional
 
-- Como lector de documentos pdf puedes usar \link{https://get.adobe.com/es/reader/}{Adobe Reader}, aunque en Windows te recomendamos \link{{Sumatra Pdf}https://www.sumatrapdfreader.org/free-pdf-reader.html} y en Mac recomendamos \link{https://skim-app.sourceforge.io/}{Skim}.
+- Como lector de documentos pdf puedes usar \link{https://get.adobe.com/es/reader/}{Adobe Reader}, aunque en Windows te recomendamos \link{{Sumatra Pdf}https://www.sumatrapdfreader.org/free-pdf-reader.html} y en Mac recomendamos *Vista Previa* p \link{https://skim-app.sourceforge.io/}{Skim}.
 
 - En algún momento puede ser necesario usar un editor de texto. El que incluye RStudio sirve para tareas sencillas, pero en Windows recomendamos \link{https://notepad-plus-plus.org/}{Notepad++} y en Mac \link{https://www.barebones.com/products/bbedit/}{BBedit}.
 
 - Para abrir algunos ficheros de datos es conveniente disponer de una hoja de cálculo como Excel de Microsoft o, preferiblemente, Calc (de \link{https://www.openoffice.org/es/}{Open Office} o de \link{https://es.libreoffice.org/}{Libre Office}). **Ten cuidado** si abres ficheros de datos (csv o txt) del curso con Excel: es  fácil *romper* uno de esos ficheros inadvertidamente.
+
+## Git y GitHub
+
++ El material de las sesiones del curso está alojado en un \link{https://github.com/fernandosansegundo/MBDFME}{repositorio en GitHub}. Si conoces Git ya sabrás que puedes usarlo para hacer un fork o clonar ese repositorio. Desde luego también puedes descargar el contenido íntegro del repositorio como fichero zip. Y la página de la asignatura en Moodle contiene enlaces a los ficheros de ese repositorio. Pero si no estás familiarizado con Git quizá sea una buena idea usar esta asignatura para empezar a conocer una herramienta tan importante. 
+
++ Puedes empezar por los vídeos 14 y 15 de esta \link{https://www.youtube.com/watch?v=3hqGcRoEYUY&list=PLmTpraKlPXDSPbP2L8MYZoweGSzi9gNTr}{playlist} del curso Data Science Toolbox de la Universidad John Hopkins para Coursera. También puedes encontrar información en este \link{https://lab.github.com/githubtraining/introduction-to-github}{curso de Introducción a GitHub}. Pregunta a tu profesor si necesitas más ayuda para empezar.  
+
+## Python
+
++ Vamos a usar R de forma casi exclusiva en esta asignatura, pero es obligado señalar que Python es también extremadamente popular en este momento y es el lenguaje predominante en campos como el Aprendizaje Profundo (*Deep Learning*). En particular veremos en clase ejemplos que ilustran la forma de combinar ambos lemguajes en nuestro trabajo para aprovechar lo mejor de ambos. 
+
++ Si usas Mac o Linux ya tienes una instalación de Python en tu sistema. En Windows tienes que instalar una distribución de Python antes de usarla. **ATENCIÓN:** la instalación de Python es una fuente habitual de quebraderos de cabeza. Si dudas es *mucho mejor* que preguntes a tus profesores y te informes bien antes de hacer cambios que pueden dañar tu sistema gravemente. 
+
+
+
+
+
+
 
 # La interfaz de RStudio
 
@@ -232,9 +250,9 @@ include_graphics(figpath("Tut02-01.png"))
 
 ## RStudio Cloud 
 
-+ Los creadores de RStudio ponen a nuestra disposición una versión web gratuita de la aplicación, llamada \link{https://rstudio.cloud}{RStudio Cloud}, que puede seros de utilidad. Aunque se accede a través del navegador la interfaz es muy similar e incluso los atajos de teclado coinciden mayoritariamente. Esta opción puede resultar especialmente útil cuando se combina con el uso de repositorios en GitHub (por ejemplo para trabajar desde una tablet).
++ Los creadores de RStudio ponen a nuestra disposición una versión web gratuita de la aplicación, llamada \link{https://rstudio.cloud}{RStudio Cloud}, que puede ser muy útil. Aunque se accede a través del navegador la interfaz es muy similar e incluso los atajos de teclado coinciden mayoritariamente. Esta opción puede resultar especialmente útil cuando se combina con el uso de repositorios en GitHub; por ejemplo para trabajar desde una tablet como se está haciendo en la figura:
 
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "80%",  purl=FALSE}
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "50%",  purl=FALSE}
 include_graphics(figpath("01-RStudioCloud.jpeg"))
 ```
 
@@ -244,9 +262,19 @@ include_graphics(figpath("01-RStudioCloud.jpeg"))
 
 ## Jupyter
 
-+ Vamos a usar R de forma casi exclusiva en esta asignatura, pero es obligado señalar que Python es también extremadamente popular en este momento y es el lenguaje predominante en campos como el Aprendizaje Profundo (*Deep Learning*). En el trabajo con Python es frecuente utilizar como herramienta de desarrollo los \link{https://jupyter.org}{Jupyter Notebooks}. Los Notebooks son un tipo de documento que permite combinar código ejecutable con documentación (texto, figuras, ecuaciones, enlaces). El Notebook puede ejecutarse desde un navegador y los resultados de la ejecución del código se incorporan al propio documento.  Aunque los Notebooks de Jupyter se usan habitualmente como una herramienta para código Python, también ofrecen soporte para R y otros lenguajes. 
++ En el trabajo con Python es frecuente utilizar como herramienta de desarrollo los \link{https://jupyter.org}{Jupyter Notebooks}. Los Notebooks son un tipo de documento que permite combinar código ejecutable con documentación (texto, figuras, ecuaciones, enlaces). El Notebook puede ejecutarse desde un navegador y los resultados de la ejecución del código se incorporan al propio documento.  Aunque los Notebooks de Jupyter se usan habitualmente como una herramienta para código Python, también ofrecen soporte para R y otros lenguajes. 
 
 + Se pueden instalar los Jupyter Notebooks en local como parte de una instalación estándar de Python (\link{https://xkcd.com/1987/}{si es que tal cosa existe}). Pero también existen opciones de acceso remoto a servidores Jupyter públicos y gratuitos (hay asimismo servidores de pago). En particular, si disponéis de una cuenta en Google os recomiendo \link{https://colab.research.google.com}{Google Colab }, que permite incluso acceder a GPUs para aplicaciones de Deep Learning. Además usando \link{colab.fan/r}{este enlace} podéis utilizar Google Colab para crear Notebooks del lenguaje R.  
+
+ 
+---
+ 
+  + La figura muestra un Jupyter Notebook abierto en Google Colab.
+    ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "60%",  purl=FALSE}
+    include_graphics(figpath("01-JupyterGoogleColab.png"))
+    ```
+    Fíjate en la combinación de texto, código y resultados de la ejecución del código (en este caso figuras). Este ejemplo forma parte del \link{https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/Index.ipynb}{Python Data Science Handbook} de Jake VanderPlas, que está disponible gratuitamente en ese enlace.
+
  
 # Variables y asignaciones en R.
 
