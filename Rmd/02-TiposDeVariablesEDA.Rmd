@@ -1,7 +1,7 @@
 ---
 title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
 author: "Fernando San Segundo"
-date: 'Curso 2019-20. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
+date: 'Curso 2020-21. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
 subtitle: "Sesión 2: Tipos de Variables y Análisis Exploratorio"
 fontsize: 9pt
 output:
@@ -29,6 +29,15 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   x <- def.chunk.hook(x, options)
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
+
+if (grepl(pattern = "cloud", getwd())){
+  homeDir = "/cloud/project/"
+  } else {
+  homeDir = "../"
+  }
+figpath = function(figname){
+  paste0(homeDir,"fig/", figname)
+} 
 ```
 
 # Trabajando con ficheros de datos.
@@ -36,7 +45,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 ---
 
 ```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "60%", purl=FALSE}
-include_graphics("../fig/02-fig00-XKCDfileExtensions.png")
+include_graphics(figpath("../fig/02-fig00-XKCDfileExtensions.png"))
 ```
 
 
@@ -61,7 +70,7 @@ ${ }$
 
 + Un fichero csv es un fichero de *texto plano* que contiene una tabla de datos. Cada fila del fichero contiene una fila de la tabla y, dentro de esa fila, los elementos correspondientes a cada columna de la tabla se separan mediante comas o espacios o tabuladores, etc. La siguiente figura muestra uno de esos ficheros abierto en el *Bloc de Notas* de Windows y la tabla correspondiente (se muestran las primeras filas).
   ```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "80%", purl=FALSE}
-  include_graphics("../fig/02-fig01-FicherosCsv.png")
+  include_graphics(figpath("../fig/02-fig01-FicherosCsv.png"))
   # clase = read.table("../datos/sesion02-ejemploCsv.csv", header = TRUE, sep=",")
   ```
 
@@ -230,7 +239,7 @@ ${ }$
 + **Ejercicio:** lee el fichero a una tabla de R llamada fhs (de Framingham Heart Study). Explora esa tabla con las funciones `str` y `glimpse`. Piensa en qué tipo de información contiene cada variable de la tabla. Lee también la documentación sobre `mpg` en [\textcolor{blue}{{este enlace}}](https://ggplot2.tidyverse.org/reference/mpg.html).
 ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"}
 library(tidyverse)
-include_graphics("../fig/02-fig02-fhs.png")
+include_graphics(figpath("../fig/02-fig02-fhs.png"))
 fhs = read_csv("../datos/framingham.csv")
 ```
 
@@ -476,7 +485,7 @@ par(mfrow = c(1, 1))
   
 + Por su parte, La distribución de una variable continua se representa mediante una curva de densidad. Y entonces la probabilidad de que un valor elegido al azar caiga en el intervalo $[a, b]$ se obtiene calculando (con una integral) el área bajo la curva desde $a$ hasta $b$
   ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "90%", purl=FALSE}
-  include_graphics("../fig/02-fig04-ProbabilidadIntervaloVariableDiscreta.png")
+  include_graphics(figpath("../fig/02-fig04-ProbabilidadIntervaloVariableDiscreta.png"))
   ```
 
 + Don't panic! No hace falta que sepas calcular integrales. Pero es importante entender que el cálculo de probabilidades está estrechamente relacionado con el cálculo de áreas.
@@ -630,7 +639,7 @@ $$
 
 + El *boxplot* o diagrama de caja y bigotes (box and whiskers) es una forma de representar gráficamente estas medidas de posición. La estructura de un boxplot es la que se describe en esta figura:
 ```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "60%", purl=FALSE}
-include_graphics("../fig/02-fig05-BoxPlotEstructura.png")
+include_graphics(figpath("../fig/02-fig05-BoxPlotEstructura.png"))
 ```
 
 ## Boxplots con R básico.
