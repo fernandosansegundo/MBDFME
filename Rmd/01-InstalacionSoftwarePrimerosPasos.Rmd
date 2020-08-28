@@ -434,9 +434,7 @@ include_graphics(figpath("01-fig15-RStudio-ElegirWorkDir.png"))
 
 ## Tablas (Data Frames)
 
-- Junto con los vectores, las tablas y listas constituyen las estructuras de datos básicos de R. Vamos a ver ahora el segundo de estos tipos de estructuras.
-
-- El punto de partida de nuestros análisis será a menudo una tabla de datos. Pronto aprenderemos a abrir ficheros externos de datos. Pero para empezar vamos a usar una tabla de datos de ejemplo que R trae incorporada al instalarlo. 
+- Junto con los vectores, las tablas y listas constituyen las estructuras de datos básicos de R. Vamos a ver ahora el segundo de estos tipos de estructuras. En el sistema base de R se denominan `data.frames`. Las tablas de datos son muchas veces el punto de partida de nuestros análisis. Pronto aprenderemos a abrir tablas almacenadas en ficheros externos de datos y a usar funciones relacionadas del tidyverse. Pero para empezar vamos a usar una tabla de datos de ejemplo que R trae incorporada al instalarlo. 
 
 - Ejecuta este código:
   ```{r size="small", echo=-1}
@@ -446,7 +444,7 @@ include_graphics(figpath("01-fig15-RStudio-ElegirWorkDir.png"))
         
 - La tabla contiene datos sobre 150 flores de 3 especies de iris. La función `head` hace que R solo nos muestre el encabezamiento y las primeras 6 filas de la tabla (con `tail` verías las 6 últimas). Prueba a ejecutar `head(iris, 12)`.
     
-- Si quieres ver la tabla completa usa `View(iris)`.  La tabla se abrirá en otra pestaña del editor de RStudio.
+- Si ejecutas `View(iris)`  la tabla completa se abrirá en otra pestaña del editor.
   
 ---
 

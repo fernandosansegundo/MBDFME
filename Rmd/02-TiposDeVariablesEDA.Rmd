@@ -42,18 +42,7 @@ figpath = function(figname){
 
 # Trabajando con ficheros de datos.
 
----
-
-```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "60%", purl=FALSE}
-include_graphics(figpath("../fig/02-fig00-XKCDfileExtensions.png"))
-```
-
-
-[\textcolor{blue}{{XKCD}}](https://xkcd.com/1301/)
-
----
-
-+ En la primera sesión hemos usado tablas de datos incorporadas en R (o en librerías). Pero para nuestro trabajo necesitaremos muchas veces importar datos procedentes de fuentes externas. Hoy aprenderemos a usar datos almacenados en:
++ En la primera sesión hemos usado tablas de datos incorporadas en R (o en librerías). Pero para nuestro trabajo necesitaremos normalmente importar datos procedentes de fuentes externas. Hoy aprenderemos a usar datos almacenados en:
   - ficheros de texto
   - ficheros Excel
   - ficheros de otros programas estadísticos (SAS, SPSS, etc.)
@@ -62,7 +51,7 @@ Vamos a ver como leer estos ficheros para usar los datos en R y también veremos
 
 ${ }$  
     
-+ En otro momento del curso hablaremos de formas alternativas de acceder a datos no almacenados en ficheros (APIs, bases de datos tipo SQL, Web Scrapping, etc.)  
++ En otro momento del curso hablaremos de formas alternativas de acceder a datos no almacenados en ficheros (URLs, APIs, bases de datos tipo SQL, Web Scrapping, etc.)  
 
 ## Ficheros de tipo csv
 
@@ -84,12 +73,12 @@ ${ }$
 
 + Empieza abriendo ese fichero en un editor de texto (tipo *Bloc de Notas*) para hacer una exploración preliminar. 
 
-+ Para abrir ese fichero con R vamos a empezar usando:
++ Para abrir ese fichero con R vamos a empezar usando una función del sistema básico de R:
   ```{r size="small"}
   movies = read.csv(file = "../datos/movies.csv", header = TRUE)
   ```
   
-+ El resultado de este comando es un data.frame de R. Las opciones de la función son:
++ Enseguida repetiremos esta operación con funciones del tidyverse. Pero hemos usado `read.table` para insistir en que el resultado de este comando es un data.frame de R. Las opciones de la función son:
 
   - *file*: el nombre y directorio del fichero relativo (a la carpeta de trabajo).
   - *header*: que puede ser TRUE o FALSE, para indicar si la primera fila del csv contiene los nombres de las variables.
@@ -131,11 +120,13 @@ ${ }$
 
 ## Usando readr para leer y escribir ficheros csv.
 
-+ La librería `readr`, que forma parte del tidyverse, incluye la función `read_csv`, que es muy fácil de usar y muy rápida para ficheros grandes. Explora esta tabla como hemos hecho con la primera versión.  
++ La librería `readr`, que forma parte del tidyverse, incluye la función `read_csv`, que es muy fácil de usar y más rápida que `read.table` para ficheros grandes. Explora esta tabla como hemos hecho con la primera versión.  
   ```{r size="small", message=FALSE, warning=FALSE}
   library(tidyverse)
   movies2 = read_csv("../datos/movies.csv")
-  ```
+  ```  
+
++ **Ejercicio:** Ejecuta `str(movies2)`. ¿Qué tipo de objeto usa el tidyverse para almacenar tablas en lugar del `data.frame` del R básico?
 
 + También puedes usar readr para crear ficheros csv a partir de una tabla (por ejemplo un data.frame) en R. El siguiente código genera primero una tabla con tres variables A, B y C y a continuación guarda esa tabla a un fichero csv. Asegúrate de abrir el fichero resultante en un editor de texto para ver el resultado.
   ```{r echo=-1, results='hold', size="small"}
@@ -153,21 +144,22 @@ ${ }$
 
 + Las hojas de cálculo y en particular Excel son una herramienta muy utilizada. Por eso no es infrecuente encontrarse con ficheros de datos que se han almacenado en alguno de los formatos propios de diferentes versiones de Excel. 
 
-+ Descarga para usar como ejemplo [este fichero](http://users.stat.ufl.edu/~winner/data/train_acc_2010.xls) en formato 
++ Descarga para usar como ejemplo \link{http://users.stat.ufl.edu/~winner/data/train_acc_2010.xls}{este fichero} en formato 
 xls, que contiene datos sobre accidentes ferroviarios ocurridos en 2010 en los Estados Unidos. Puedes encontrar más detalles sobre el fichero en [\textcolor{blue}{{este documento auxiliar}}](http://users.stat.ufl.edu/~winner/data/train_acc_2010.txt).
 
-+ Para leer esos datos vamos a usar la librería `readxl` de esta forma
++ Para leer esos datos vamos a usar la librería `readxl` (del tidyverse) de esta forma
   ```{r}
   library(readxl)
   accidentes = read_excel("../datos/train_acc_2010.xls")
   ```
+  Puedes leer más sobre `readxl` \link{https://readxl.tidyverse.org}{aquí}.
 
 + **Ejercicio:** exporta esta tabla de R a un fichero en formato csv llamado `accidentes.csv`. 
 
 
 ## Ficheros de otros programas estadísticos.
 
-+ Aunque existen muchos otros programas estadísticos, aquí solo vamos a ver como se usa la libraría `haven` del tidyverse para importar en R ficheros de datos de SPSS, Stata y SAS. Si necesitas importar datos almacenados en un formato propio de otro programa lo mejor es buscar en Internet algo como *import from ... to R*. Recuerda empezar cargando la librería. 
++ Aunque existen muchos otros programas estadísticos, aquí solo vamos a ver como se usa la libraría `haven` del tidyverse para importar en R ficheros de datos de SPSS, Stata y SAS. Si necesitas importar datos almacenados en un formato propio de otro programa lo mejor es buscar en Internet algo como *import from ... to R*. Recuerda empezar cargando \link{https://haven.tidyverse.org}{otra librería del tidyverse}. 
   ```{r}
   library(haven)
   ```
@@ -226,6 +218,14 @@ ${ }$
   head(planetas, 3)
   ```
 
+---
+
+```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "60%", purl=FALSE}
+include_graphics(figpath("../fig/02-fig00-XKCDfileExtensions.png"))
+```
+
+
+[\textcolor{blue}{{XKCD}}](https://xkcd.com/1301/)
   
 # Tipos de Variables. 
 
@@ -259,7 +259,7 @@ fhs = read_csv("../datos/framingham.csv")
 
 + Una variable cuantitativa es *discreta* si se mide en una escala de unidades enteras (paso a paso, los valores se miden *contando*). Y la variable *continua* si la escala de medida se puede dividir arbitrariamente (se usan valores decimales). Pero como veremos en ejemplos, la división discreto/continuo también es sutil y se refiere en realidad a la forma en la que *usamos* la variable.
 
-+ Podría pensarse entonces que las variables cuantitativas son las variables numéricas y las cualitativas las no numéricas. La diferencia es, en realidad, un poco más sutil. Una variable es *cualitativa (nominal)* o un *factor (no ordenado)* cuando *solo* se utiliza para 	  establecer categorías, para *clasificar*. Podemos *representar* los valores de una de estas variables con números, pero el valor numérico concreto es arbitrario, es una *etiqueta*.
++ Podría pensarse entonces que las variables cuantitativas son las variables numéricas y las cualitativas las no numéricas. La diferencia es, en realidad, un poco más sutil. Una variable es *cualitativa (nominal)* cuando *solo* se utiliza para establecer categorías, para *clasificar*. Podemos *representar* los valores de una de estas variables con números, pero el valor numérico concreto es arbitrario, es una *etiqueta*. Las variables cualitativas nominales también se denominan *factores*
 
 + **Ejercicio:** Examina las variables  `cty`, `disp`, `class` y `cyl` de la tabla `mpg`. ¿De qué tipo crees que es cada variable?
 
@@ -294,11 +294,12 @@ fhs = read_csv("../datos/framingham.csv")
   signif(prop.table(table(mpg$cty)), 2)
   ```
 
-+ También se puede usar `dplyr` aunque en este caso la solución es más complicada que el R básico.
-  ```{r eval = FALSE, size="small"}
++ Se puede usar `dplyr` pero en este caso es más complicado que con el R básico.
+```{r eval = FALSE, size="small"}
       mpg %>% 
         count(cty) %>%
-          mutate(cty, freq = n / sum(n), n=NULL) # NULL aquí es como un select
+          mutate(cty, relFreq = prop.table(n), n=NULL) 
+          # NULL aquí elimina la columna n
   ```
 
 ---
@@ -351,10 +352,7 @@ fhs = read_csv("../datos/framingham.csv")
   table(cholLevels)
   ```
   
-
-
-
-+ En cualquier caso si una variable discreta solo toma cinco o menos valores en general es beneficioso pensar en ella como un *factor ordenado*, que discutiremos más adelante. 
++ En cualquier caso si una variable cuantitativa discreta solo toma cinco o menos valores en general es beneficioso pensar en ella como un *factor ordenado*, que discutiremos más adelante. 
 
 
 ## Histogramas con R básico
@@ -412,7 +410,8 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
   ```
   Este fenómeno es una manifestación más de esa separación borrosa que existe entre las variables discretas con muchos valores (el histograma es una representación discreta) y las variables continuas (la curva de densidad es una representación continua).  
 
-
++ **Ejercicio:** ¿por qué usamos `probability = TRUE` al dibujar el histograma?
+  
 # Distribuciones.
 
 ---
@@ -567,7 +566,7 @@ $$
   quantile(mpg$cty, probs = 0.43)
   ```
 
-+ El *recorrido* (del inglés *range*) de un conjunto de valores es el intervalo que va del valor mínimo al máximo.   
++ El *recorrido* (del inglés *range*) de un conjunto de valores es el intervalo que va del valor mínimo al máximo. Cuidado: en español se usa a menudo erróneamente *rango*. Pero los rangos en Estadística son otra cosa (que corresponde a *rank* en inglés).
 
 + Una manera sencilla de obtener varias de estas medidas de posición es usando `summary`
   ```{r size="small"}
@@ -795,9 +794,11 @@ puedes comprobar que esto es lo mismo que:
   ```
   Aproximadamente el `r signif(100 * mean(fhs$male), 2)`% de los pacientes son hombres. 
 
-# Cadenas de caracteres (textos).
+# Comentarios finales.
 
 ---
+
+## Cadenas de caracteres (textos).
 
 + Esta sesión ha tratado sobre los tipos de datos habituales en Estadística Clásica y que siguen siendo la base para la mayor parte de nuestro trabajo. Pero no queremos acabar sin mencionar que en los últimos años se ha producido una explosión en el tipo y volumen de datos que son objeto de análisis. 
 
@@ -809,6 +810,19 @@ puedes comprobar que esto es lo mismo que:
   y muchas otras tecnologías actuales, conectadas con el Análisis del Lenguaje Natural (NLP) y la Inteligencia Artificial. 
   
 + R proporciona muchas herramientas para adentrarse en este tipo de problemas, e irás conociendo algunas en otras asignaturas. Aquí simplemente queremos mencionar que la librería [\textcolor{blue}{{stringr}}](https://stringr.tidyverse.org), que es otro componente del *tidyverse*, es una de las mejores herramientas para iniciarse en el manejo de textos con R. Veremos ejemplos más adelante.
+
+## Rmarkdown para la creación de documentos.
+
++ En las sesiones del curso veremos algunos ejemplos sencillos para que puedas iniciarte en el manejo de Rmarkdown.
+
++ Rmarkdown, creado por Yihui Xie, es una herramienta muy general para la creación de documentos, en especial documentos relacionados con el Análisis de Datos. A partir de los ficheros escritos con Rmarkdown se pueden obtener fácilmente salidas en formato pdf o HTML, pero también presentaciones, artículos e informes técnicos, entradas de blog, libros, dashboards con Shiny y la lista sigue creciendo. Aprovecharemos las secciones finales de nuestras sesiones para presentar algunas de estas posibilidades.
+
++ Hay dos fuentes de información online básicas para adentrarse en las posibilidades de RMarkdown:  
+  Del propio Yihui Xie: \link{https://bookdown.org/yihui/rmarkdown/}{R Markdown: The Definitive Guide.}  
+  De RStudio: \link{https://rmarkdown.rstudio.com/lesson-1.html}{R Markdown: Get Started.}  
+
++ Recomendamos empezar leyendo una \link{http://www.unavarra.es/personal/tgoicoa/ESTADISTICA_RMarkdown_tomas/basicRmarkdown/index.html}{introducción recciente a RMarkdon} de T. Goicoa (Univ. Pública de Navarra). 
+
 
 ---
 

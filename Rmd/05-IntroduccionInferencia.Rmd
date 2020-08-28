@@ -1568,17 +1568,6 @@ repeat {
 ```
 
 
-## Rmarkdown para la creación de documentos.
-
-+ En las sesiones del curso veremos algunos ejemplos sencillos para que puedas iniciarte en el manejo de Rmarkdown.
-
-+ Rmarkdown, creado por Yihui Xie, es una herramienta muy general para la creación de documentos, en especial documentos relacionados con el Análisis de Datos. A partir de los ficheros escritos con Rmarkdown se pueden obtener fácilmente salidas en formato pdf o HTML, pero también presentaciones, artículos e informes técnicos, entradas de blog, libros, dashboards con Shiny y la lista sigue creciendo. 
-
-+ Hay dos fuentes de información online básicas para adentrarse en las posibilidades de RMarkdown:  
-  Del propio Yihui Xie: \link{https://bookdown.org/yihui/rmarkdown/}{R Markdown: The Definitive Guide.}  
-  De RStudio: \link{https://rmarkdown.rstudio.com/lesson-1.html}{R Markdown: Get Started.}  
-
-+ Recomendamos empezar leyendo una \link{http://www.unavarra.es/personal/tgoicoa/ESTADISTICA_RMarkdown_tomas/basicRmarkdown/index.html}{introducción recciente a RMarkdon} de T. Goicoa (Univ. Pública de Navarra). 
 
 ## Referencias para la sesión
 
