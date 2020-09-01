@@ -1,0 +1,438 @@
+---
+title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
+author: "Fernando San Segundo"
+date: 'Curso 2020-21. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
+subtitle: "Sesión 2: Tipos de Variables y Análisis Exploratorio"
+fontsize: 9pt
+output:
+  beamer_presentation:
+    toc: true
+    keep_tex: false
+    includes:
+      #after_body: afterbody.txt
+      in_header: beamer-header-simple.txt
+    colortheme: seahorse
+    incremental: no
+    slide_level: 2
+    theme: Boadilla
+#classoption: "handout"    
+bibliography: MBDFME.bib
+csl: ams-review.csl
+---
+
+
+```{r set-options, echo = FALSE, purl=FALSE}
+options(width = 60)
+library(knitr)
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+
+if (grepl(pattern = "cloud", getwd())){
+  homeDir = "/cloud/project/"
+  } else {
+  homeDir = "../"
+  }
+figpath = function(figname){
+  paste0(homeDir,"fig/", figname)
+} 
+```
+
+# Trabajando con ficheros de datos.
+
++ En la primera sesión hemos usado tablas de datos incorporadas en R (o en librerías). Pero para nuestro trabajo necesitaremos normalmente importar datos procedentes de fuentes externas. Hoy aprenderemos a usar datos almacenados en:
+  - ficheros de texto
+  - ficheros Excel
+  - ficheros de otros programas estadísticos (SAS, SPSS, etc.)
+  - ficheros RData propios de R
+Vamos a ver como leer estos ficheros para usar los datos en R y también veremos como guardar datos desde R en algunos de esos formatos. 
+
+${ }$  
+    
++ En otro momento del curso hablaremos de formas alternativas de acceder a datos no almacenados en ficheros (URLs, APIs, bases de datos tipo SQL, Web Scrapping, etc.)  
+
+## Ficheros de tipo csv
+
++ El nombre csv proviene de *comma separated values*, valores separados por comas, aunque vamos a ver enseguida que no hay que tomarse el nombre al pie de la letra.
+
++ Un fichero csv es un fichero de *texto plano* que contiene una tabla de datos. Cada fila del fichero contiene una fila de la tabla y, dentro de esa fila, los elementos correspondientes a cada columna de la tabla se separan mediante comas o espacios o tabuladores, etc. La siguiente figura muestra uno de esos ficheros abierto en el *Bloc de Notas* de Windows y la tabla correspondiente (se muestran las primeras filas).
+  ```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "80%", purl=FALSE}
+  include_graphics(figpath("../fig/02-fig01-FicherosCsv.png"))
+  # clase = read.table("../datos/sesion02-ejemploCsv.csv", header = TRUE, sep=",")
+  ```
+
+---
+
+## Ficheros csv con R.
+
++ Vamos a empezar descargando uno de estos ficheros, llamado `movies.csv` que contiene datos sobre las  [\textcolor{blue}{{películas más taquilleras  entre 2007 y 2011}}](https://gist.githubusercontent.com/tiangechen/b68782efa49a16edaf07dc2cdaa855ea/raw/0c794a9717f18b094eabab2cd6a6b9a226903577/movies.csv). 
+
++ Recuerda que debes indicarle a RStudio el *Directorio de Trabajo* y que el fichero descargado debe estar almacenado en la subcarpeta *datos* de ese directorio de trabajo.
+
++ Empieza abriendo ese fichero en un editor de texto (tipo *Bloc de Notas*) para hacer una exploración preliminar. 
+
++ Para abrir ese fichero con R vamos a empezar usando una función del sistema básico de R:
+  ```{r size="small"}
+  movies = read.csv(file = "../datos/movies.csv", header = TRUE)
+  ```
+  
++ Enseguida repetiremos esta operación con funciones del tidyverse. Pero hemos usado `read.table` para insistir en que el resultado de este comando es un data.frame de R. Las opciones de la función son:
+
+  - *file*: el nombre y directorio del fichero relativo (a la carpeta de trabajo).
+  - *header*: que puede ser TRUE o FALSE, para indicar si la primera fila del csv contiene los nombres de las variables.
+
+  Veremos más adelante otras opciones importantes de esta función y funciones similares.
+
+---
+
+### Repaso de operaciones con data.frames.
+
++ Recuerda que puedes seleccionar por filas con instrucciones como:
+  ```{r size="tiny"}
+  movies[7, ]
+  ```  
+  ${ }$
+
++ Y por columnas de forma similar o también por nombre de variable usando `$`:
+  ```{r size="scriptsize"}
+  tail(movies$Year, 20) # se muestran las 20 últimas
+  ```
+  ${ }$
+
++ Recuerda asimismo que puedes seleccionar por condiciones. Por ejemplo para ver el género de las películas de 2010 con:
+  ```{r  eval = FALSE}
+  movies$Genre[movies$Year == 2010]
+  ```
+  También sabemos usar `dplyr` para seleccionar:
+  ```{r size="scriptsize", echo=-1, message=FALSE}
+  library(tidyverse)
+  movies %>% 
+    filter(Year == 2010) %>% 
+    select(Genre) %>% 
+    .[1:20, ]     # ¿Qué hace esta última operación?
+  ```
+  ${ }$
+
++ **Ejercicio:**  ¿Cuál es la película más taquillera? ¿Cuál es el género de esa película?  
+
+
+## Usando readr para leer y escribir ficheros csv.
+
++ La librería `readr`, que forma parte del tidyverse, incluye la función `read_csv`, que es muy fácil de usar y más rápida que `read.table` para ficheros grandes. Explora esta tabla como hemos hecho con la primera versión.  
+  ```{r size="small", message=FALSE, warning=FALSE}
+  library(tidyverse)
+  movies2 = read_csv("../datos/movies.csv")
+  ```  
+
++ **Ejercicio:** Ejecuta `str(movies2)`. ¿Qué tipo de objeto usa el tidyverse para almacenar tablas en lugar del `data.frame` del R básico?
+
++ También puedes usar readr para crear ficheros csv a partir de una tabla (por ejemplo un data.frame) en R. El siguiente código genera primero una tabla con tres variables A, B y C y a continuación guarda esa tabla a un fichero csv. Asegúrate de abrir el fichero resultante en un editor de texto para ver el resultado.
+  ```{r echo=-1, results='hold', size="small"}
+  set.seed(2019)
+  datos = 
+    data.frame(A = sample(1:100, 10), B = sample(LETTERS, 10), C = rnorm(10))
+  head(datos, 2)
+  write_csv(datos, path = "../datos/sesion02-guardarCsv.csv")
+  ```
+  
+
++ Las funciones `write.table` y `write.csv` de R funcionan de manera parecida. Veremos algún ejemplo de uso más adelante.
+
+## Ficheros Excel
+
++ Las hojas de cálculo y en particular Excel son una herramienta muy utilizada. Por eso no es infrecuente encontrarse con ficheros de datos que se han almacenado en alguno de los formatos propios de diferentes versiones de Excel. 
+
++ Descarga para usar como ejemplo \link{http://users.stat.ufl.edu/~winner/data/train_acc_2010.xls}{este fichero} en formato 
+xls, que contiene datos sobre accidentes ferroviarios ocurridos en 2010 en los Estados Unidos. Puedes encontrar más detalles sobre el fichero en [\textcolor{blue}{{este documento auxiliar}}](http://users.stat.ufl.edu/~winner/data/train_acc_2010.txt).
+
++ Para leer esos datos vamos a usar la librería `readxl` (del tidyverse) de esta forma
+  ```{r}
+  library(readxl)
+  accidentes = read_excel("../datos/train_acc_2010.xls")
+  ```
+  Puedes leer más sobre `readxl` \link{https://readxl.tidyverse.org}{aquí}.
+
++ **Ejercicio:** exporta esta tabla de R a un fichero en formato csv llamado `accidentes.csv`. 
+
+
+## Ficheros de otros programas estadísticos.
+
++ Aunque existen muchos otros programas estadísticos, aquí solo vamos a ver como se usa la libraría `haven` del tidyverse para importar en R ficheros de datos de SPSS, Stata y SAS. Si necesitas importar datos almacenados en un formato propio de otro programa lo mejor es buscar en Internet algo como *import from ... to R*. Recuerda empezar cargando \link{https://haven.tidyverse.org}{otra librería del tidyverse}. 
+  ```{r}
+  library(haven)
+  ```
+
++ También recomendamos consultar el libro [@Boehmke2016], especialmente la Parte IV para completar la introducción a la importación de datos que hemos visto aquí. 
+
+##### Fichero SAV de SPSS
+
++ Descarga el fichero `CH10_Planet_distances_and_y.SAV` a la carpeta datos desde [\textcolor{blue}{{este enlace}}](http://media.pearsoncmg.com/aw/aw_deveaux_stats_2/activstats/spss/CH10_Planet_distances_and_y.SAV) y ábrelo con:
+  ```{r size="scriptsize", echo=-1}
+  options(width=190)
+  library(haven)
+  planetas = read_spss("../datos/CH10_Planet_distances_and_y.SAV")
+  head(planetas, 3) # Veamos las tres primeras filas.
+  ```
+
+---
+
+##### Ficheros sas7bdat de SAS y dta de Stata
+
++ Usa [\textcolor{blue}{{este enlace}}](http://www.principlesofeconometrics.com/sas/transport.sas7bdat) para descargar el fichero `transport.sas7bdat` a la carpeta datos y ábrelo con:
+  ```{r size="scriptsize", echo=-1}
+  options(width=150)
+  transport = read_sas("../datos/transport.sas7bdat")
+  head(transport, 3) 
+  ```
+
+${ }$  
+
++ Procede de forma análoga con [\textcolor{blue}{{este fichero}}](http://www.stata-press.com/data/r8/auto2.dta)  llamado `auto2.dta` en formato de Stata   
+  ```{r size="tiny"}
+  auto2 = read_dta("../datos/auto2.dta")
+  head(auto2, 3) 
+  ```
+  
++ Guarda ambos ficheros en formato csv en la carpeta datos, los usaremos después como ejemplos.
+ 
+####
+
++ Como ves todos los casos se gestionan de forma muy parecida. En ejemplos posteriores veremos otras situaciones; como tratar por ejemplo con ficheros comprimidos tipo zip.
+
+## Ficheros RData.
+
++ R también posee su propio formato de almacenamiento de objetos, usando ficheros tipo RData. Estos ficheros pueden contener varias tablas de datos, variables y otros objetos de R. Por ejemplo podemos guardar la tabla de accidentes ferroviarios y la de planetas que hemos usado antes mediante:
+  ```{r size="small"}
+  save("accidentes", "planetas", file = "../datos/accidentes_planetas.RData")
+  ```
+
++ Fíjate en que hemos añadido la extensión RData manualmente, porque R no lo hace por defecto. Ahora vamos a eliminar por ejemplo la tabla planetas con:
+  ```{r}
+  rm(planetas)
+  ```
+  Comprueba mirando el panel de entorno que en efecto la tabla ha desaparecido y si intentas usarla R lanzará un mensaje de error. Y ahora para recuperar esos datos usa:
+  ```{r size="scriptsize"}
+  load(file = "../datos/accidentes_planetas.RData")
+  head(planetas, 3)
+  ```
+
+---
+
+```{r echo = FALSE, comment=NULL, fig.align='center', out.width = "60%", purl=FALSE}
+include_graphics(figpath("../fig/02-fig00-XKCDfileExtensions.png"))
+```
+
+
+[\textcolor{blue}{{XKCD}}](https://xkcd.com/1301/)
+  
+# Tipos de Variables. 
+
+---
+
++ Los tablas de datos que hemos leído en los ficheros de la sección previa contienen variables de distintos tipos: números enteros, con decimales, fechas, variables binarias de tipo sí/no, hombre/mujer, ubicaciones, etc. Existen muchos tipos de datos distintos, que permiten distintas operaciones con ellos. 
+
++ En las próximas secciones vamos a conocer las categorías básicas de datos y las formas más adecuadas de describirlos. Como ejemplos iniciales vamos a usar la tabla `mpg` contenida en la librería `tidyverse` y también una tabla con datos relativos a un estudio sobre enfermedades coronarias llevado a cabo en Framingham (UK). Puedes descargar el fichero csv desde [\textcolor{blue}{{este enlace}}](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/framingham.csv) y leer más detalles sobre el estudio [\textcolor{blue}{{aquí}}.](https://biolincc.nhlbi.nih.gov/media/teachingstudies/FHS_Teaching_Longitudinal_Data_Documentation.pdf?link_time=2019-08-26_14:42:24.487245).
+
++ **Ejercicio:** lee el fichero a una tabla de R llamada fhs (de Framingham Heart Study). Explora esa tabla con las funciones `str` y `glimpse`. Piensa en qué tipo de información contiene cada variable de la tabla. Lee también la documentación sobre `mpg` en [\textcolor{blue}{{este enlace}}](https://ggplot2.tidyverse.org/reference/mpg.html).
+```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"}
+library(tidyverse)
+include_graphics(figpath("../fig/02-fig02-fhs.png"))
+fhs = read_csv("../datos/framingham.csv")
+```
+
+## Clasificación inicial.
+
++ Los datos que han ido apareciendo en nuestros ejemplos se pueden clasificar en:
+
+  - **Datos Cuantitativos (Numéricos):** que a su vez se dividen en **discretos** y **continuos**.  
+  - **Datos Cualitativos (Factores)**: que pueden ser o no ordenados.
+
++ Esta es la clasificación tradicional en muchos cursos de introducción a la Estadística y enseguida vamos a ver ejemplos para entender la diferencia entre estos tipos de datos, Pero queremos subrayar que existen muchos tipos de datos estructurados de uso frecuente que superan esta clasificación tradicional (fechas, imágenes, ficheros de audio o vídeo). 
++ Primero vamos a aprender a analizar variables individuales, por separado, antes de preguntarnos por las relaciones entre ellas. 
+
+---
+
++ Una *variable cuantitativa* (discreta o continua) es una variable que toma valores numéricos que *además* se han medido en alguna escala que permite interpretarlos y hacer operaciones aritméticas (sumas, productos, etc) con ellos. 
+
++ Una variable cuantitativa es *discreta* si se mide en una escala de unidades enteras (paso a paso, los valores se miden *contando*). Y la variable *continua* si la escala de medida se puede dividir arbitrariamente (se usan valores decimales). Pero como veremos en ejemplos, la división discreto/continuo también es sutil y se refiere en realidad a la forma en la que *usamos* la variable.
+
++ Podría pensarse entonces que las variables cuantitativas son las variables numéricas y las cualitativas las no numéricas. La diferencia es, en realidad, un poco más sutil. Una variable es *cualitativa (nominal)* cuando *solo* se utiliza para establecer categorías, para *clasificar*. Podemos *representar* los valores de una de estas variables con números, pero el valor numérico concreto es arbitrario, es una *etiqueta*. Las variables cualitativas nominales también se denominan *factores*
+
++ **Ejercicio:** Examina las variables  `cty`, `disp`, `class` y `cyl` de la tabla `mpg`. ¿De qué tipo crees que es cada variable?
+
+
+# Variables cuantitativas discretas.
+
+---
+
+## Tablas de frecuencia absolutas y relativas.
+
++ La variable `cty` de `mpg` el número de millas por galón que el coche recorre en ciclo urbano. Fíjate en que los valores son un número entero de millas. En principio no hay nada que impida dar esos valores con decimales. Pero no es eso lo que se *ha decidido* hacer aquí, sino que se trata como una variable discreta. 
+
++ El primer paso con una variable discreta como esta es obtener una tabla de frecuencias (absolutas), que nos dirá qué valores toma la variable y cuántas veces toma cada valor. Usando `table` 
+  ```{r comment=NULL, echo=-1, size="small"}
+  options(width = 100)
+  table(mpg$cty)
+  ```
+ 
+ + También se puede usar la función `count` de dplyr así (se omite el resultado):
+    ```{r eval = FALSE}
+    mpg %>%
+      count(cty)
+    ```
+
+## Tabla de frecuencias relativas.
+
++ A menudo, y especialmente cuando se usan para comparaciones, nos interesan más saber la fracción del total que corresponde a cada uno de los valores de una variable discreta. Cuando esa fracciones se expresan como *tanto por uno* obtenemos las frecuencias relativas, que es fácil convertir en porcentajes.
+
++ Para obtener una tabla de frecuencias relativas usando R básico hacemos (hemos usado la función `signif` para controlar el número de cifras significativas y mejorar la presentación):
+  ```{r echo = -1, size="small"}
+  options(width = 70)
+  signif(prop.table(table(mpg$cty)), 2)
+  ```
+
++ Se puede usar `dplyr` pero en este caso es más complicado que con el R básico.
+```{r eval = FALSE, size="small"}
+      mpg %>% 
+        count(cty) %>%
+          mutate(cty, relFreq = prop.table(n), n=NULL) 
+          # NULL aquí elimina la columna n
+  ```
+
+---
+
+### Propiedades de las frecuencias relativas.
+
++ Las frecuencias relativas suman siempre 1,
+  ```{r}
+  sum(prop.table(table(mpg$cty)))
+  ```
+
++ Además las frecuencias relativas están relacionadas con la idea de *probabilidad empírica*. Es decir, si elegimos aleatoriamente un valor de la variable `cty` y repetimos esa elección muchas veces, la probabilidad de cada uno de los distintos valores es la frecuencia relativa que hemos calculado. 
+
+
+### Frecuencias acumuladas.
+
++ Las *frecuencias acumuladas* se usan con variables discretas para responder a la pregunta *"¿cuántos valores hay que sean menores o iguales que ...?"* En R se obtienen con:
+  ```{r echo=-1}
+  options(width = 60)
+  cumsum(table(mpg$cty))
+  ```
+  que nos dice, por ejemplo, que en la tabla hay `r cumsum(table(mpg$cty))[7]` valores menores o iguales que `r (sort(unique(mpg$cty)))[7]`.
+
+# Variables cuantitativas continuas,
+
+## Discreto vs continuo.
+
++ Las tablas de frecuencias por valores no son útiles cuando hay muchos valores distintos. La tabla de frecuencias de `cty` ya era un poco excesiva. Pero  si tratamos de calcular una tabla de frecuencia para la variable `age` de la tabla `fhs` 
+  ```{r eval = FALSE}
+  table(fhs$totChol)
+  ```
+  puedes comprobar que la tabla que se obtiene no es una representación útil de la información. 
+  
++ En muchos ejemplos como este las diferencias entre valores consecutivos no son relevantes. Las preguntas relevantes pasan a ser las que se refieren a intervalos de valores. Para agrupar los valores en intervalos en R podemos usar la función `cut`. 
+  ```{r size = "scriptsize"}
+  cholLevels = cut(fhs$totChol, breaks = 10)
+  head(cholLevels)
+  ```
+
++ La respuesta de R nos indica que ha dividido el *recorrido* de la variable (de mínimo a máximo) en 10 intervalos semiabiertos de igual longitud. El primero incluye los valores entre 106 y 166, hasta el último que incluye los valores de 637 a 697. 
+  
++ La variable `cholLevels` que hemos fabricado es un *factor ordenado*, Veremos más ejemplos cuando aprendamos más sobre factores.  
+
+---
+
++ Con las variables puramente continuas no suele haber demasiado dudas a la hora de reconocerlas. Pero con las variables discretas el problema puede ser más complicado, porque depende esencialmente del número de valores distintos que tome la variable. Al final, en muchos casos, tratar a una variable como discreta o continua es decisión de quien realiza el análisis. 
+
++ Por ejemplo, la tabla de frecuencias de la variable agrupada `cholLevels` es mucho más informativa que la de la variable original `totChol`. Eso nos indica que seguramente es mejor tratar a `cholLevels` como una variable continua aunque sus valores sean enteros,
+  ```{r  size="small"}
+  table(cholLevels)
+  ```
+  
++ En cualquier caso si una variable cuantitativa discreta solo toma cinco o menos valores en general es beneficioso pensar en ella como un *factor ordenado*, que discutiremos más adelante. 
+
+
+## Histogramas con R básico
+
++ Una forma común de representar gráficamente la tabla de frecuencias una variable discreta que tome más de cinco valores distintos es mediante un *histograma*, que es un diagrama de barras. Con R básico:
+  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "40%"}
+  cortes = seq(min(mpg$cty), max(mpg$cty), length.out = 11)
+  hist(mpg$cty, breaks = cortes, col="orange", main="")
+  ```
++ Fíjate en que el eje horizontal contiene los valores de la variable mientras que el eje vertical muestra las frecuencias. Hemos usado la opción `breaks` combinada con `seq` para elegir los puntos de corte entre intervalos.  
+
++ **Ejercicio.** Ejecuta `hist(mpg$cyl)`. ¿Por qué ocurre esto?
+
+## Histogramas con ggplot. Número de intervalos.
+
++ O usando ggplot y los mismos puntos de corte:
+  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "40%"}
+  ggplot(data = mpg) + 
+    geom_histogram(mapping = aes(cty), breaks = cortes, 
+                   fill = "orange", color="black")
+  ```
+  
++ ¿Cuántos intervalos se deben usar en la construcción de un histograma? No hay una regla fija. Aunque R y el resto de programas utilizan diversos algoritmos para determinar ese número, lo cierto es que la respuesta depende mucho de los datos concretos con los que trabajamos. Por eso normalmente es necesario experimentar un poco con diversos valores. En cualquier caso es *muy desaconsejable* utilizar menos de cinco intervalos (o más que $\sqrt{n}$, siendo $n$ el número de datos).
+
+## Curvas de densidad. 
+
++ La *curva de densidad* es un tipo de diagrama alternativo al histograma. Por ejemplo, para los datos de `cty` que venimos usando se obtiene con:
+  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "50%"}
+  plot(density(mpg$cty), col="red", main="", lwd = 3)
+  ```
+  De nuevo el eje horizontal contiene los valores de la variable y la altura de la curva indica la frecuencia de cada valor. La opción `lwd` controla el grosor de la curva.
+  
++ **Ejercicio:** Usando los datos de `auto2` dibuja la curva de densidad de cada una de las variables  `length`, `price`, `displacement` y `rep78`.   
+```{r echo = FALSE, eval = FALSE, message=FALSE, fig.align='center', out.width = "50%", purl=FALSE}
+plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
+```
+
+## Curvas de densidad con ggplot.
+
++ Para  obtener las curvas de densidad en ggplot usaremos algo como:
+  ```{r message=FALSE, fig.align='center', out.width = "50%", size="small"}
+  ggplot(mpg) + 
+    geom_density(mapping = aes(cty), color="red", fill="lightblue", size=1.5)
+  ```
+
++ **¿Curvas de densidad o histogramas?** ¡Ambos! En general, cuando analicemos un conjunto de datos es mejor empezar en la fase de exploración dibujando muchos gráficos. Al presentar nuestras conclusiones seleccionaremos aquellos que ilustren mejor la historia que queremos contar.
+ 
+
+## Relación entre curvas de densidad e histogramas. 
+
++ En muestras de tamaño grande y usando una partición fina en subintervalos la curva de densidad se ajusta bastante a la forma o perfil del histograma como ilustra este ejemplo. Esa *forma* es lo que llamaremos **distribución** de la variable.
+  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "50%"}
+  hist(x = fhs$sysBP, breaks=150, probability = TRUE, main="")
+  lines(density(fhs$sysBP), col="red", lwd=4)
+  ```
+  Este fenómeno es una manifestación más de esa separación borrosa que existe entre las variables discretas con muchos valores (el histograma es una representación discreta) y las variables continuas (la curva de densidad es una representación continua).  
+
++ **Ejercicio:** ¿por qué usamos `probability = TRUE` al dibujar el histograma?
+  
+## Referencias para la sesión
+
+**Enlaces**
+
+```{r eval = FALSE, echo = FALSE, purl=FALSE, message=FALSE, error=FALSE}
+sessionName = "02-TiposDeVariablesEDA"
+RmdName = paste0(sessionName,".Rmd")
+ScriptName = paste0(sessionName,".R")
+lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
+knitr::purl(RmdName, output = paste0("../scripts/", ScriptName))
+```
+
+- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/02-TiposDeVariablesEDA.R}{Código de esta sesión}
+
++ [\textcolor{blue}{{Cookbook for R}}](http://www.cookbook-r.com/)
+
++ [\textcolor{blue}{{Página web de ggplot2}}](https://ggplot2.tidyverse.org/index.html), que contiene el 
+[\textcolor{blue}{{resumen (chuleta)}}](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)  elaborado por RStudio.
+
++ [\textcolor{blue}{{Resumen sobre importación de datos a R (chuleta)}}](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)  elaborado por RStudio.
+
++ Web del libro [\textcolor{blue}{{PostData}}](http://www.postdata-statistics.com) y los tutoriales asociados. Para esta sesión se recomienda el Capítulo 2. 
+
+
+**Bibliografía**
