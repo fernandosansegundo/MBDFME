@@ -134,23 +134,23 @@ include_graphics(figpath("01-fig02.png"))
 
 ## Software adicional
 
-- Como lector de documentos pdf puedes usar \link{https://get.adobe.com/es/reader/}{Adobe Reader}, aunque en Windows te recomendamos \link{{Sumatra Pdf}https://www.sumatrapdfreader.org/free-pdf-reader.html} y en Mac recomendamos *Vista Previa* p \link{https://skim-app.sourceforge.io/}{Skim}.
+- Como lector de documentos pdf puedes usar \link{https://get.adobe.com/es/reader/}{Adobe Reader}, aunque en Windows te recomendamos \link{{Sumatra Pdf}https://www.sumatrapdfreader.org/free-pdf-reader.html} y en Mac recomendamos *Vista Previa* o \link{https://skim-app.sourceforge.io/}{Skim}.
 
-- En algún momento puede ser necesario usar un editor de texto. El que incluye RStudio sirve para tareas sencillas, pero en Windows recomendamos \link{https://notepad-plus-plus.org/}{Notepad++} y en Mac \link{https://www.barebones.com/products/bbedit/}{BBedit}.
+- En algún momento puede ser necesario usar un editor de texto. El que incluye RStudio sirve para tareas sencillas, pero en Windows recomendamos \link{https://notepad-plus-plus.org/}{Notepad++} y en Mac \link{https://www.barebones.com/products/bbedit/}{BBEdit}.
 
 - Para abrir algunos ficheros de datos es conveniente disponer de una hoja de cálculo como Excel de Microsoft o, preferiblemente, Calc (de \link{https://www.openoffice.org/es/}{Open Office} o de \link{https://es.libreoffice.org/}{Libre Office}). **Ten cuidado** si abres ficheros de datos (csv o txt) del curso con Excel: es  fácil *romper* uno de esos ficheros inadvertidamente.
 
 ## Git y GitHub
 
-+ El material de las sesiones del curso está alojado en un \link{https://github.com/fernandosansegundo/MBDFME}{repositorio en GitHub}. Si conoces Git ya sabrás que puedes usarlo para hacer un fork o clonar ese repositorio. Desde luego también puedes descargar el contenido íntegro del repositorio como fichero zip. Y la página de la asignatura en Moodle contiene enlaces a los ficheros de ese repositorio. Pero si no estás familiarizado con Git quizá sea una buena idea usar esta asignatura para empezar a conocer una herramienta tan importante. 
++ El material de las sesiones del curso está alojado en un \link{https://github.com/fernandosansegundo/MBDFME}{repositorio en GitHub}. Si conoces Git ya sabrás que puedes usarlo para hacer un fork o clonar ese repositorio. Desde luego también puedes descargar el contenido íntegro del repositorio como fichero zip. Y la página de la asignatura en Moodle contiene enlaces a los ficheros de ese repositorio. Pero si no estás familiarizado con Git, el curso 0 te proporcionará una introducción y quizá sea una buena idea usar esta asignatura para practicar con una herramienta tan importante. 
 
-+ Puedes empezar por los vídeos 14 y 15 de esta \link{https://www.youtube.com/watch?v=3hqGcRoEYUY&list=PLmTpraKlPXDSPbP2L8MYZoweGSzi9gNTr}{playlist} del curso Data Science Toolbox de la Universidad John Hopkins para Coursera. También puedes encontrar información en este \link{https://lab.github.com/githubtraining/introduction-to-github}{curso de Introducción a GitHub}. Pregunta a tu profesor si necesitas más ayuda para empezar.  
++ Como complemento, puedes empezar por los vídeos 14 y 15 de esta \link{https://www.youtube.com/watch?v=3hqGcRoEYUY&list=PLmTpraKlPXDSPbP2L8MYZoweGSzi9gNTr}{playlist} del curso Data Science Toolbox de la Universidad John Hopkins para Coursera. También puedes encontrar información en este \link{https://lab.github.com/githubtraining/introduction-to-github}{curso de Introducción a GitHub}. Pregunta a tu profesor si necesitas más ayuda para empezar.  
 
 ## Python
 
 + Vamos a usar R de forma casi exclusiva en esta asignatura, pero es obligado señalar que Python es también extremadamente popular en este momento y es el lenguaje predominante en campos como el Aprendizaje Profundo (*Deep Learning*). En particular veremos en clase ejemplos que ilustran la forma de combinar ambos lemguajes en nuestro trabajo para aprovechar lo mejor de ambos. 
 
-+ Si usas Mac o Linux ya tienes una instalación de Python en tu sistema. En Windows tienes que instalar una distribución de Python antes de usarla. **ATENCIÓN:** la instalación de Python es una fuente habitual de quebraderos de cabeza. Si dudas es *mucho mejor* que preguntes a tus profesores y te informes bien antes de hacer cambios que pueden dañar tu sistema gravemente. 
++ Si usas Mac o Linux ya tienes una instalación de Python en tu sistema. En Windows tienes que instalar una distribución de Python antes de usarla. **ATENCIÓN:** la instalación de Python es una fuente habitual de quebraderos de cabeza. Si dudas es *mucho mejor* que preguntes a tus profesores. En el Curso 0 tendrás una introducción a Python.  Pero en cualquier caso es importante que te informes bien antes de hacer cambios que pueden dañar tu sistema gravemente. 
 
 ### WSL 2.
 
@@ -278,7 +278,7 @@ include_graphics(figpath("01-RStudioCloud.jpeg"))
 
 ## Docker
 
-+ El uso de Docker para la asignatura es *muy experimental* en este curso. Si tienes interés en probarlo habla con tu profesor. Pero desaconsejamos firmemente usarlo en este momento como herramienta principal para el trabajo en la asignatura.  
++ El uso de Docker para la asignatura es *muy experimental* en este curso. Si tienes interés en probarlo habla con tu profesor. Pero desaconsejamos firmemente usarlo en este momento como herramienta principal para el trabajo en esta asignatura.
 
 + Docker puede verse como una evolución de las máquinas virtuales. Hace unos años una asignatura como esta podría ofrecer a los alumnos una máquina virtual (por ejemplo con Linux como sistema huesped) preconfigurada con todo el software necesario. En la actualidad es posible usar imágenes de Docker o incluso Dockerfiles para conseguir algo similar, pero con todas las ventajas que aporta la tecnología de contenedores de Docker. 
  
