@@ -38,7 +38,16 @@ if (grepl(pattern = "cloud", getwd())){
 figpath = function(figname){
   paste0(homeDir,"fig/", figname)
 } 
+# purl("./Rmd/sesion02.Rmd", "./scripts/sesion02-comandos.R", documentation = 0)
+
+``` 
+
+```{r echo = FALSE}
+## title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.'
+## author: "Fernando San Segundo"
+## subtitle: "Sesión 2: Tipos de Variables y Análisis Exploratorio"
 ```
+
 
 # Trabajando con ficheros de datos.
 
@@ -74,7 +83,8 @@ ${ }$
 + Empieza abriendo ese fichero en un editor de texto (tipo *Bloc de Notas*) para hacer una exploración preliminar. 
 
 + Para abrir ese fichero con R vamos a empezar usando una función del sistema básico de R:
-  ```{r size="small"}
+  ```{r size="small", echo=-1}
+  # Ficheros csv con R, Lectura ficheros movies
   movies = read.csv(file = "../datos/movies.csv", header = TRUE)
   ```
   
@@ -90,7 +100,8 @@ ${ }$
 ### Repaso de operaciones con data.frames.
 
 + Recuerda que puedes seleccionar por filas con instrucciones como:
-  ```{r size="tiny"}
+  ```{r size="tiny", echo = -1}
+  # Repaso de operaciones con data.frames.
   movies[7, ]
   ```  
   ${ }$
@@ -102,11 +113,12 @@ ${ }$
   ${ }$
 
 + Recuerda asimismo que puedes seleccionar por condiciones. Por ejemplo para ver el género de las películas de 2010 con:
-  ```{r  eval = FALSE}
+  ```{r  eval = FALSE, comment = NULL}
   movies$Genre[movies$Year == 2010]
   ```
   También sabemos usar `dplyr` para seleccionar:
   ```{r size="scriptsize", echo=-1, message=FALSE}
+  # Seleccionar usando el tidyverse (dplyr)
   library(tidyverse)
   movies %>% 
     filter(Year == 2010) %>% 
@@ -121,8 +133,8 @@ ${ }$
 ## Usando readr para leer y escribir ficheros csv.
 
 + La librería `readr`, que forma parte del tidyverse, incluye la función `read_csv`, que es muy fácil de usar y más rápida que `read.table` para ficheros grandes. Explora esta tabla como hemos hecho con la primera versión.  
-  ```{r size="small", message=FALSE, warning=FALSE}
-  library(tidyverse)
+  ```{r size="small", echo=-1, message=FALSE, warning=FALSE}
+  # Usando readr para leer y escribir ficheros csv.
   movies2 = read_csv("../datos/movies.csv")
   ```  
 
@@ -130,6 +142,7 @@ ${ }$
 
 + También puedes usar readr para crear ficheros csv a partir de una tabla (por ejemplo un data.frame) en R. El siguiente código genera primero una tabla con tres variables A, B y C y a continuación guarda esa tabla a un fichero csv. Asegúrate de abrir el fichero resultante en un editor de texto para ver el resultado.
   ```{r echo=-1, results='hold', size="small"}
+  # crear ficheros csv a partir de una tabla
   set.seed(2019)
   datos = 
     data.frame(A = sample(1:100, 10), B = sample(LETTERS, 10), C = rnorm(10))
@@ -148,7 +161,8 @@ ${ }$
 xls, que contiene datos sobre accidentes ferroviarios ocurridos en 2010 en los Estados Unidos. Puedes encontrar más detalles sobre el fichero en [\textcolor{blue}{{este documento auxiliar}}](http://users.stat.ufl.edu/~winner/data/train_acc_2010.txt).
 
 + Para leer esos datos vamos a usar la librería `readxl` (del tidyverse) de esta forma
-  ```{r}
+  ```{r echo=-1}
+  # Ficheros Excel
   library(readxl)
   accidentes = read_excel("../datos/train_acc_2010.xls")
   ```
@@ -160,7 +174,8 @@ xls, que contiene datos sobre accidentes ferroviarios ocurridos en 2010 en los E
 ## Ficheros de otros programas estadísticos.
 
 + Aunque existen muchos otros programas estadísticos, aquí solo vamos a ver como se usa la libraría `haven` del tidyverse para importar en R ficheros de datos de SPSS, Stata y SAS. Si necesitas importar datos almacenados en un formato propio de otro programa lo mejor es buscar en Internet algo como *import from ... to R*. Recuerda empezar cargando \link{https://haven.tidyverse.org}{otra librería del tidyverse}. 
-  ```{r}
+  ```{r echo=-1}
+  # Ficheros de otros programas estadísticos.
   library(haven)
   ```
 
@@ -205,6 +220,7 @@ ${ }$
 
 + R también posee su propio formato de almacenamiento de objetos, usando ficheros tipo RData. Estos ficheros pueden contener varias tablas de datos, variables y otros objetos de R. Por ejemplo podemos guardar la tabla de accidentes ferroviarios y la de planetas que hemos usado antes mediante:
   ```{r size="small"}
+  # Ficheros RData.
   save("accidentes", "planetas", file = "../datos/accidentes_planetas.RData")
   ```
 
@@ -237,7 +253,7 @@ include_graphics(figpath("../fig/02-fig00-XKCDfileExtensions.png"))
 
 + **Ejercicio:** lee el fichero a una tabla de R llamada fhs (de Framingham Heart Study). Explora esa tabla con las funciones `str` y `glimpse`. Piensa en qué tipo de información contiene cada variable de la tabla. Lee también la documentación sobre `mpg` en [\textcolor{blue}{{este enlace}}](https://ggplot2.tidyverse.org/reference/mpg.html).
 ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"}
-library(tidyverse)
+# Datos de enfermedades coronarias en Framingham
 include_graphics(figpath("../fig/02-fig02-fhs.png"))
 fhs = read_csv("../datos/framingham.csv")
 ```
@@ -272,13 +288,14 @@ fhs = read_csv("../datos/framingham.csv")
 + La variable `cty` de `mpg` el número de millas por galón que el coche recorre en ciclo urbano. Fíjate en que los valores son un número entero de millas. En principio no hay nada que impida dar esos valores con decimales. Pero no es eso lo que se *ha decidido* hacer aquí, sino que se trata como una variable discreta. 
 
 + El primer paso con una variable discreta como esta es obtener una tabla de frecuencias (absolutas), que nos dirá qué valores toma la variable y cuántas veces toma cada valor. Usando `table` 
-  ```{r comment=NULL, echo=-1, size="small"}
+  ```{r comment=NULL, echo=-(1:2), size="small"}
+  # variable discreta, tabla de frecuencia absoluta
   options(width = 100)
   table(mpg$cty)
   ```
  
  + También se puede usar la función `count` de dplyr así (se omite el resultado):
-    ```{r eval = FALSE}
+    ```{r eval = FALSE, comment=NULL}
     mpg %>%
       count(cty)
     ```
@@ -288,25 +305,27 @@ fhs = read_csv("../datos/framingham.csv")
 + A menudo, y especialmente cuando se usan para comparaciones, nos interesan más saber la fracción del total que corresponde a cada uno de los valores de una variable discreta. Cuando esa fracciones se expresan como *tanto por uno* obtenemos las frecuencias relativas, que es fácil convertir en porcentajes.
 
 + Para obtener una tabla de frecuencias relativas usando R básico hacemos (hemos usado la función `signif` para controlar el número de cifras significativas y mejorar la presentación):
-  ```{r echo = -1, size="small"}
+  ```{r echo = -(1:2), size="small"}
+  # y tabla de frecuencia relativa
   options(width = 70)
   signif(prop.table(table(mpg$cty)), 2)
   ```
 
 + Se puede usar `dplyr` pero en este caso es más complicado que con el R básico.
-```{r eval = FALSE, size="small"}
+```{r eval = FALSE, size="small", comment=NULL}
       mpg %>% 
         count(cty) %>%
           mutate(cty, relFreq = prop.table(n), n=NULL) 
           # NULL aquí elimina la columna n
-  ```
+```
 
 ---
 
 ### Propiedades de las frecuencias relativas.
 
 + Las frecuencias relativas suman siempre 1,
-  ```{r}
+  ```{r echo=-1}
+  # suma frecuencias relativas
   sum(prop.table(table(mpg$cty)))
   ```
 
@@ -316,7 +335,8 @@ fhs = read_csv("../datos/framingham.csv")
 ### Frecuencias acumuladas.
 
 + Las *frecuencias acumuladas* se usan con variables discretas para responder a la pregunta *"¿cuántos valores hay que sean menores o iguales que ...?"* En R se obtienen con:
-  ```{r echo=-1}
+  ```{r echo=-(1:2)}
+  # Frecuencias acumuladas.
   options(width = 60)
   cumsum(table(mpg$cty))
   ```
@@ -327,13 +347,15 @@ fhs = read_csv("../datos/framingham.csv")
 ## Discreto vs continuo.
 
 + Las tablas de frecuencias por valores no son útiles cuando hay muchos valores distintos. La tabla de frecuencias de `cty` ya era un poco excesiva. Pero  si tratamos de calcular una tabla de frecuencia para la variable `age` de la tabla `fhs` 
-  ```{r eval = FALSE}
+  ```{r eval = FALSE, comment=NULL, echo = -1}
+  # Error:  tabla de frecuencia de una v. continua 
   table(fhs$totChol)
   ```
   puedes comprobar que la tabla que se obtiene no es una representación útil de la información. 
   
 + En muchos ejemplos como este las diferencias entre valores consecutivos no son relevantes. Las preguntas relevantes pasan a ser las que se refieren a intervalos de valores. Para agrupar los valores en intervalos en R podemos usar la función `cut`. 
-  ```{r size = "scriptsize"}
+  ```{r size = "scriptsize", echo = -1}
+  # Creando intervalos con cut
   cholLevels = cut(fhs$totChol, breaks = 10)
   head(cholLevels)
   ```
@@ -357,7 +379,8 @@ fhs = read_csv("../datos/framingham.csv")
 ## Histogramas con R básico
 
 + Una forma común de representar gráficamente la tabla de frecuencias una variable discreta que tome más de cinco valores distintos es mediante un *histograma*, que es un diagrama de barras. Con R básico:
-  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "40%"}
+  ```{r echo=-1, message=FALSE, fig.align='center', out.width = "40%"}
+  # Histograma con R basico (seleccionando los cortes)
   cortes = seq(min(mpg$cty), max(mpg$cty), length.out = 11)
   hist(mpg$cty, breaks = cortes, col="orange", main="")
   ```
@@ -369,6 +392,7 @@ fhs = read_csv("../datos/framingham.csv")
 
 + O usando ggplot y los mismos puntos de corte:
   ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "40%"}
+  # Histograma con ggplot2 (los mismos cortes)
   ggplot(data = mpg) + 
     geom_histogram(mapping = aes(cty), breaks = cortes, 
                    fill = "orange", color="black")
@@ -379,7 +403,8 @@ fhs = read_csv("../datos/framingham.csv")
 ## Curvas de densidad. 
 
 + La *curva de densidad* es un tipo de diagrama alternativo al histograma. Por ejemplo, para los datos de `cty` que venimos usando se obtiene con:
-  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "50%"}
+  ```{r echo=-1, message=FALSE, fig.align='center', out.width = "50%"}
+  # Curvas de densidad, R básico
   plot(density(mpg$cty), col="red", main="", lwd = 3)
   ```
   De nuevo el eje horizontal contiene los valores de la variable y la altura de la curva indica la frecuencia de cada valor. La opción `lwd` controla el grosor de la curva.
@@ -392,7 +417,8 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 ## Curvas de densidad con ggplot.
 
 + Para  obtener las curvas de densidad en ggplot usaremos algo como:
-  ```{r message=FALSE, fig.align='center', out.width = "50%", size="small"}
+  ```{r message=FALSE, fig.align='center', out.width = "50%", size="small", echo = -1}
+  # Curvas de densidad con ggplot
   ggplot(mpg) + 
     geom_density(mapping = aes(cty), color="red", fill="lightblue", size=1.5)
   ```
@@ -403,7 +429,8 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 ## Relación entre curvas de densidad e histogramas. 
 
 + En muestras de tamaño grande y usando una partición fina en subintervalos la curva de densidad se ajusta bastante a la forma o perfil del histograma como ilustra este ejemplo. Esa *forma* es lo que llamaremos **distribución** de la variable.
-  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "50%"}
+  ```{r echo=-1, message=FALSE, fig.align='center', out.width = "50%"}
+  # Relación entre curvas de densidad e histogramas.
   hist(x = fhs$sysBP, breaks=150, probability = TRUE, main="")
   lines(density(fhs$sysBP), col="red", lwd=4)
   ```
