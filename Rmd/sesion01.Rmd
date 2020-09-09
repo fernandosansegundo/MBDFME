@@ -41,6 +41,13 @@ figpath = function(figname){
 } 
 ```
 
+```{r echo = FALSE}
+## title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.'
+## author: "Fernando San Segundo"
+## subtitle: "Sesión 1: Presentación. Instalación de Software y Primeros Pasos"
+```
+
+
 # Presentación del curso.
 
 ## Preliminares.
@@ -613,16 +620,16 @@ ggplot(data = flights) +
 **Enlaces**
 
 ```{r eval = FALSE, comment = NULL,  echo=FALSE, purl=FALSE, message=FALSE, error=FALSE}
-sessionName = "01-InstalacionSoftwarePrimerosPasos"
+sessionName = "sesion01"
 RmdName = paste0(sessionName,".Rmd")
-ScriptName = paste0(sessionName,".R")
+ScriptName = paste0(sessionName,"-comandos.R")
 lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
-knitr::purl(RmdName, output = paste0("../scripts/", ScriptName))
+knitr::purl(RmdName, output = paste0("../scripts/", ScriptName), documentation = 0)
 ```
 
 Junto con el material alojado en Moodle tenéis a vuestra disposición estos recursos:
 
-- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/01-InstalacionSoftwarePrimerosPasos.R}{Código de esta sesión}
+- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion01-comandos.R}{Código de esta sesión}
 
 - [\textcolor{blue}{{R for Data Science (Wickham).}}](https://r4ds.had.co.nz/)
 
