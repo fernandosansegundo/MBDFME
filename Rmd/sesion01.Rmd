@@ -421,9 +421,9 @@ include_graphics(figpath("01-fig15-RStudio-ElegirWorkDir.png"))
 
 - Es recomendable que uses el *Explorador de Archivos* de Windows (o el *Finder* de Mac, etc.)  para navegar a la carpeta en la que has guardado ese fichero y lo abras con un *editor de texto* (como el Bloc de Notas). Habla con tu profesor si tienes dudas de como hacer esto. Comprueba que se trata de un fichero de texto que contiene simplemente los comandos que hemos escrito en el Editor de RStudio. 
 
-- También puedes abrir un fichero de comandos escrito por otra persona. De hecho en el curso vamos a usar a menudo ficheros de comandos prediseñados para dirigir nuestro trabajo. Empieza descargando este fichero de comandos [\textcolor{blue}{{sesion01-01.R}}](../scripts/sesion01-01.R) y guárdalo *en la subcarpeta scripts* de tu directorio de trabajo. En la próxima sección lo abriremos y usaremos para seguir avanzando con R.
+- También puedes abrir un fichero de comandos escrito por otra persona. De hecho en el curso vamos a usar a menudo ficheros de comandos prediseñados para dirigir nuestro trabajo. Empieza descargando este fichero de comandos [\textcolor{blue}{{sesion01-01.R}}](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion01-01.R) y guárdalo *en la subcarpeta scripts* de tu directorio de trabajo. En la próxima sección lo abriremos y usaremos para seguir avanzando con R.
 
-+ En esta y en próximas sesiones dispondrás de un fichero con el  \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/01-InstalacionSoftwarePrimerosPasos.R}{código de la sesión} para agilizar el seguimiento de la explicación mientras pruebas el funcionamiento de los comandos en tu sistema.
++ En esta y en próximas sesiones dispondrás de un fichero con el  \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion01-comandos.R}{código de la sesión} para agilizar el seguimiento de la explicación mientras pruebas el funcionamiento de los comandos en tu sistema.
 
 # Estructuras de datos básicas en R. 
 
