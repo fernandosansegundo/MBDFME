@@ -2,7 +2,7 @@
 title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
 author: "Fernando San Segundo"
 date: 'Curso 2020-21. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
-subtitle: "Sesión 3."
+subtitle: "Sesión 3. Distribuciones. Valores centrales y dispersión."
 fontsize: 9pt
 output:
   beamer_presentation:
@@ -40,6 +40,12 @@ figpath = function(figname){
 } 
 ```
 
+```{r echo = FALSE}
+## title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.'
+## author: "Fernando San Segundo"
+## subtitle: "Sesión 3. Distribuciones. Valores centrales y dispersión."
+```
+
 
 # Distribuciones.
 
@@ -47,6 +53,7 @@ figpath = function(figname){
 
 + En un ejercicio previo proponíamos dibujar las curvas de densidad de varias variables de la tabla `auto2`. Si lo haces obtendrás curvas como estas:
   ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "70%"}
+  # Curvas de densidad de auto2, p. 4
   require(gridExtra)
   require(tidyverse)
   require(haven)
@@ -73,11 +80,13 @@ figpath = function(figname){
 
 + Una distribución que presenta un único máximo se denomina *unimodal*
   ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "40%"}
+  # Distribución unimodal p. 5
   curve(dchisq(x, df=6), from = 0, to = 16, ylab="density", col="red", lwd=4, main="")
   ```
 
 + Mientas que una distribución con dos máximos locales claramente definidos como la de la figura se denomina *bimodal* (o *multimodal* cuando son más de dos).
   ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "40%"}
+  # Distribución bimodal p. 5
   set.seed(2014)
   N = 10000
   mu1 = 12
@@ -98,6 +107,7 @@ figpath = function(figname){
 
 + Otra característica de las distribuciones en la que nos vamos a fijar a menudo es su simetría. Fíjate en que es la *cola* más larga de la distribución la que da nombre a la asimetría. En inglés esta característica se denomina [\textcolor{blue}{{skewness}}](https://en.wikipedia.org/wiki/Skewness)
 ```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"}
+# Ilustrando el concepto de skewness p.5
 par(mfrow = c(3, 1))
 curve(dchisq(x, df=6), from = 0, to = 16, 
       ylab="density", col="blue", lwd=4, main="Asimétrica a derecha", cex.main=2)  
@@ -132,6 +142,7 @@ $$
 
 + En R se utiliza la función `mean` para calcular la media de los valores de un vector numérico. Con este código vamos a elegir 20 números al azar entre 0 y 100 (con remplazamiento). Recuerda que los paréntesis sirven para que R muestre el resultado.
   ```{r echo = -1, size="scriptsize"}
+  # Media aritmética, p. 9
   set.seed(2019)
   (muestra = sample(0:100, size = 20, replace = TRUE))
   (media = mean(muestra))
@@ -145,6 +156,7 @@ $$
 
 + Por ejemplo, si elegimos 99 números al azar de 0 a 100, su media es parecida a 50 como cabría esperar.
   ```{r echo = -1}
+  # Valores atípicos, p. 10
   set.seed(2019)
   muestra = sample(0:100, size = 99, replace = TRUE) 
   (media = mean(muestra))
@@ -163,6 +175,7 @@ $$
 
 + Por ejemplo, para calcular la mediana de estos 17 valores:
   ```{r echo  =-1}
+  # Mediana, p. 11
   set.seed(2019)
   (valores = sample(1:100, 17, replace = TRUE))
   ```
@@ -192,14 +205,16 @@ $$
 ## Otros valores de posición. Recorrido. Función summary.
 
 + **Cuartiles y percentiles.** La mediana se puede pensar como el valor que es mayor o igual que el 50% de los valores de nuestro conjunto de datos. De la misma forma se definen el *primer y tercer cuartil* como los valores que son mayores o iguales respectivamente que el 25% y el 75% de los valores. Esto se generaliza a la noción de percentil. El percentil 43, por ejemplo, es un valor que deja por debajo al 43% de los valores. En R ese percentil se calcula para una variable como `cty` de `mpg` mediante:
-  ```{r size="small"}
+  ```{r size="small", echo=-1}
+  # Valores de posición, p. 13
   quantile(mpg$cty, probs = 0.43)
   ```
 
 + El *recorrido* (del inglés *range*) de un conjunto de valores es el intervalo que va del valor mínimo al máximo. Cuidado: en español se usa a menudo erróneamente *rango*. Pero los rangos en Estadística son otra cosa (que corresponde a *rank* en inglés).
 
 + Una manera sencilla de obtener varias de estas medidas de posición es usando `summary`
-  ```{r size="small"}
+  ```{r size="small", echo=-1}
+  # Summary, p. 13
   summary(mpg$cty)
   ```
 
@@ -210,6 +225,7 @@ $$
 
 + La siguiente figura muestra dos conjuntos de valores, ambas con media 0 y el mismo número de puntos. Las coordenadas verticales de los puntos se han modificado con un poco de *ruido* para hacer mejorar la visualización de ambos conjuntos. Puedes mirar el código de esta sesión para ver como se ha construido esta figura. 
   ```{r echo = FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
+  # El gráfico de dispersión de la página 14
   library(tidyverse)
   set.seed(2019)
   n = 400
@@ -236,6 +252,7 @@ $$
 
 + En esta otra figura puedes ver juntas las curvas de densidad de esos dos conjuntos de datos. 
   ```{r echo = FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
+  # y la versión en curvas de densidad de la página 15
   plot(density(muestra1, adjust = 2), col="blue", 
        xlim = c(-12, 12), lwd = 2, main = "", xlab= "")
   lines(density(muestra2, adjust = 2), col="red", lwd = 2, sub="")
@@ -248,7 +265,8 @@ $$
 ## Recorrido intercuartílico. Valores atípicos.
 
 + La primera forma de medir la dispersión que vamos a ver se basa en observar la diferencia entre los cuartiles tercero (75%) y primero (25%). Ese número es el *recorrido intercuartílico*; un intervalo de longitud IQR desde el primer hasta el tercer cuartil contiene siempre al 50% central de los valores. En R se calcula con:
-  ```{r}
+  ```{r echo=-1}
+  # Recorrido intercuartílico, p. 16
   IQR(mpg$cty)
   ```
   Fíjate en que es precisamente la diferencia entre esos dos cuartiles. 
@@ -275,6 +293,7 @@ include_graphics(figpath("../fig/02-fig05-BoxPlotEstructura.png"))
 
 + Dibujar un boxplot con R básico es muy sencillo. Por ejemplo, para la variable `cty`:
   ```{r echo=TRUE, comment=NULL, fig.align='center', out.width = "50%", size="small"}
+  # Boxplot con R básico p. 19
   bxp_cty = boxplot(mpg$cty, col="orange")
   ```
   
@@ -291,6 +310,7 @@ include_graphics(figpath("../fig/02-fig05-BoxPlotEstructura.png"))
 
 + En este caso usamos:
   ```{r echo=TRUE, comment=NULL, fig.align='center', out.width = "60%", size="small"}
+  # Boxplot y violinplot con R básico p. 20
   ggplot(mpg) + 
     geom_boxplot(mapping = aes(y = cty), fill="orange") +
     scale_x_discrete(breaks = c())
@@ -304,6 +324,7 @@ include_graphics(figpath("../fig/02-fig05-BoxPlotEstructura.png"))
 
 + Esos dos remedios se pueden aplicar por separado o combinados como hemos hecho en este gráfico de ggplot:
   ```{r echo=TRUE, comment=NULL, fig.align='center', out.width = "40%", size="tiny"}
+  
   ggplot(mpg) + 
     geom_violin(mapping = aes(x=0, y = cty)) +
     scale_x_discrete(breaks = c()) +
@@ -322,6 +343,7 @@ Usamos valores absolutos para evitar que las desviaciones por exceso compensen a
 
 + Para obtener una medida de dispersión buscamos un valor representativo (valor central) de las desviaciones absolutas. Por ejemplo, la mediana de las desviaciones absolutas respecto de la mediana (usando $c$ igual a la mediana de los datos). Este valor es la **desviación absoluta mediana (MAD)**, que en R se calcula así:
   ```{r size="small"}
+  # Desviación absoluta mediana p. 21
   library(readxl)
   accidentes = read_excel("../datos/train_acc_2010.xls")
   mad(accidentes$Speed, constant = 1)
@@ -367,6 +389,7 @@ como ves, la diferencia estriba en que dividimos por $n-1$ en lugar de $n$.
 
 + Para calcular la varianza muestral en R usamos `var`:
   ```{r}
+  # Varianza y desviación típica p. 24
   var(mpg$displ)
   ```
 puedes comprobar que esto es lo mismo que:
@@ -393,6 +416,7 @@ puedes comprobar que esto es lo mismo que:
 
 + Al trabajar con factores sigue teniendo sentido usar tablas de frecuencias absolutas y relativas (pero no acumuladas, en general):
   ```{r size="small"}
+  # Factores p. 26
   table(accidentes$TrkType)
   prop.table(table(accidentes$TrkType))
   ```
@@ -406,13 +430,14 @@ puedes comprobar que esto es lo mismo que:
 
 + El diagrama más simple y a menudo el más efectivo para representar la tabla de frecuencias de los niveles de un factor es el diagrama de barras. En R básico y ggplot respectivamente:
   ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "30%", size="scriptsize"}
+  # Gráficos para factores, p. 27
   library(viridisLite)
   barplot(prop.table(table(accidentes$TrkType)), col=viridis(5))
   ggplot(accidentes) + 
     geom_bar(mapping = aes(x = TrkType), fill= viridis(5))
   ```
 
-+ **Se desaconseja** el uso de diagramas de tarta.
++ **Se desaconseja** el uso de diagramas de tarta (*piecharts* en inglés).
 
 ## Factores dicotómicos: variables binarias (de Bernouilli). 
 
@@ -427,22 +452,22 @@ puedes comprobar que esto es lo mismo que:
   ```
   Aproximadamente el `r signif(100 * mean(fhs$male), 2)`% de los pacientes son hombres. 
 
-# Comentarios finales.
+# Rmarkdown, introducción.
 
----
+<!-- --- -->
 
-## Cadenas de caracteres (textos).
+<!-- ## Cadenas de caracteres (textos). -->
 
-+ Esta sesión ha tratado sobre los tipos de datos habituales en Estadística Clásica y que siguen siendo la base para la mayor parte de nuestro trabajo. Pero no queremos acabar sin mencionar que en los últimos años se ha producido una explosión en el tipo y volumen de datos que son objeto de análisis. 
+<!-- + Esta sesión ha tratado sobre los tipos de datos habituales en Estadística Clásica y que siguen siendo la base para la mayor parte de nuestro trabajo. Pero no queremos acabar sin mencionar que en los últimos años se ha producido una explosión en el tipo y volumen de datos que son objeto de análisis.  -->
 
-+ Un ejemplo concreto de esos otros tipos de datos son los *textos* o cadenas de caracteres, que en R se corresponden con el tipo `character`. El análisis de datos de tipo texto juega un papel esencial en muchas aplicaciones como:
-  - Buscadores
-  - [\textcolor{blue}{{Análisis de sentimiento}}](https://es.wikipedia.org/wiki/Análisis_de_sentimiento)
-  - [\textcolor{blue}{{Sistemas de recomendación en comercio electrónico}}](https://es.wikipedia.org/wiki/Sistema_de_recomendación)
-  - [\textcolor{blue}{{Asistentes de voz}}](https://es.wikipedia.org/wiki/Asistente_virtual)
-  y muchas otras tecnologías actuales, conectadas con el Análisis del Lenguaje Natural (NLP) y la Inteligencia Artificial. 
-  
-+ R proporciona muchas herramientas para adentrarse en este tipo de problemas, e irás conociendo algunas en otras asignaturas. Aquí simplemente queremos mencionar que la librería [\textcolor{blue}{{stringr}}](https://stringr.tidyverse.org), que es otro componente del *tidyverse*, es una de las mejores herramientas para iniciarse en el manejo de textos con R. Veremos ejemplos más adelante.
+<!-- + Un ejemplo concreto de esos otros tipos de datos son los *textos* o cadenas de caracteres, que en R se corresponden con el tipo `character`. El análisis de datos de tipo texto juega un papel esencial en muchas aplicaciones como: -->
+<!--   - Buscadores -->
+<!--   - [\textcolor{blue}{{Análisis de sentimiento}}](https://es.wikipedia.org/wiki/Análisis_de_sentimiento) -->
+<!--   - [\textcolor{blue}{{Sistemas de recomendación en comercio electrónico}}](https://es.wikipedia.org/wiki/Sistema_de_recomendación) -->
+<!--   - [\textcolor{blue}{{Asistentes de voz}}](https://es.wikipedia.org/wiki/Asistente_virtual) -->
+<!--   y muchas otras tecnologías actuales, conectadas con el Análisis del Lenguaje Natural (NLP) y la Inteligencia Artificial.  -->
+
+<!-- + R proporciona muchas herramientas para adentrarse en este tipo de problemas, e irás conociendo algunas en otras asignaturas. Aquí simplemente queremos mencionar que la librería [\textcolor{blue}{{stringr}}](https://stringr.tidyverse.org), que es otro componente del *tidyverse*, es una de las mejores herramientas para iniciarse en el manejo de textos con R. Veremos ejemplos más adelante. -->
 
 ## Rmarkdown para la creación de documentos.
 
@@ -459,28 +484,27 @@ puedes comprobar que esto es lo mismo que:
 
 ---
 
+
+
+
 ## Referencias para la sesión
 
 **Enlaces**
 
-```{r eval = FALSE, echo = FALSE, purl=FALSE, message=FALSE, error=FALSE}
-sessionName = "02-TiposDeVariablesEDA"
+
+
+```{r eval = FALSE, comment = NULL,  echo=FALSE, purl=FALSE, message=FALSE, error=FALSE}
+sessionName = "sesion03"
 RmdName = paste0(sessionName,".Rmd")
-ScriptName = paste0(sessionName,".R")
+ScriptName = paste0(sessionName,"-comandos.R")
 lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
-knitr::purl(RmdName, output = paste0("../scripts/", ScriptName))
+knitr::purl(RmdName, output = paste0("../scripts/", ScriptName), documentation = 0)
 ```
 
-- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/02-TiposDeVariablesEDA.R}{Código de esta sesión}
 
-+ [\textcolor{blue}{{Cookbook for R}}](http://www.cookbook-r.com/)
+- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion03-comandos.R}{Código de esta sesión}
 
-+ [\textcolor{blue}{{Página web de ggplot2}}](https://ggplot2.tidyverse.org/index.html), que contiene el 
-[\textcolor{blue}{{resumen (chuleta)}}](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)  elaborado por RStudio.
-
-+ [\textcolor{blue}{{Resumen sobre importación de datos a R (chuleta)}}](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)  elaborado por RStudio.
-
-+ Web del libro [\textcolor{blue}{{PostData}}](http://www.postdata-statistics.com) y los tutoriales asociados. Para esta sesión se recomienda el Capítulo 2. 
+- Web del libro [\textcolor{blue}{{PostData}}](http://www.postdata-statistics.com) y los tutoriales asociados. Para esta sesión se recomienda el Capítulo 2. 
 
 
 **Bibliografía**

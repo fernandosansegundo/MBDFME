@@ -514,6 +514,21 @@ if(!file.exists(localFile)){
   warning(paste0(&quot;Cuidado: el fichero de datos&quot;, dataFile, &quot; ya existe en tu carpeta de datos&quot;))
 }</code></pre>
 </div>
+<div id="fichero-dat-de-stata-p.11" class="section level4">
+<h4>Fichero dat de Stata, p.11</h4>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+dataFile =  &quot;auto2.dta&quot; 
+
+dataURL = paste0(&quot;http://www.stata-press.com/data/r8/&quot;, dataFile)
+
+localFile = paste0(&quot;./datos/&quot;, dataFile)
+if(!file.exists(localFile)){
+  download.file(dataURL, destfile = localFile)
+} else {
+  warning(paste0(&quot;Cuidado: el fichero de datos&quot;, dataFile, &quot; ya existe en tu carpeta de datos&quot;))
+}</code></pre>
+</div>
 <div id="fichero-csv-del-estudio-de-framingham-p.-15" class="section level4">
 <h4>Fichero csv del estudio de Framingham, p. 15</h4>
 <pre class="r"><code># Directorio de trabajo
