@@ -252,11 +252,15 @@ include_graphics(figpath("../fig/02-fig00-XKCDfileExtensions.png"))
 + En las próximas secciones vamos a conocer las categorías básicas de datos y las formas más adecuadas de describirlos. Como ejemplos iniciales vamos a usar la tabla `mpg` contenida en la librería `tidyverse` y también una tabla con datos relativos a un estudio sobre enfermedades coronarias llevado a cabo en Framingham (UK). Puedes descargar el fichero csv desde [\textcolor{blue}{{este enlace}}](https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/framingham.csv) y leer más detalles sobre el estudio [\textcolor{blue}{{aquí}}.](https://biolincc.nhlbi.nih.gov/media/teachingstudies/FHS_Teaching_Longitudinal_Data_Documentation.pdf?link_time=2019-08-26_14:42:24.487245).
 
 + **Ejercicio:** lee el fichero a una tabla de R llamada fhs (de Framingham Heart Study). Explora esa tabla con las funciones `str` y `glimpse`. Piensa en qué tipo de información contiene cada variable de la tabla. Lee también la documentación sobre `mpg` en [\textcolor{blue}{{este enlace}}](https://ggplot2.tidyverse.org/reference/mpg.html).
-```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%"}
-# Datos de enfermedades coronarias en Framingham
+```{r echo = FALSE, message=FALSE, fig.align='center', out.width = "80%", purl=FALSE}
 include_graphics(figpath("../fig/02-fig02-fhs.png"))
+```
+```{r echo = FALSE, message=FALSE}
+# Datos de enfermedades coronarias en Framingham
 fhs = read_csv("../datos/framingham.csv")
 ```
+
+
 
 ## Clasificación inicial.
 
@@ -442,15 +446,28 @@ plot(density(auto2$rep78, na.rm = TRUE), col="red", main="", lwd = 3)
 
 **Enlaces**
 
-```{r eval = FALSE, echo = FALSE, purl=FALSE, message=FALSE, error=FALSE}
-sessionName = "02-TiposDeVariablesEDA"
+```{r echo = FALSE, purl=FALSE, message=FALSE, error=FALSE}
+sessionName = "sesion02"
 RmdName = paste0(sessionName,".Rmd")
-ScriptName = paste0(sessionName,".R")
+ScriptName = paste0(sessionName, "-comandos.R")
 lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
-knitr::purl(RmdName, output = paste0("../scripts/", ScriptName))
+```
+```{r eval=FALSE, echo=FALSE, error=FALSE, message=FALSE, purl=FALSE}
+sessionName = "sesion02"
+RmdName = paste0(sessionName,".Rmd")
+ScriptName = paste0(sessionName, "-comandos.R")
+lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
+knitr::purl(RmdName, output = paste0("../scripts/", ScriptName), documentation = 0)
 ```
 
-- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/02-TiposDeVariablesEDA.R}{Código de esta sesión}
+
+```{r echo=FALSE, eval=FALSE, comment=NULL}
+download.file(lnkScriptGitHub, destfile = paste0(getwd(),"/", ScriptName))
+```
+
+
+
+- \link{`r lnkScriptGitHub`}{Código de esta sesión}
 
 + [\textcolor{blue}{{Cookbook for R}}](http://www.cookbook-r.com/)
 

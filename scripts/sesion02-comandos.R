@@ -60,8 +60,8 @@ head(planetas, 3)
 
 
 
+
 # Datos de enfermedades coronarias en Framingham
-include_graphics(figpath("../fig/02-fig02-fhs.png"))
 fhs = read_csv("../datos/framingham.csv")
 
 # variable discreta, tabla de frecuencia absoluta
@@ -117,3 +117,8 @@ ggplot(mpg) +
 # Relación entre curvas de densidad e histogramas.
 hist(x = fhs$sysBP, breaks=150, probability = TRUE, main="")
 lines(density(fhs$sysBP), col="red", lwd=4)
+
+
+
+
+

@@ -1,0 +1,182 @@
+---
+title: "Código para la descarga de ficheros desde RStudio"
+subtitle: 'ICAI. Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.' 
+author: "Fernando San Segundo"
+date: 'Curso 2020-21. Última actualización: `r format(Sys.time(), "%Y-%m-%d")`'
+output: 
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instrucciones
+
+Para descargar los ficheros de código correspondientes a una sesión:
+
+1. Abre RStudio
+1. Asegúrate de usar el menú *Session - Set Working Directory* para elegir tu directorio de trabajo. Ese directorio debe contener una subcarpeta llamada `datos` (así, en minúscula). *Atención:* la carpeta datos *no es* el directorio de trabajo, es una subcarpeta de ese directorio.  
+1. Abre un script de comandos en el editor de RStudio (con el menú *File* o con `Ctrl + Mayúsculas + N`).
+1. Busca el bloque de comandos correspondiente a esa sesión.
+1. Copia esos comandos al script que has abierto y ejecútalos. Primero se mostrará el nombre del directorio de trabajo, para que puedas comprobar que es correcto, y a cotinuación comenzará la descarga. 
+1. Los comandos de descarga están pensados para que, en el caso de un fichero de datos, la carpeta de destino sea la subcarpeta datos de tu directrio de trabajo.
+
+Si tienes algún problema con la descarga, por favor avísame.
+
+# Código por sesiones
+
+
+## Sesión 1
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+# Código de esta sesión
+
+scriptName = "sesion01-comandos.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+# Fichero de comandos para vectores
+
+(scriptName = "sesion01-01.R")
+
+(scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName))
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
+
+## Sesión 2
+
+### Código de esta sesión
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "sesion02-comandos.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+
+
+
+```
+
+### Ficheros de datos
+
+#### Fichero csv, p.6
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+if(!dir.exists("datos"))stop("La carpeta datos no existe")
+
+dataFile = "movies.csv"
+
+dataURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/", dataFile)
+
+if(!file.exists(dataFile)){
+  download.file(dataURL, destfile = paste0("./datos/", dataFile))
+} else {
+  warning(paste0("Cuidado: el fichero de datos", dataFile, " ya existe en tu carpeta de datos"))
+}
+````
+
+#### Fichero Excel, p.9
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+
+# Fichero Excel
+
+dataFile =  "train_acc_2010.xls" 
+
+dataURL = paste0("http://users.stat.ufl.edu/~winner/data/", dataFile)
+
+localFile = paste0("./datos/", dataFile)
+if(!file.exists(localFile)){
+  download.file(dataURL, destfile = localFile)
+} else {
+  warning(paste0("Cuidado: el fichero de datos", dataFile, " ya existe en tu carpeta de datos"))
+}
+```
+
+
+#### Fichero SAV, p.10
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+dataFile =  "brainhead.sav" 
+
+dataURL = paste0("http://users.stat.ufl.edu/~winner/data/", dataFile)
+
+localFile = paste0("./datos/", dataFile)
+if(!file.exists(localFile)){
+  download.file(dataURL, destfile = localFile)
+} else {
+  warning(paste0("Cuidado: el fichero de datos", dataFile, " ya existe en tu carpeta de datos"))
+}
+```
+
+#### Fichero sas7bdat, p.11
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+dataFile =  "transport.sas7bdat" 
+
+dataURL = paste0("http://www.principlesofeconometrics.com/sas/", dataFile)
+
+localFile = paste0("./datos/", dataFile)
+if(!file.exists(localFile)){
+  download.file(dataURL, destfile = localFile)
+} else {
+  warning(paste0("Cuidado: el fichero de datos", dataFile, " ya existe en tu carpeta de datos"))
+}
+```
+
+#### Fichero csv del estudio de Framingham, p. 15
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+dataFile =  "framingham.csv" 
+
+dataURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/", dataFile)
+
+localFile = paste0("./datos/", dataFile)
+if(!file.exists(localFile)){
+  download.file(dataURL, destfile = localFile)
+} else {
+  warning(paste0("Cuidado: el fichero de datos", dataFile, " ya existe en tu carpeta de datos"))
+}
+```
+
