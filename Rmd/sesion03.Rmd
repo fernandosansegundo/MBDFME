@@ -446,7 +446,8 @@ puedes comprobar que esto es lo mismo que:
 + *Media como proporción.* Si pensamos en los niveles de un factor binario como cierto/falso, entonces al igual que hace R podemos identificar cierto/falso con 1/0. Esta representación numérica  tiene una ventaja importante. Aunque hemos dicho que los valores centrales no tienen sentido en factores genéricos, en este caso concreto la media aritmética de un vector de unos y ceros *mide la proporción* de valores iguales a 1. 
 
 + Veamos un ejemplo. La variable `male` de la tabla `fhs` es un factor binario que vale 1 si el paciente es un hombre y 0 si es una mujer. Para averiguar la proporción de hombres en ese estudio basta con hacer:
-  ```{r message=FALSE}
+  ```{r echo=-1, message=FALSE}
+  # Factores dicotómicos
   fhs = read_csv("../datos/framingham.csv")
   mean(fhs$male)
   ```
@@ -467,7 +468,16 @@ puedes comprobar que esto es lo mismo que:
 
 <!-- + R proporciona muchas herramientas para adentrarse en este tipo de problemas, e irás conociendo algunas en otras asignaturas. Aquí simplemente queremos mencionar que la librería [\textcolor{blue}{{stringr}}](https://stringr.tidyverse.org), que es otro componente del *tidyverse*, es una de las mejores herramientas para iniciarse en el manejo de textos con R. Veremos ejemplos más adelante. -->
 
-# Complementos de R: funciones, datos ausentes. 
+# Complementos de R: listas, bucles, funciones, datos ausentes, Rmarkdown. 
+
+```{r echo=FALSE}
+#########################################################
+## Sección 4. Complementos de R
+## Listas, bucles, funciones, datos ausentes, Rmarkdown
+#########################################################
+```
+
+
 
 ## Listas.
 
@@ -798,6 +808,9 @@ RmdName = paste0(sessionName,".Rmd")
 ScriptName = paste0(sessionName,"-comandos.R")
 lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
 knitr::purl(RmdName, output = paste0("../scripts/", ScriptName), documentation = 0)
+codigo = readLines(paste0("../scripts/", ScriptName))
+datosOk = gsub(pattern = "\\\"..\\datos", replacement= "\\\".\\datos", codigo, fixed=TRUE)
+writeLines(datosOk, paste0("../scripts/", ScriptName))
 ```
 
 
