@@ -452,8 +452,6 @@ puedes comprobar que esto es lo mismo que:
   ```
   Aproximadamente el `r signif(100 * mean(fhs$male), 2)`% de los pacientes son hombres. 
 
-# Rmarkdown, introducción.
-
 <!-- --- -->
 
 <!-- ## Cadenas de caracteres (textos). -->
@@ -468,6 +466,307 @@ puedes comprobar que esto es lo mismo que:
 <!--   y muchas otras tecnologías actuales, conectadas con el Análisis del Lenguaje Natural (NLP) y la Inteligencia Artificial.  -->
 
 <!-- + R proporciona muchas herramientas para adentrarse en este tipo de problemas, e irás conociendo algunas en otras asignaturas. Aquí simplemente queremos mencionar que la librería [\textcolor{blue}{{stringr}}](https://stringr.tidyverse.org), que es otro componente del *tidyverse*, es una de las mejores herramientas para iniciarse en el manejo de textos con R. Veremos ejemplos más adelante. -->
+
+# Complementos de R: funciones, datos ausentes. 
+
+## Listas.
+
++ Como referencias para este apartado puedes usar [@Boehmke2016, capítulo 11], [@Matloff2011, capítulo 4]. 
+
++ A diferencia de los vectores, las listas sirven para guardar elementos heterogéneos (incluidas sublistas). La forma más sencilla de crear una lista es usando `list `:\small
+  ```{r}
+  (planeta = list(nombre = "Marte", exterior = TRUE, 
+                   radio = 3389.5, satelites = list("Fobos", "Deimos")))
+  ```
+  \normalsize
+
+## Accediendo a los elementos de una lista.
+
++ R usa `$` o doble corchete `[[ ]]` para identificar los elementos de la lista.\small
+  ```{r}
+  planeta[[1]]
+  planeta$exterior
+  planeta$satelites[[1]]
+  ```
+  \normalsize La salida es del tipo de objeto que hay en esa posición de la lista.
+  
++ Pero fíjate en la diferencia si usamos un único corchete:\small
+  ```{r}
+  planeta[1]
+  planeta["exterior"]
+  ```
+  \normalsize En este caso la salida *siempre es una lista*.
+
+## Funciones `list`, `append` y `c`.
+
++ Atención a esta diferencia:\scriptsize
+  ```{r}
+  (l1 = list("A", "B"))
+  (l2 = list(c("A", "B")))
+  ```
+  \normalsize La función `list` siempre crea *listas anidadas*. Por ejemplo este comando (no se muestra la salida) crea una lista con dos componentes y el primero es `l2`:\scriptsize
+  ```{r eval=FALSE}
+  (l3 = list(l2, "C"))
+  ```
+  \normalsize
+
++ Las funciones `append` y `c` *adjuntan* elementos. Estos comandos son equivalentes:\scriptsize
+  ```{r }
+  l4 = append(l2, "D")
+  (l4 = c(l2, "D"))
+  ```
+  \normalsize También se pueden añadir elementos por nombre, como en  
+  \small `planeta$distSol = 227.9` \normalsize 
+
+## Otras propiedades y operaciones con listas.
+
++ La función `length` produce el número de elementos de una lista. Y con `names` se obtienen los nombres de sus elementos (si se han dado nombres).
+
++ **Ejercicio:** Prueba a usar `names` y `length` con varias de las listas que hemos creado. Ejecuta `(sesion = sessionInfo())` `para ver lo que hace esa función. Y luego explora como acceder a las componentes usando `sesion$`
+
+
++ Para eliminar elementos de una lista basta con hacerlos `NULL`.\small
+  ```{r}
+  l4[3] = NULL
+  l4
+  ```
+  \normalsize
+
++ La función `unlist` *`aplana`* una lista dando como resultado un vector:\small
+  ```{r}
+  unlist(l1)
+  ```
+  \normalsize
+  
++ **Ejercicio:** ¿qué se obtiene al aplicar `unlist` a la siguiente `lista`?  
+\small `lista = list(letters[1:3], matrix(1:12, nrow = 3), TRUE)`. \normalsize
+```{r echo=FALSE, eval=FALSE}
+lista = list(letters[1:3], matrix(1:12, nrow = 3), TRUE)
+unlist(lista)
+```
+
+
+## Estructuras de control en R. Bloques if/else.
+
++ Como referencias para este apartado puedes usar [@Boehmke2016, capítulo 19], [@Matloff2011, capítulo 7]. 
+
++ **Bloques if/else.** La estructura básica de estos bloques es:\small
+  ```{}
+  if (condición) {
+    ...
+    sentencias que se ejecutan si condicion = TRUE
+    ...
+  }  else {
+    ...
+    sentencias que se ejecutan si condicion = FALSE
+    ...
+  }
+  ```
+  \normalsize Si necesitas condiciones anidadas puedes cambiar `else` por `else if` y añadir a continuación otra condición para crear un nuevo nivel de la estructura.
+
++ La estructura `if` está pensada para ejecutarse sobre una *única* condición que produzca un  *único* valor `TRUE/FALSE`. Existe también una función vectorializada, llamada `ifelse` que se puede aplicar a un vector de condiciones. Un ejemplo:\small
+  ```{r}
+  ifelse(((1:5) < 3), yes = "A",  no = "B")
+  ```
+  \normalsize
+
+## Bucles for.
+
++ El bucle for se utiliza cuando queremos repetir un bloque de comando y conocemos de antemano el número máximo de repeticiones. Su estructura básica es similar a esta:\small
+  ```{}
+  for(k in valores_k) {
+    ...
+    cuerpo del bucle, se repite a lo sumo length(valores_k) veces
+    ...
+  }
+  ```
+  \normalsize La variable `k` (el nombre es arbitrario) es el *contador* del bucle for. El vector  `valores_k` contiene los valores que toma `k` en cada iteración. 
+  
++ Si en alguna iteración queremos interrumpir el bucle cuando se cumple alguna condición (y no hacer ninguna iteración más), podemos combinar `if` con la función `break`. Si lo que queremos es solamente pasar a la siguiente iteración usamos `next` en lugar de `break`.
+
++ A menudo se usa un bucle for para *"rellenar"* un objeto como un vector o matriz. Es importante recordar que R es poco eficiente haciendo *"crecer"* estos objetos. En esos casos es mucho mejor comenzar creando el objeto completo, con todas sus posiciones, e ir asignado valores a posiciones en cada iteración (R lo inicializa a 0 ). 
+
++ En general **es preferible usar operaciones vectorializadas en lugar de bucles for**. Pronto aprenderemos las funciones de la familia `apply` para hacer esto.
+
+## Ejemplo de bucle for con `next` y `break`.
+
++ El siguiente código ilustra un bucle for con el uso de next y break. Ejecútalo varias veces para ver como se comporta según los valores de sus parámetros.
+  ```{r eval=FALSE}
+  valores = numeric(10) # Creamos un vector del tamaño previsto
+  for (k in 1:10){
+    sorteo = sample(1:20, 1)
+    print(paste0("k = ", k, ", sorteo = ", sorteo))
+    if (k %in% 5:6){
+      next # saltamos dos valores
+    } else if (sorteo  == 1){
+      print("Resultado del sorteo es 1, fin del bucle")
+      break # paramos si un valor aleatorio es 1
+    }
+    valores[k] = k # se ejecuta cuando no se cumplan las condiciones
+  } 
+  valores
+  ```
+  
++ **Ejercicio:** ¿Qué valores asigna R a los elementos de los vectores creados respectivamente con `x = logical(10)` y con `v = character(10)`?  
+
+## Otros bucles: while y repeat.
+
++ En R también existen estos dos tipos de bucles, comunes a muchos lenguajes. Conviene insistir en que suele ser más eficiente evitar el uso de bucles.
+
++ El bucle `while` tiene esta estructura:\small
+  ```{}
+  while (condición){
+      ...
+      cuerpo del bucle, que eventualmente debe hacer condición TRUE o usar break
+      ...
+  }
+  ```
+  \normalsize 
+
++ El bucle `repeat` tiene esta estructura:\small
+  ```{}
+  repeat {
+      ...
+      cuerpo del bucle, que debe usar break
+      ...
+  }
+  ```
+  \normalsize Insistimos: a diferencia de otros lenguajes, en R un bucle `repeat` debe usar explícitamente `break` para detenerse.
+
+  
++ El código de este tema contiene ejemplos de bucle `while` y `repeat` con `break`, que puedes ejecutar varias veces. Observa las diferencias en el comportamiento de ambos bucles.
+```{r eval=FALSE, echo=FALSE}
+# Ejemplo de bucle break
+k = 0
+while (k < 4){
+  k = k + 1
+  print(k)
+  if(sample(1:6, 1) == 6){
+    print("Final prematuro")
+    break()
+  } 
+}
+```
+
+```{r eval=FALSE, echo=FALSE}
+# Ejemplo de bucle repeat similar al bucle while previo
+k = 1
+repeat {
+  k = k + 1
+  print(k)
+  if(sample(1:6, 1) == 6){
+    print("Final prematuro")
+    break()
+  } 
+}
+```
+
+
+
+## Funciones de R.
+
++ Aunque R básico y todas las librerías disponibles nos ofrecen miles de funciones para las más diversas tareas, pronto llegará el día en que necesitarás escribir una función para resolver un problema específico.
+
++ Para escribir una función de R podemos usar este esquema básico\small
+  ```{}
+  nombreFuncion = function(argumento1, argumento2, ...){
+    ...
+    ...
+      
+    líneas de código del cuerpo de la función
+    ...
+    ...
+  }
+  ```
+  \normalsize Como se ve la función tiene un *nombre*, una lista de *argumentos* y un *cuerpo* que contiene las líneas de código R que se ejecutarán al llamar a la función.
+  
+
+## Ejemplo
+
++ Crearemos una función `genPasswd` que genere contraseñas aleatorias. Los argumentos serán la longitud de la contraseña `size` y 3 booleanos `upp`, `low` y `nmb` que sirven para incluir o no respectivamente mayúsculas, minúsculas y números. Todos ellos menos `size` tienen valores por defecto.\scriptsize
+  ```{r}
+  genPasswd = function(size, upp = TRUE, low = TRUE, nmb = TRUE){
+
+    # El vector pool guarda el juego de caracteres del password
+    pool = character() 
+    
+    # Generamos pool según las opciones
+    if(upp) pool = c(pool, LETTERS) 
+    if(low) pool = c(pool, letters)
+    if(nmb) pool = c(pool, 0:9)
+    
+    # Sorteamos los símbolos que aparecen en el password
+    passwd = sample(pool, size, replace = TRUE) 
+    # Y lo reducimos a un string con paste
+    paste(passwd, sep = "", collapse = "") 
+  }
+  ```
+  \normalsize
+  La función se ejecuta como cualquier otra función de R (*pero cuidado:* si tratas de ejecutarla sin darle un valor a `size` habrá un error.):\small
+  ```{r}
+  genPasswd(size = 15)
+  ```
+  \normalsize 
+
++ **Ejercicio:** lee la ayuda de la función `paste` (y después la de `paste0`). Es una función extremadamente útil para trabajar con texto.
+ 
+---
+
+## Acceso a las componentes de una función.
+
++ La función `formals` permite acceder la lista de argumentos de cualquier función. Prueba a ejecutar:\scriptsize
+  ```{r eval=FALSE, comment = NULL}
+  formals(genPasswd)
+  ```
+\normalsize El resultado es una *lista*. Este es un tipo de estructuras de datos muy importante que aún no hemos tratado, pero que veremos en breve. 
+
++ La función `body` permite acceder (¡y modificar!) el cuerpo de la función:\scriptsize
+  ```{r}
+  body(genPasswd)
+  ```
+  \normalsize Observa el resultado si ahora haces \small
+  ```{r eval=FALSE, comment=NULL}
+  body(genPasswd) = "No me apetece trabajar..."
+  genPasswd(12)
+  ```
+  \normalsize Puedes leer más sobre funciones en el Capítulo 18 de [@Boehmke2016].
+  
+
+## Manejo de datos ausentes. La función `is.na`
+
++ Hasta ahora hemos tocado sólo tangencialmente el tema de los datos ausentes, pero es sin duda uno de los quebraderos de cabeza más habituales que te encontrarás al trabajar con un nuevo conjunto de datos.
+
++ En R los datos ausentes se representan con el símbolo `NA`. Y disponemos de varias funciones para detectarlos. La más básica es `is.na`. Por ejemplo:
+  ```{r}
+  x = c(2, 3, -5, NA, 4, 6, NA)
+  is.na(x)
+  ```
+  Esta función es muy útil cuando se combina con otras como `which` que ya conoces o como `all` y `any`. Estas dos últimas actúan sobre un vector de booleanos y valen `TRUE` si todos o alguno, respectivamente, de los valores del vector son `TRUE`.
+  
++ Por ejemplo, podemos saber si `fhs$glucose` tiene algún valor ausente con
+  ```{r}
+  any(is.na(fhs$glucose))
+  ```
+  
+
+## Más sobre datos ausentes: `complete.cases` y `na.rm`
+
++ Una función relacionada es `complete.cases`, Aplicada a una tabla (`data.frame`) nos dirá para cada fila si esa fila tiene o no datos ausentes.\small
+  ```{r}
+  head(complete.cases(fhs), 17)
+  ```
+  \normalsize El primer `FALSE` corresponde a la fila 15 de `fhs` que tiene un valor ausente en la columna `glucose`, como ya sabemos. 
+
++ La presencia de datos ausentes puede hacer que muchas funciones produzcan `NA` como resultado (o peor, que no funcionen correctamente). Por ejemplo, una media aritmética:\small
+  ```{r}
+  mean(fhs$glucose)
+  ```
+  \normalsize Muchas funciones de R disponen de un argumento `na.rm` para excluir los valores `NA` de la operación que se realice:\small
+  ```{r}
+  mean(fhs$glucose, na.rm = TRUE)
+  ```
+  \normalsize Puedes encontrar más información en la Sección 7.4 de \link{https://r4ds.had.co.nz/exploratory-data-analysis.html\#missing-values-2}{R for Data Science}, la Sección 5.12 de [@Peng2015] y el Capítulo 14 de [@Boehmke2016].
+
 
 ## Rmarkdown para la creación de documentos.
 
