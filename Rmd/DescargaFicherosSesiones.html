@@ -378,6 +378,9 @@ summary {
 <li><a href="#código-de-esta-sesión">Código de esta sesión</a></li>
 <li><a href="#ficheros-de-datos">Ficheros de datos</a></li>
 </ul></li>
+<li><a href="#sesión-3">Sesión 3</a><ul>
+<li><a href="#código-de-esta-sesión-1">Código de esta sesión</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -545,6 +548,24 @@ if(!file.exists(localFile)){
   warning(paste0(&quot;Cuidado: el fichero de datos&quot;, dataFile, &quot; ya existe en tu carpeta de datos&quot;))
 }</code></pre>
 </div>
+</div>
+</div>
+<div id="sesión-3" class="section level2">
+<h2>Sesión 3</h2>
+<div id="código-de-esta-sesión-1" class="section level3">
+<h3>Código de esta sesión</h3>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+
+scriptName = &quot;sesion03-comandos.R&quot;
+
+scriptURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/&quot;, scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0(&quot;Cuidado: el fichero &quot;, scriptName, &quot; ya existe&quot;))
+}</code></pre>
 </div>
 </div>
 </div>

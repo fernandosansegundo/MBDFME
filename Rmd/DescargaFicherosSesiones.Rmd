@@ -202,3 +202,22 @@ if(!file.exists(localFile)){
 }
 ```
 
+## Sesión 3
+
+### Código de esta sesión
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "sesion03-comandos.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
