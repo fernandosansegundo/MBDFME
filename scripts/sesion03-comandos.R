@@ -51,7 +51,7 @@ par(mfrow = c(1, 1))
 
 
 # Media aritmética, p. 9
-set.seed(2019)
+set.seed(2019) # no ejecutes esta línea si quieres ver otras muestras
 (muestra = sample(0:100, size = 20, replace = TRUE))
 (media = mean(muestra))
 
@@ -101,8 +101,8 @@ ggplot(data = muestras) +
 
 # y la versión en curvas de densidad de la página 15
 plot(density(muestra1, adjust = 2), col="blue", 
-     xlim = c(-12, 12), lwd = 2, main = "", xlab= "")
-lines(density(muestra2, adjust = 2), col="red", lwd = 2, sub="")
+     xlim = c(-12, 12), lwd = 3, main = "", xlab= "")
+lines(density(muestra2, adjust = 2), col="red", lwd = 3, sub="")
 
 # Recorrido intercuartílico, p. 16
 IQR(mpg$cty)
@@ -169,6 +169,7 @@ mean(fhs$male)
 (planeta = list(nombre = "Marte", exterior = TRUE, 
                  radio = 3389.5, satelites = list("Fobos", "Deimos")))
 
+# accediendo a los elementos de una lista
 planeta[[1]]
 planeta$exterior
 planeta$satelites[[1]]
@@ -176,6 +177,7 @@ planeta$satelites[[1]]
 planeta[1]
 planeta["exterior"]
 
+# Funciones list, append y c
 (l1 = list("A", "B"))
 (l2 = list(c("A", "B")))
 
@@ -184,52 +186,56 @@ planeta["exterior"]
 l4 = append(l2, "D")
 (l4 = c(l2, "D"))
 
+# Otras propiedades y operaciones con listas
 l4[3] = NULL
 l4
 
 unlist(l1)
 
-## lista = list(letters[1:3], matrix(1:12, nrow = 3), TRUE)
-## unlist(lista)
+lista = list(letters[1:3], matrix(1:12, nrow = 3), TRUE)
+unlist(lista)
 
+# Estructuras de control. If/else 
 ifelse(((1:5) < 3), yes = "A",  no = "B")
 
-## valores = numeric(10) # Creamos un vector del tamaño previsto
-## for (k in 1:10){
-##   sorteo = sample(1:20, 1)
-##   print(paste0("k = ", k, ", sorteo = ", sorteo))
-##   if (k %in% 5:6){
-##     next # saltamos dos valores
-##   } else if (sorteo  == 1){
-##     print("Resultado del sorteo es 1, fin del bucle")
-##     break # paramos si un valor aleatorio es 1
-##   }
-##   valores[k] = k # se ejecuta cuando no se cumplan las condiciones
-## }
-## valores
+# Ejemplo de bucle for con next y break
+valores = numeric(10) # Creamos un vector del tamaño previsto
+for (k in 1:10){
+  sorteo = sample(1:20, 1)
+  print(paste0("k = ", k, ", sorteo = ", sorteo))
+  if (k %in% 5:6){
+    next # saltamos dos valores
+  } else if (sorteo  == 1){
+    print("Resultado del sorteo es 1, fin del bucle")
+    break # paramos si un valor aleatorio es 1
+  }
+  valores[k] = sorteo # se ejecuta cuando no se cumplan las condiciones
+} 
+valores
 
-## # Ejemplo de bucle break
-## k = 0
-## while (k < 4){
-##   k = k + 1
-##   print(k)
-##   if(sample(1:6, 1) == 6){
-##     print("Final prematuro")
-##     break()
-##   }
-## }
+# Ejemplo de bucle while
+k = 0
+while (k < 4){
+  k = k + 1
+  print(k)
+  if(sample(1:6, 1) == 6){
+    print("Final prematuro")
+    break()
+  } 
+}
 
-## # Ejemplo de bucle repeat similar al bucle while previo
-## k = 1
-## repeat {
-##   k = k + 1
-##   print(k)
-##   if(sample(1:6, 1) == 6){
-##     print("Final prematuro")
-##     break()
-##   }
-## }
+# Ejemplo de bucle repeat similar al bucle while previo
+k = 1
+repeat {
+  k = k + 1
+  print(k)
+  if(sample(1:6, 1) == 6){
+    print("Final prematuro")
+    break()
+  } 
+}
 
+# Funciones de R
 genPasswd = function(size, upp = TRUE, low = TRUE, nmb = TRUE){
 
   # El vector pool guarda el juego de caracteres del password
@@ -248,18 +254,21 @@ genPasswd = function(size, upp = TRUE, low = TRUE, nmb = TRUE){
 
 genPasswd(size = 15)
 
+# Acceso a las componentes de una función
 formals(genPasswd)
 
 body(genPasswd)
 
-body(genPasswd) = "No me apetece trabajar..."
+body(genPasswd) = "No me apetece trabajar...invéntate tú el password"
 genPasswd(12)
 
+# Manejo de datos ausentes. Función is.na
 x = c(2, 3, -5, NA, 4, 6, NA)
 is.na(x)
 
 any(is.na(fhs$glucose))
 
+# complete.cases y na.rm
 head(complete.cases(fhs), 17)
 
 mean(fhs$glucose)

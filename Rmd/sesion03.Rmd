@@ -30,6 +30,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
 
+
 if (grepl(pattern = "cloud", getwd())){
   homeDir = "/cloud/project/"
   } else {
@@ -37,7 +38,8 @@ if (grepl(pattern = "cloud", getwd())){
   }
 figpath = function(figname){
   paste0(homeDir,"fig/", figname)
-} 
+}
+
 ```
 
 ```{r echo = FALSE}
@@ -141,9 +143,9 @@ $$
 $$
 
 + En R se utiliza la función `mean` para calcular la media de los valores de un vector numérico. Con este código vamos a elegir 20 números al azar entre 0 y 100 (con remplazamiento). Recuerda que los paréntesis sirven para que R muestre el resultado.
-  ```{r echo = -1, size="scriptsize"}
+  ```{r echo = -(1:2), size="scriptsize"}
   # Media aritmética, p. 9
-  set.seed(2019)
+  set.seed(2019) # no ejecutes esta línea si quieres ver otras muestras
   (muestra = sample(0:100, size = 20, replace = TRUE))
   (media = mean(muestra))
   ```
@@ -155,7 +157,7 @@ $$
 + La media aritmética se usa mucho porque su definición matemática es muy sencilla. Pero tiene un problema: su valor se ve muy afectado por la presencia de valores anormalmente grandes o pequeños de la variable, los llamados *valores atípicos* (que muy pronto vamos a definir con más rigor).
 
 + Por ejemplo, si elegimos 99 números al azar de 0 a 100, su media es parecida a 50 como cabría esperar.
-  ```{r echo = -1}
+  ```{r echo = -1, size="small"}
   # Valores atípicos, p. 10
   set.seed(2019)
   muestra = sample(0:100, size = 99, replace = TRUE) 
@@ -254,8 +256,8 @@ $$
   ```{r echo = FALSE, message=FALSE, warning=FALSE, fig.align='center', out.width = "70%"}
   # y la versión en curvas de densidad de la página 15
   plot(density(muestra1, adjust = 2), col="blue", 
-       xlim = c(-12, 12), lwd = 2, main = "", xlab= "")
-  lines(density(muestra2, adjust = 2), col="red", lwd = 2, sub="")
+       xlim = c(-12, 12), lwd = 3, main = "", xlab= "")
+  lines(density(muestra2, adjust = 2), col="red", lwd = 3, sub="")
   ```
   Este diagrama ilustra lo que la mostraban las nubes de puntos de la figura previa: los puntos de un conjunto están más agrupados en torno al centro que los del otro conjunto. La diferencia entre ambos conjuntos está en la **dispersión**.  
 
@@ -292,7 +294,7 @@ include_graphics(figpath("../fig/02-fig05-BoxPlotEstructura.png"))
 ## Boxplots con R básico.
 
 + Dibujar un boxplot con R básico es muy sencillo. Por ejemplo, para la variable `cty`:
-  ```{r echo=TRUE, comment=NULL, fig.align='center', out.width = "50%", size="small"}
+  ```{r echo=-1, comment=NULL, fig.align='center', out.width = "50%", size="small"}
   # Boxplot con R básico p. 19
   bxp_cty = boxplot(mpg$cty, col="orange")
   ```
@@ -309,7 +311,7 @@ include_graphics(figpath("../fig/02-fig05-BoxPlotEstructura.png"))
 ## Boxplot con ggplot
 
 + En este caso usamos:
-  ```{r echo=TRUE, comment=NULL, fig.align='center', out.width = "60%", size="small"}
+  ```{r echo=-1, comment=NULL, fig.align='center', out.width = "60%", size="small"}
   # Boxplot y violinplot con R básico p. 20
   ggplot(mpg) + 
     geom_boxplot(mapping = aes(y = cty), fill="orange") +
@@ -388,7 +390,7 @@ como ves, la diferencia estriba en que dividimos por $n-1$ en lugar de $n$.
 ## Las funciones var y sd.
 
 + Para calcular la varianza muestral en R usamos `var`:
-  ```{r}
+  ```{r echo = -1}
   # Varianza y desviación típica p. 24
   var(mpg$displ)
   ```
@@ -415,7 +417,7 @@ puedes comprobar que esto es lo mismo que:
 + Hasta ahora hemos centrado la discusión en variables cuantitativas, con valores numéricos. Vamos a tratar aquí muy brevemente las variables cualitativas o factores. Habrá muchas ocasiones en las próximas sesiones de practicar su uso. 
 
 + Al trabajar con factores sigue teniendo sentido usar tablas de frecuencias absolutas y relativas (pero no acumuladas, en general):
-  ```{r size="small"}
+  ```{r echo=-1, size="small"}
   # Factores p. 26
   table(accidentes$TrkType)
   prop.table(table(accidentes$TrkType))
@@ -429,7 +431,7 @@ puedes comprobar que esto es lo mismo que:
 ## Gráficos para factores: diagramas de barras.
 
 + El diagrama más simple y a menudo el más efectivo para representar la tabla de frecuencias de los niveles de un factor es el diagrama de barras. En R básico y ggplot respectivamente:
-  ```{r echo=TRUE, message=FALSE, fig.align='center', out.width = "30%", size="scriptsize"}
+  ```{r echo=-1, message=FALSE, fig.align='center', out.width = "30%", size="scriptsize"}
   # Gráficos para factores, p. 27
   library(viridisLite)
   barplot(prop.table(table(accidentes$TrkType)), col=viridis(5))
@@ -493,7 +495,8 @@ puedes comprobar que esto es lo mismo que:
 ## Accediendo a los elementos de una lista.
 
 + R usa `$` o doble corchete `[[ ]]` para identificar los elementos de la lista.\small
-  ```{r}
+  ```{r echo=-1}
+  # accediendo a los elementos de una lista
   planeta[[1]]
   planeta$exterior
   planeta$satelites[[1]]
@@ -501,7 +504,7 @@ puedes comprobar que esto es lo mismo que:
   \normalsize La salida es del tipo de objeto que hay en esa posición de la lista.
   
 + Pero fíjate en la diferencia si usamos un único corchete:\small
-  ```{r}
+  ```{r }
   planeta[1]
   planeta["exterior"]
   ```
@@ -510,7 +513,8 @@ puedes comprobar que esto es lo mismo que:
 ## Funciones `list`, `append` y `c`.
 
 + Atención a esta diferencia:\scriptsize
-  ```{r}
+  ```{r echo=-1}
+  # Funciones list, append y c
   (l1 = list("A", "B"))
   (l2 = list(c("A", "B")))
   ```
@@ -536,7 +540,8 @@ puedes comprobar que esto es lo mismo que:
 
 
 + Para eliminar elementos de una lista basta con hacerlos `NULL`.\small
-  ```{r}
+  ```{r echo=-1}
+  # Otras propiedades y operaciones con listas
   l4[3] = NULL
   l4
   ```
@@ -550,7 +555,7 @@ puedes comprobar que esto es lo mismo que:
   
 + **Ejercicio:** ¿qué se obtiene al aplicar `unlist` a la siguiente `lista`?  
 \small `lista = list(letters[1:3], matrix(1:12, nrow = 3), TRUE)`. \normalsize
-```{r echo=FALSE, eval=FALSE}
+```{r echo=FALSE, eval=FALSE, comment=NULL}
 lista = list(letters[1:3], matrix(1:12, nrow = 3), TRUE)
 unlist(lista)
 ```
@@ -575,7 +580,8 @@ unlist(lista)
   \normalsize Si necesitas condiciones anidadas puedes cambiar `else` por `else if` y añadir a continuación otra condición para crear un nuevo nivel de la estructura.
 
 + La estructura `if` está pensada para ejecutarse sobre una *única* condición que produzca un  *único* valor `TRUE/FALSE`. Existe también una función vectorializada, llamada `ifelse` que se puede aplicar a un vector de condiciones. Un ejemplo:\small
-  ```{r}
+  ```{r echo=-1}
+  # Estructuras de control. If/else 
   ifelse(((1:5) < 3), yes = "A",  no = "B")
   ```
   \normalsize
@@ -601,7 +607,8 @@ unlist(lista)
 ## Ejemplo de bucle for con `next` y `break`.
 
 + El siguiente código ilustra un bucle for con el uso de next y break. Ejecútalo varias veces para ver como se comporta según los valores de sus parámetros.
-  ```{r eval=FALSE}
+  ```{r eval=FALSE, echo=-1, comment=NULL}
+  # Ejemplo de bucle for con next y break
   valores = numeric(10) # Creamos un vector del tamaño previsto
   for (k in 1:10){
     sorteo = sample(1:20, 1)
@@ -612,7 +619,7 @@ unlist(lista)
       print("Resultado del sorteo es 1, fin del bucle")
       break # paramos si un valor aleatorio es 1
     }
-    valores[k] = k # se ejecuta cuando no se cumplan las condiciones
+    valores[k] = sorteo # se ejecuta cuando no se cumplan las condiciones
   } 
   valores
   ```
@@ -645,8 +652,8 @@ unlist(lista)
 
   
 + El código de este tema contiene ejemplos de bucle `while` y `repeat` con `break`, que puedes ejecutar varias veces. Observa las diferencias en el comportamiento de ambos bucles.
-```{r eval=FALSE, echo=FALSE}
-# Ejemplo de bucle break
+```{r eval=FALSE, echo=FALSE, comment=NULL}
+# Ejemplo de bucle while
 k = 0
 while (k < 4){
   k = k + 1
@@ -658,7 +665,7 @@ while (k < 4){
 }
 ```
 
-```{r eval=FALSE, echo=FALSE}
+```{r eval=FALSE, echo=FALSE, comment=NULL}
 # Ejemplo de bucle repeat similar al bucle while previo
 k = 1
 repeat {
@@ -694,7 +701,8 @@ repeat {
 ## Ejemplo
 
 + Crearemos una función `genPasswd` que genere contraseñas aleatorias. Los argumentos serán la longitud de la contraseña `size` y 3 booleanos `upp`, `low` y `nmb` que sirven para incluir o no respectivamente mayúsculas, minúsculas y números. Todos ellos menos `size` tienen valores por defecto.\scriptsize
-  ```{r}
+  ```{r echo=-1}
+  # Funciones de R
   genPasswd = function(size, upp = TRUE, low = TRUE, nmb = TRUE){
 
     # El vector pool guarda el juego de caracteres del password
@@ -725,7 +733,8 @@ repeat {
 ## Acceso a las componentes de una función.
 
 + La función `formals` permite acceder la lista de argumentos de cualquier función. Prueba a ejecutar:\scriptsize
-  ```{r eval=FALSE, comment = NULL}
+  ```{r eval=FALSE, comment = NULL, echo=-1}
+  # Acceso a las componentes de una función
   formals(genPasswd)
   ```
 \normalsize El resultado es una *lista*. Este es un tipo de estructuras de datos muy importante que aún no hemos tratado, pero que veremos en breve. 
@@ -736,7 +745,7 @@ repeat {
   ```
   \normalsize Observa el resultado si ahora haces \small
   ```{r eval=FALSE, comment=NULL}
-  body(genPasswd) = "No me apetece trabajar..."
+  body(genPasswd) = "No me apetece trabajar...invéntate tú el password"
   genPasswd(12)
   ```
   \normalsize Puedes leer más sobre funciones en el Capítulo 18 de [@Boehmke2016].
@@ -747,7 +756,8 @@ repeat {
 + Hasta ahora hemos tocado sólo tangencialmente el tema de los datos ausentes, pero es sin duda uno de los quebraderos de cabeza más habituales que te encontrarás al trabajar con un nuevo conjunto de datos.
 
 + En R los datos ausentes se representan con el símbolo `NA`. Y disponemos de varias funciones para detectarlos. La más básica es `is.na`. Por ejemplo:
-  ```{r}
+  ```{r echo=-1}
+  # Manejo de datos ausentes. Función is.na
   x = c(2, 3, -5, NA, 4, 6, NA)
   is.na(x)
   ```
@@ -762,7 +772,8 @@ repeat {
 ## Más sobre datos ausentes: `complete.cases` y `na.rm`
 
 + Una función relacionada es `complete.cases`, Aplicada a una tabla (`data.frame`) nos dirá para cada fila si esa fila tiene o no datos ausentes.\small
-  ```{r}
+  ```{r echo=-1}
+  # complete.cases y na.rm
   head(complete.cases(fhs), 17)
   ```
   \normalsize El primer `FALSE` corresponde a la fila 15 de `fhs` que tiene un valor ausente en la columna `glucose`, como ya sabemos. 
@@ -809,7 +820,7 @@ ScriptName = paste0(sessionName,"-comandos.R")
 lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
 knitr::purl(RmdName, output = paste0("../scripts/", ScriptName), documentation = 0)
 codigo = readLines(paste0("../scripts/", ScriptName))
-datosOk = gsub(pattern = "\\\"..\\datos", replacement= "\\\".\\datos", codigo, fixed=TRUE)
+datosOk = gsub(pattern = '../datos', replacement= "./datos", codigo, fixed=TRUE)
 writeLines(datosOk, paste0("../scripts/", ScriptName))
 ```
 
