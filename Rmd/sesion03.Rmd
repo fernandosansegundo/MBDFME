@@ -344,7 +344,7 @@ $$
 Usamos valores absolutos para evitar que las desviaciones por exceso compensen a las desviaciones por defecto. Aunque el valor absoluto es complicado...
 
 + Para obtener una medida de dispersión buscamos un valor representativo (valor central) de las desviaciones absolutas. Por ejemplo, la mediana de las desviaciones absolutas respecto de la mediana (usando $c$ igual a la mediana de los datos). Este valor es la **desviación absoluta mediana (MAD)**, que en R se calcula así:
-  ```{r size="small"}
+  ```{r size="small", echo = -1}
   # Desviación absoluta mediana p. 21
   library(readxl)
   accidentes = read_excel("../datos/train_acc_2010.xls")

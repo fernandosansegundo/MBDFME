@@ -179,11 +179,6 @@ if(!file.exists(localFile)){
 }
 ```
 
-
-
-
-
-
 #### Fichero csv del estudio de Framingham, p. 15
 
 ```{r eval=FALSE, comment=NULL}
@@ -221,3 +216,9 @@ if(!file.exists(scriptName)){
 }
 
 ```
+
+### Ficheros de datos
+
++ El fichero de Stata `auto2.dta`, el fichero Excel `train_acc_2010.xls` y el fichero `framingham.csv` ya se descargaron  en la Sesión 2 y deben estar en tu carpeta de trabajo. 
++ La tabla mpg forma parte del tidyverse.
+
