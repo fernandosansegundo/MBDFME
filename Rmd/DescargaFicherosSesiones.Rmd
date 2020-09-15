@@ -222,3 +222,6 @@ if(!file.exists(scriptName)){
 + El fichero de Stata `auto2.dta`, el fichero Excel `train_acc_2010.xls` y el fichero `framingham.csv` ya se descargaron  en la Sesión 2 y deben estar en tu carpeta de trabajo. 
 + La tabla mpg forma parte del tidyverse.
 
+### Introducción a RMarkdown
+
++ [Carpeta comprimida en formato zip](https://upcomillas-my.sharepoint.com/:u:/g/personal/fsansegundo_comillas_edu/EWhLiIPOioRIjQ8iah3ib6UBHgnURvxvqtY0jJxn_UJU1w?e=EQpDra)
