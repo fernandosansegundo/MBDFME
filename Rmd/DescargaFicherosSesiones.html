@@ -556,30 +556,33 @@ if(!file.exists(localFile)){
 <h2>Sesión 3</h2>
 <div id="código-de-esta-sesión-1" class="section level3">
 <h3>Código de esta sesión</h3>
-<pre class="r"><code># Directorio de trabajo
-getwd()
-
-scriptName = &quot;sesion03-comandos.R&quot;
-
-scriptURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/&quot;, scriptName)
-
-if(!file.exists(scriptName)){
-  download.file(scriptURL, destfile = scriptName)
-} else {
-  warning(paste0(&quot;Cuidado: el fichero &quot;, scriptName, &quot; ya existe&quot;))
-}</code></pre>
+<p><a href="https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/auto2.csv" class="uri">https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/auto2.csv</a></p>
 </div>
 <div id="ficheros-de-datos-1" class="section level3">
 <h3>Ficheros de datos</h3>
 <ul>
 <li>El fichero de Stata <code>auto2.dta</code>, el fichero Excel <code>train_acc_2010.xls</code> y el fichero <code>framingham.csv</code> ya se descargaron en la Sesión 2 y deben estar en tu carpeta de trabajo.</li>
 <li>La tabla mpg forma parte del tidyverse.</li>
+<li>Versión csv del fichero auto2 para tratar de evitar errores de encoding (y <a href="https://upcomillas.sharepoint.com/sites/ClculoDMA-GITI-102copia/Materiales%20de%20clase/auto2.csv">enlace al mismo fichero en Teams</a> por si os resulta más cómodo):</li>
 </ul>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+
+dataFile =  &quot;auto2.csv&quot; 
+
+dataURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/&quot;, dataFile)
+
+localFile = paste0(&quot;./datos/&quot;, dataFile)
+if(!file.exists(localFile)){
+  download.file(dataURL, destfile = localFile)
+} else {
+  warning(paste0(&quot;Cuidado: el fichero de datos&quot;, dataFile, &quot; ya existe en tu carpeta de datos&quot;))
+}</code></pre>
 </div>
 <div id="introducción-a-rmarkdown" class="section level3">
 <h3>Introducción a RMarkdown</h3>
 <ul>
-<li><a href="https://upcomillas-my.sharepoint.com/:u:/g/personal/fsansegundo_comillas_edu/EWhLiIPOioRIjQ8iah3ib6UBHgnURvxvqtY0jJxn_UJU1w?e=EQpDra">Carpeta comprimida en formato zip</a></li>
+<li><a href="https://upcomillas-my.sharepoint.com/:u:/g/personal/fsansegundo_comillas_edu/EWhLiIPOioRIjQ8iah3ib6UBHgnURvxvqtY0jJxn_UJU1w?e=EQpDraxx">Carpeta comprimida en formato zip</a></li>
 </ul>
 </div>
 </div>

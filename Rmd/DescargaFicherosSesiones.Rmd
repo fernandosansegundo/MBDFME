@@ -201,27 +201,29 @@ if(!file.exists(localFile)){
 
 ### Código de esta sesión
 
-```{r eval=FALSE, comment=NULL}
-# Directorio de trabajo
-getwd()
-
-scriptName = "sesion03-comandos.R"
-
-scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
-
-if(!file.exists(scriptName)){
-  download.file(scriptURL, destfile = scriptName)
-} else {
-  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
-}
-
-```
+https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/auto2.csv
 
 ### Ficheros de datos
 
 + El fichero de Stata `auto2.dta`, el fichero Excel `train_acc_2010.xls` y el fichero `framingham.csv` ya se descargaron  en la Sesión 2 y deben estar en tu carpeta de trabajo. 
 + La tabla mpg forma parte del tidyverse.
++ Versión csv del fichero auto2 para tratar de evitar errores de encoding (y [enlace al mismo fichero en Teams](https://upcomillas.sharepoint.com/sites/ClculoDMA-GITI-102copia/Materiales%20de%20clase/auto2.csv) por si os resulta más cómodo):
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+dataFile =  "auto2.csv" 
+
+dataURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/", dataFile)
+
+localFile = paste0("./datos/", dataFile)
+if(!file.exists(localFile)){
+  download.file(dataURL, destfile = localFile)
+} else {
+  warning(paste0("Cuidado: el fichero de datos", dataFile, " ya existe en tu carpeta de datos"))
+}
+```
 
 ### Introducción a RMarkdown
 
-+ [Carpeta comprimida en formato zip](https://upcomillas-my.sharepoint.com/:u:/g/personal/fsansegundo_comillas_edu/EWhLiIPOioRIjQ8iah3ib6UBHgnURvxvqtY0jJxn_UJU1w?e=EQpDra)
++ [Carpeta comprimida en formato zip](https://upcomillas-my.sharepoint.com/:u:/g/personal/fsansegundo_comillas_edu/EWhLiIPOioRIjQ8iah3ib6UBHgnURvxvqtY0jJxn_UJU1w?e=EQpDraxx)
