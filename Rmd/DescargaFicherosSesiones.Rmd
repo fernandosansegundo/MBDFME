@@ -201,7 +201,21 @@ if(!file.exists(localFile)){
 
 ### Código de esta sesión
 
-https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/auto2.csv
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "sesion03-comandos.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
 
 ### Ficheros de datos
 
@@ -227,3 +241,62 @@ if(!file.exists(localFile)){
 ### Introducción a RMarkdown
 
 + [Carpeta comprimida en formato zip](https://upcomillas-my.sharepoint.com/:u:/g/personal/fsansegundo_comillas_edu/EWhLiIPOioRIjQ8iah3ib6UBHgnURvxvqtY0jJxn_UJU1w?e=EQpDraxx)
+
+
+
+## Sesión 4
+
+### Código de esta sesión
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "sesion04-comandos.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
+
+### Los juegos del Caballero de Méré
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "JuegosDeMere.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
+
+### Los juegos del Caballero de Méré
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "ProbabilidadGeometrica.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
+

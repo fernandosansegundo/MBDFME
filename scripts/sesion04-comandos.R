@@ -2,14 +2,23 @@
 ## author: "Fernando San Segundo"
 ## subtitle: "Sesión 4. Poblaciones, muestras y probabilidad. Variables aleatorias."
 
+######################################################################
+######################################################################
+## ATENCIÓN: este fichero es una versión preliminar y posiblemente
+## incompleta (2020-09-17) del código de esta sesión. 
+######################################################################
+######################################################################
 
 
+
+## Poblaciones y muestras aleatorias simples con vectores usando R.
 set.seed(2019)
 N = 158000
 poblacion = as.integer(2 * rchisq(N, df = 13), 0)
 
 
 
+## Medias muestrales
 options(width= 90)
 n = 20
 (muestra = sample(poblacion, n, replace = TRUE))
@@ -19,12 +28,14 @@ options(width= 90)
 (muestra2 = sample(poblacion, n, replace = TRUE))
 mean(muestra2)
 
+## Muestras buenas y malas.
 options(width= 90)
 (muestra3 = sort(poblacion)[1:20])
 
 options(width= 90)
 mean(muestra3)
 
+## La distribución de las medias muestrales.
 k = 10000
 # replicate repite k veces los comandos entre llaves y guarda el resultado
 # del último comando en el vector mediasMuestrales
@@ -34,10 +45,16 @@ mediasMuestrales = replicate(k, {
 })
 head(mediasMuestrales, 10)
 
-
+# Representación gráfica de la distribución de las medias muestrales
+hist(mediasMuestrales, breaks = 40, main="", 
+     col="peachpuff", probability = TRUE, xlim=range(poblacion))
+lines(density(mediasMuestrales), lwd=4, col="red")
+lines(density(poblacion), lwd=4, col="blue")
+abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
 
 poblacion = sample(0:20, 20000, replace = TRUE)
 
+## Otra población, mismos resultados.
 k = 10000
 mediasMuestrales = replicate(k, { 
   muestra = sample(poblacion, n, replace = TRUE)
@@ -46,11 +63,11 @@ mediasMuestrales = replicate(k, {
 
 
 
-Otras poblaciones:
-  
 #####################################################################
+# Otras poblaciones por si quieres experimentar
+#####################################################################  
 # Uniforme continua
-#####################################################################
+
 
 tamPoblacion = 100000
 poblacion = runif(tamPoblacion, min = 0, max = 10)
@@ -97,22 +114,25 @@ mean(mediasMuestrales)
 sd(mediasMuestrales)
 desvTipPob / sqrt(Tmuestra)
 
+## La paradoja del cumpleaños.
 n = 366 # Número de personas en la sala
 
 # Vamos a repetir el experimento N veces (N salas de n personas)
 N = 10000
 pruebas = replicate(N, {
-  fechas = sort(sample(1:366, n, replace=TRUE)) 
-  max(table(fechas)) # si el máximo es mayor que 1 es que 2 fechas coinciden
+fechas = sort(sample(1:366, n, replace=TRUE)) 
+max(table(fechas)) # si el máximo es mayor que 1 es que 2 fechas coinciden
 })
 mean(pruebas > 1) # ¿qué proporción de salas tienen coincidencias?
 
 
 
+# Librería spam de Kernlab y Teorema de Bayes
 library(kernlab)
 data(spam)
 spam[1:4, c(1:10, 58)]
 
+## Tablas de contingencia 2x2
 library(tidyverse)
 spam = spam %>%
   select(order, type) %>% 
@@ -133,7 +153,7 @@ barplot(table(muestra), col=viridis(4))
 
 
 library(tidyverse)
-fhs = read_csv("../datos/framingham.csv")
+fhs = read_csv("./datos/framingham.csv")
 tablaHyp = prop.table(table(fhs$prevalentHyp))
 p = unname(tablaHyp[2])
 
@@ -296,3 +316,28 @@ gapminder %>%
   mutate(gdp = pop * gdpPercap / 10^6) %>% 
   mutate_at("gdp", log10) %>% 
   head(4)
+
+# dplyr: summarise 
+    iris %>% 
+      summarise(mediana = median(Petal.Length), desvMediana = mad(Petal.Length))
+
+
+# dplyr: summarise con group_by
+    
+    iris %>% 
+      group_by(Species) %>% 
+      summarise(mediana = median(Petal.Length), desvMediana = mad(Petal.Length))
+
+# group_by con más de un factor
+
+    mpg %>% 
+      group_by(manufacturer, cyl) %>% 
+      summarise(urbano = mean(cty), n = n()) %>% 
+  head(8)
+
+# group_by con más de un factor
+
+    mpg %>% 
+      group_by(manufacturer) %>% 
+      count(cyl) %>% 
+      head(8)

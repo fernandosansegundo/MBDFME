@@ -46,6 +46,13 @@ figpath = function(figname){
 ## title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.'
 ## author: "Fernando San Segundo"
 ## subtitle: "Sesión 4. Poblaciones, muestras y probabilidad. Variables aleatorias."
+
+######################################################################
+######################################################################
+## ATENCIÓN: este fichero es una versión preliminar y posiblemente
+## incompleta (2020-09-17) del código de esta sesión. 
+######################################################################
+######################################################################
 ```
 
 
@@ -69,7 +76,8 @@ include_graphics("../fig/03-fig01-inferenciaPoblacionMuestra.png")
 
 + Para que la muestra sea representativa lo mejor es que sea una **muestra aleatoria simple**: elegimos a los individuos al azar y con remplazamiento (podemos incluir al mismo individuo más de una vez en la muestra). 
 
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "30%", size="small"}
+```{r echo=-1, comment=NULL, fig.align='center', out.width = "30%", size="small"}
+## Poblaciones y muestras aleatorias simples con vectores usando R.
 set.seed(2019)
 N = 158000
 poblacion = as.integer(2 * rchisq(N, df = 13), 0)
@@ -89,7 +97,8 @@ abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
 
 - Ese es justo el tipo de preguntas que esperamos que responda la Estadística. Aunque en este caso disponemos del vector completo de edades debes tener claro que en los problemas reales no será así. Así que recurrimos a las muestras aleatorias (con remplazamiento), en inglés *random sample (with replacement)*. Por ejemplo, de tamaño 20. En R construimos una de esas muestras así:
 \small
-  ```{r echo=-c(1,4)}
+  ```{r echo=-c(1, 2, 4)}
+  ## Medias muestrales
   options(width= 90)
   n = 20
   (muestra = sample(poblacion, n, replace = TRUE))
@@ -121,7 +130,8 @@ $$
 
 + Entre esas muestras hay muestras *buenas* y muestras *malas*. ¿Qué queremos decir con esto? Para seguir con nuestro experimento vamos a ordenar *la población completa* por edad y tomemos los 20 primeros valores:
   \small
-  ```{r echo = -1}
+  ```{r echo = -(1:2)}
+  ## Muestras buenas y malas.
   options(width= 90)
   (muestra3 = sort(poblacion)[1:20])
   ```
@@ -138,7 +148,8 @@ $$
 + La última muestra que hemos examinado era muy poco representativa. Pero la pregunta esencial para la estadística es ¿cuál es la relación entre muestras buenas y malas? Al elegir una muestra al azar, ¿cómo de probable es que nos toque una muestra tan mala en lugar de una buena?
 
 + Podemos hacer otro pequeño experimento para explorar el espacio muestral. No podemos repasar todas las muestras una por una para clasificarlas en buenas o malas (eso sería demasiado incluso para R) pero podemos tomar *muchas* muestras aleatorias (pongamos $k = 10000$) y ver como de buenas o malas son (hacemos una *muestra de muestras*). En R es muy fácil hacer esto usando la función `replicate`: \small
-  ```{r}
+  ```{r echo = -1}
+  ## La distribución de las medias muestrales.
   k = 10000
   # replicate repite k veces los comandos entre llaves y guarda el resultado
   # del último comando en el vector mediasMuestrales
@@ -153,7 +164,8 @@ $$
 ---
 
 + En lugar de examinar una a una esas 10000 medias muestrales vamos a representarlas en un histograma y una curva de densidad. Además, aprovechándonos de que en este caso tenemos acceso a la población completa hemos añadido su curva de densidad:
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "65%", size="small", purl=FALSE}
+```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "65%", size="small", purl=TRUE}
+# Representación gráfica de la distribución de las medias muestrales
 hist(mediasMuestrales, breaks = 40, main="", 
      col="peachpuff", probability = TRUE, xlim=range(poblacion))
 lines(density(mediasMuestrales), lwd=4, col="red")
@@ -176,13 +188,14 @@ abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
   ```
   \normalsize Y ahora repetimos el proceso de construcción de medias muestrales usando replicate
   \scriptsize
-  ```{r}
-  k = 10000
-  mediasMuestrales = replicate(k, { 
-    muestra = sample(poblacion, n, replace = TRUE)
-    mean(muestra)
-  })
-  ```
+    ```{r echo=-1}
+    ## Otra población, mismos resultados.
+    k = 10000
+    mediasMuestrales = replicate(k, { 
+      muestra = sample(poblacion, n, replace = TRUE)
+      mean(muestra)
+    })
+    ```
   \normalsize El  gráfico del resultado muestra el mismo comportamiento de las medias  muestrales, lo que se conoce como **Teorema Central del Límite**:
 ```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "45%", size="small", purl=FALSE}
 hist(mediasMuestrales, breaks = 40, main="", 
@@ -193,11 +206,11 @@ abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
 ```
   
 ```{r eval=FALSE, comment=NULL}
-Otras poblaciones:
-  
 #####################################################################
+# Otras poblaciones por si quieres experimentar
+#####################################################################  
 # Uniforme continua
-#####################################################################
+
 
 tamPoblacion = 100000
 poblacion = runif(tamPoblacion, min = 0, max = 10)
@@ -274,17 +287,18 @@ desvTipPob / sqrt(Tmuestra)
 + Otro experimento que puede servir para afianzar la idea de que la probabilidad es poco intuitiva. Si en una sala hay 1000 personas entonces es seguro que hay dos que cumplen años el mismo día. De hecho basta con que haya 367 personas. Si hay menos de ese número, la probabilidad de que dos cumpleaños coincidan disminuye. ¿Cuál es el *menor número de personas* que nos garantiza una probabilidad mayor del 50% de coincidencia?
 
 + Usemos R para averiguar ese número. Repite el experimento varias veces para convencerte..\small
-  ```{r}
-  n = 366 # Número de personas en la sala
-  
-  # Vamos a repetir el experimento N veces (N salas de n personas)
-  N = 10000
-  pruebas = replicate(N, {
+    ```{r}
+    ## La paradoja del cumpleaños.
+    n = 366 # Número de personas en la sala
+    
+    # Vamos a repetir el experimento N veces (N salas de n personas)
+    N = 10000
+    pruebas = replicate(N, {
     fechas = sort(sample(1:366, n, replace=TRUE)) 
     max(table(fechas)) # si el máximo es mayor que 1 es que 2 fechas coinciden
-  })
-  mean(pruebas > 1) # ¿qué proporción de salas tienen coincidencias?
-  ```
+    })
+    mean(pruebas > 1) # ¿qué proporción de salas tienen coincidencias?
+    ```
 
 ## Regla de Laplace.
 
@@ -425,7 +439,8 @@ $$
 
 + Vamos a usar una tabla de datos sobre spam en mensajes de correo electrónico. La tabla se llama `spam` y pertenece a la librería `kernlab`. Instala la librería y carga la tabla con `data(spam)`, La tabla contiene datos sobre varios miles de mensajes de correo. La última columna contiene la clasificación como spam o no spam. Las primeras 48 columnas indican el porcentaje de palabras del mensaje que coinciden con el título de la columna. Aquí se muestra una parte de la tabla:
   \scriptsize
-  ```{r echo = 3}
+  ```{r echo = 4}
+  # Librería spam de Kernlab y Teorema de Bayes
   library(kernlab)
   data(spam)
   spam[1:4, c(1:10, 58)]
@@ -449,7 +464,8 @@ $$
 + En el problema anterior nos hemos encontrado con una situación típica en la que hay dos factores binarios. Un factor S con valores  *spam / no spam* y un factor O, con valores "contiene order/ no contiene order". Al combinarlos hay cuatro casos posibles que podemos representar en una tabla dos por dos. 
 
 + Primero usaremos `dplyr` para obtener una tabla en la que solo aparezcan esos dos factores, aprendiendo de paso alguna manipulación adicional:\small
-  ```{r message=FALSE}
+  ```{r message=FALSE, echo= -1}
+  ## Tablas de contingencia 2x2
   library(tidyverse)
   spam = spam %>%
     select(order, type) %>% 
