@@ -282,7 +282,7 @@ if(!file.exists(scriptName)){
 
 ```
 
-### Los juegos del Caballero de Méré
+### Probabilidad geométrica
 
 ```{r eval=FALSE, comment=NULL}
 # Directorio de trabajo
