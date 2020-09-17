@@ -1,6 +1,6 @@
 ## title: 'Master en Big Data. Fundamentos  matemáticos  del  análisis  de  datos.'
 ## author: "Fernando San Segundo"
-## subtitle: "Sesión 4. Poblaciones, muestras y probabilidad."
+## subtitle: "Sesión 4. Poblaciones, muestras y probabilidad. Variables aleatorias."
 
 
 
@@ -124,6 +124,107 @@ spam = spam %>%
 
 table(spam$hasOrder, spam$type)
 
+muestra = sample(0:3, size = 10, replace = TRUE, prob = c(64, 48, 12, 1))
+
+library(viridisLite)
+muestra = sample(0:3, size = 1000, replace = TRUE, prob = c(64, 48, 12, 1))
+barplot(table(muestra), col=viridis(4))
+
+
+
+library(tidyverse)
+fhs = read_csv("../datos/framingham.csv")
+tablaHyp = prop.table(table(fhs$prevalentHyp))
+p = unname(tablaHyp[2])
+
+set.seed(2019)
+n = 7
+N = 50000
+X = replicate(N, {
+  pacientes = sample(fhs$prevalentHyp, n, replace = TRUE)
+  (exitos = (pacientes == 1))
+  sum(exitos)
+})
+prop.table(table(X))
+dbinom(x = 0:n, size = n, prob = p)
+
+dbinom(x = 3, size = 7, prob = p)
+
+signif(dbinom(x = 0:7, size = 7, prob = p), digits = 3)
+
+signif(pbinom(q = 0:7, size = 7, prob = p), digits = 3)
+
+rbinom(n = 25, size = 7, prob = p)
+
+probabilidades = dbinom(x = 0:7, size = 7, prob = p)
+bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:7)
+arrows(seq(0.5, 7.5, by = 1), 0, seq(0.5, 7.5, by = 1), prop.table(table(X)), col="red", lwd = 2)
+
+probabilidades = dbinom(x = 0:12, size = 10, prob = 2/3)
+bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:12)
+
+probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
+bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
+
+probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
+barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
+par(new = T)
+probabilidades[0:25] = 0
+probabilidades[36:100] = 0
+barplot(probabilidades/4, space = 0, col="blue", names.arg = 0:100)
+
+probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
+barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
+par(new = T)
+probabilidades[0:25] = 0
+probabilidades[36:100] = 0
+barplot(probabilidades/4, space = 0, col="blue", names.arg = 0:100)
+
+
+
+
+
+
+
+pnorm(10.5, mean=10, sd=2)
+
+  1 - pnorm(11, mean=10, sd=2)
+  pnorm(11, mean = 10, sd = 2, lower.tail = FALSE)
+
+
+
+pnorm(12, mean=10, sd=2) - pnorm(7, mean=10, sd=2)
+
+
+qnorm(p = 1/3, mean = 10, sd=2)
+
+
+
+
+set.seed(2019)
+x1 = rnorm(1000)
+y1 = rnorm(1000)
+ggplot(data.frame(x1, y1)) +
+  geom_point(mapping = aes(x1, y1), col="red")
+x2 = runif(1000, min = -1, max = 1)
+y2 = runif(1000, min = -1, max = 1)
+ggplot(data.frame(x2, y2)) +
+  geom_point(mapping = aes(x2, y2), col="blue")
+
+
+
+set.seed(2019)
+pob1 = rnorm(30000, mean = -3, sd = 1)
+pob2 = rnorm(30000, mean = 2, sd = 0.5)
+pobSuma = 3 * pob1 + 4 * pob2
+plot(density(pobSuma, adjust = 1.6), main="", lwd=5, col="red", xlab="")
+
+#########################################################
+## Complementos de R
+## Operaciones con factores, verbos de dplyr.
+#########################################################
+
+
 options(width = 70)
 (ardeida = factor(c("martinete", "garzaReal", "avetorillo", "garzaReal",
                     "cangrejera", "martinete", "martinete"), ))
@@ -150,3 +251,48 @@ cat(paste0("v = c(", paste0(v,collapse = ", "), ")"))
 
 Mv = matrix(v, nrow=3, byrow = TRUE)
 (v = c(Mv))
+
+#############################################
+### Verbos de dplyr
+#############################################
+
+
+# dplyr: select.
+
+library(gapminder)
+names(gapminder)
+
+gapminder %>% 
+  select(lifeExp, gdpPercap) %>% 
+  head(3)
+
+gapminder %>% 
+  select(continent:pop, -year) %>% 
+  names()
+
+gapminder %>%  
+  select(starts_with("c")) %>% 
+    names()
+
+  # dplyr: filter
+  
+  gapminder %>% 
+  filter(country == 'Spain') %>%
+  head(4)
+
+# dplyr: filter
+
+gapminder %>% 
+filter(year == "1997") %>% 
+top_n(3, gdpPercap)
+
+# dplyr: mutate
+gapminder %>% 
+  mutate(gdp = pop * gdpPercap / 10^6) %>% 
+  filter(year == 1982) %>% 
+  sample_n(4)
+
+gapminder %>% 
+  mutate(gdp = pop * gdpPercap / 10^6) %>% 
+  mutate_at("gdp", log10) %>% 
+  head(4)
