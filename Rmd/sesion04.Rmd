@@ -47,16 +47,19 @@ figpath = function(figname){
 ## author: "Fernando San Segundo"
 ## subtitle: "Sesión 4. Poblaciones, muestras y probabilidad. Variables aleatorias."
 
-######################################################################
-######################################################################
-## ATENCIÓN: este fichero es una versión preliminar y posiblemente
-## incompleta (2020-09-17) del código de esta sesión. 
-######################################################################
-######################################################################
 ```
 
 
 # Población y muestra. 
+
+```{r echo=FALSE}
+######################################################################
+# Población y muestra. 
+######################################################################
+
+
+```
+
 
 ## Inferencia Estadística.
 
@@ -99,13 +102,13 @@ include_graphics("../fig/03-fig01-inferenciaPoblacionMuestra.png")
 
 - Ese es justo el tipo de preguntas que esperamos que responda la Estadística. Aunque en este caso disponemos del vector completo de edades debes tener claro que en los problemas reales no será así. Así que recurrimos a las muestras aleatorias (con remplazamiento), en inglés *random sample (with replacement)*. Por ejemplo, de tamaño 20. En R construimos una de esas muestras así:
 \small
-  ```{r echo=-c(1, 2, 4)}
-  ## Medias muestrales
-  options(width= 90)
-  n = 20
-  (muestra = sample(poblacion, n, replace = TRUE))
-  options(width= 70)
-  ```
+    ```{r echo=-c(1, 2, 4)}
+    ## Medias muestrales
+    options(width= 90)
+    n = 20
+    (muestra = sample(poblacion, n, replace = TRUE))
+    options(width= 70)
+    ```
   \normalsize Esas son las 20 edades $x_1, \ldots, x_{20}$ de los viajeros de la muestra. Para *estimar* la edad media de *todos los viajeros* a partir de estos valores calcularíamos la **media muestral**.
 $$
 \bar x = \dfrac{x_1 + \cdots + x_{20}}{n} = 
@@ -115,11 +118,11 @@ $$
 
 + Naturalmente, si tomas otra muestra, su media muestral puede ser otra: 
   \small
-  ```{r echo = -1}
-  options(width= 90)
-  (muestra2 = sample(poblacion, n, replace = TRUE))
-  mean(muestra2)
-  ```
+    ```{r echo = -1}
+    options(width= 90)
+    (muestra2 = sample(poblacion, n, replace = TRUE))
+    mean(muestra2)
+    ```
 \normalsize 
 
 ## Muestras buenas y malas.
@@ -132,17 +135,17 @@ $$
 
 + Entre esas muestras hay muestras *buenas* y muestras *malas*. ¿Qué queremos decir con esto? Para seguir con nuestro experimento vamos a ordenar *la población completa* por edad y tomemos los 20 primeros valores:
   \small
-  ```{r echo = -(1:2)}
-  ## Muestras buenas y malas.
-  options(width= 90)
-  (muestra3 = sort(poblacion)[1:20])
-  ```
+    ```{r echo = -(1:2)}
+    ## Muestras buenas y malas.
+    options(width= 90)
+    (muestra3 = sort(poblacion)[1:20])
+    ```
   \normalsize Hemos llamado `muestra3` a ese vector porque es una más de las muchísimas muestras posibles que podríamos haber obtenido al elegir al azar 20 viajeros. Y si usáramos esta muestra para estimar la media de la población obtendríamos
   \small
-  ```{r echo = -1}
-  options(width= 90)
-  mean(muestra3)
-  ```
+    ```{r echo = -1}
+    options(width= 90)
+    mean(muestra3)
+    ```
   \normalsize Eso es lo que llamamos una *muestra mala*, poco representativa.
 
 ## La distribución de las medias muestrales.
@@ -150,17 +153,17 @@ $$
 + La última muestra que hemos examinado era muy poco representativa. Pero la pregunta esencial para la estadística es ¿cuál es la relación entre muestras buenas y malas? Al elegir una muestra al azar, ¿cómo de probable es que nos toque una muestra tan mala en lugar de una buena?
 
 + Podemos hacer otro pequeño experimento para explorar el espacio muestral. No podemos repasar todas las muestras una por una para clasificarlas en buenas o malas (eso sería demasiado incluso para R) pero podemos tomar *muchas* muestras aleatorias (pongamos $k = 10000$) y ver como de buenas o malas son (hacemos una *muestra de muestras*). En R es muy fácil hacer esto usando la función `replicate`: \small
-  ```{r echo = -1}
-  ## La distribución de las medias muestrales.
-  k = 10000
-  # replicate repite k veces los comandos entre llaves y guarda el resultado
-  # del último comando en el vector mediasMuestrales
-  mediasMuestrales = replicate(k, { 
-    muestra = sample(poblacion, n, replace = TRUE)
-    mean(muestra)
-  })
-  head(mediasMuestrales, 10)
-  ```
+    ```{r echo = -1}
+    ## La distribución de las medias muestrales.
+    k = 10000
+    # replicate repite k veces los comandos entre llaves y guarda el resultado
+    # del último comando en el vector mediasMuestrales
+    mediasMuestrales = replicate(k, { 
+      muestra = sample(poblacion, n, replace = TRUE)
+      mean(muestra)
+    })
+    head(mediasMuestrales, 10)
+    ```
   \normalsize Se muestran las primeras 10 de las 10000 medias muestrales que hemos obtenido. 
 
 ---
@@ -185,9 +188,9 @@ abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
 ## Otra población, mismos resultados.
 
 + Pero antes de lanzarnos a la probabilidad vamos a asegurarnos de algo. Puede que te preguntes si la población con la que hemos empezado tenía algo especial.  Probemos con otra muy distinta. La población la forman 20000 números elegidos al azar del 0 al 20, siendo todos los valores igual de probables (su curva de densidad es horizontal).\small
-  ```{r}
-  poblacion = sample(0:20, 20000, replace = TRUE)
-  ```
+    ```{r}
+    poblacion = sample(0:20, 20000, replace = TRUE)
+    ```
   \normalsize Y ahora repetimos el proceso de construcción de medias muestrales usando replicate
   \scriptsize
     ```{r echo=-1}
@@ -261,6 +264,15 @@ desvTipPob / sqrt(Tmuestra)
 ```
 
 # Probabilidad básica.
+
+
+```{r echo=FALSE}
+######################################################################
+# Probabilidad básica.
+######################################################################
+
+
+```
 
 ---
 
@@ -441,12 +453,12 @@ $$
 
 + Vamos a usar una tabla de datos sobre spam en mensajes de correo electrónico. La tabla se llama `spam` y pertenece a la librería `kernlab`. Instala la librería y carga la tabla con `data(spam)`, La tabla contiene datos sobre varios miles de mensajes de correo. La última columna contiene la clasificación como spam o no spam. Las primeras 48 columnas indican el porcentaje de palabras del mensaje que coinciden con el título de la columna. Aquí se muestra una parte de la tabla:
   \scriptsize
-  ```{r echo = 4}
-  # Librería spam de Kernlab y Teorema de Bayes
-  library(kernlab)
-  data(spam)
-  spam[1:4, c(1:10, 58)]
-  ```
+    ```{r echo = 4}
+    # Librería spam de Kernlab y Teorema de Bayes
+    library(kernlab)
+    data(spam)
+    spam[1:4, c(1:10, 58)]
+    ```
   \normalsize
 
 + Con estos datos y usando funciones de R responde a estas preguntas:
@@ -466,21 +478,21 @@ $$
 + En el problema anterior nos hemos encontrado con una situación típica en la que hay dos factores binarios. Un factor S con valores  *spam / no spam* y un factor O, con valores "contiene order/ no contiene order". Al combinarlos hay cuatro casos posibles que podemos representar en una tabla dos por dos. 
 
 + Primero usaremos `dplyr` para obtener una tabla en la que solo aparezcan esos dos factores, aprendiendo de paso alguna manipulación adicional:\small
-  ```{r message=FALSE, echo= -1}
-  ## Tablas de contingencia 2x2
-  library(tidyverse)
-  spam = spam %>%
-    select(order, type) %>% 
-    mutate(hasOrder = factor(order > 0, # Creamos el factor hasOrder
-                              levels = c(TRUE, FALSE), 
-                              labels = c("order", "no order")),
-           type = relevel(type, ref = "spam"), # Reordenamos los niveles
-           -order) # y elminamos el factor order original
-  ```
+    ```{r message=FALSE, echo= -1}
+    ## Tablas de contingencia 2x2
+    library(tidyverse)
+    spam = spam %>%
+      select(order, type) %>% 
+      mutate(hasOrder = factor(order > 0, # Creamos el factor hasOrder
+                                levels = c(TRUE, FALSE), 
+                                labels = c("order", "no order")),
+             type = relevel(type, ref = "spam"), # Reordenamos los niveles
+             -order) # y elminamos el factor order original
+    ```
   \normalsize Ahora podemos obtener la tabla con \small
-  ```{r comment = NULL}
-  table(spam$hasOrder, spam$type)
-  ```
+    ```{r comment = NULL}
+    table(spam$hasOrder, spam$type)
+    ```
   <!-- spam %>% group_by(type, hasOrder) %>% summarise(n = n()) %>% spread() -->
   \normalsize
 
@@ -506,6 +518,13 @@ $$
 + Una prueba diagnóstica es un *clasificador* de pacientes. Más adelante vamos a encontrar muchos algoritmos clasificadores, porque \link{https://en.wikipedia.org/wiki/Statistical_classification}{clasificar} es una de las tareas básicas en *Machine Learning*. Veremos entonces que en ese contexto se usa mucho el vocabulario de pruebas diagnósticas.
 
 # Variables aleatorias discretas.
+
+```{r echo=FALSE}
+######################################################################
+# Variables aleatorias discretas.
+######################################################################
+
+```
 
 ---
 
@@ -581,18 +600,18 @@ $$
   usa R para calcular $\mu$,  $\sigma^2$  y también $\sigma$, la desviación típica poblacional.
 
 + Hasta ahora hemos usado `sample` para fabricar muestras en las que todos los elementos del vector eran equiprobables. Pero también podemos simular muestras de una población como la que describe el modelo teórico $X$ usando la opción `prob` así (fíjate en que no hace falta *normalizar las probabilidades*):\small
-  ```{r}
-  muestra = sample(0:3, size = 10, replace = TRUE, prob = c(64, 48, 12, 1))
-  ```
+    ```{r}
+    muestra = sample(0:3, size = 10, replace = TRUE, prob = c(64, 48, 12, 1))
+    ```
   \normalsize
 
 + **Ejercicio:**  
   $(1)$ Simula una muestra de tamaño 1000 de esta variable. ¿Cuál crees que es la mejor manera de representar gráficamente esa muestra?  
-  ```{r echo=FALSE, eval=FALSE, comment=NULL}
-  library(viridisLite)
-  muestra = sample(0:3, size = 1000, replace = TRUE, prob = c(64, 48, 12, 1))
-  barplot(table(muestra), col=viridis(4))
-  ```
+    ```{r echo=FALSE, eval=FALSE, comment=NULL}
+    library(viridisLite)
+    muestra = sample(0:3, size = 1000, replace = TRUE, prob = c(64, 48, 12, 1))
+    barplot(table(muestra), col=viridis(4))
+    ```
   $(2)$ Combina `sample` con `replicate` para simular cien mil muestras de tamaño 10. Estudia la distribución de las medias muestrales como hemos hecho en ejemplos previos. 
 
 ## Operaciones con variables aleatorias.
@@ -678,12 +697,13 @@ $$
 
 + Vamos a ver un ejemplo de variable binomial. Para ello usaremos la variable `prevalentHyp` de la tabla `fhs` que hemos usado en sesiones previas. Esa variable vale 1 si el paciente hipertenso y 0 en caso contrario. Para insistir en la arbitrariedad de la elección mantenemos esos valores y definimos como *éxito* el hecho de que el paciente sea hipertenso. 
 
-```{r message=FALSE, echo=FALSE}
-library(tidyverse)
-fhs = read_csv("../datos/framingham.csv")
-tablaHyp = prop.table(table(fhs$prevalentHyp))
-p = unname(tablaHyp[2])
-```
+    ```{r message=FALSE, echo=FALSE}
+    ## Variable aleatoria binomial.
+    library(tidyverse)
+    fhs = read_csv("../datos/framingham.csv")
+    tablaHyp = prop.table(table(fhs$prevalentHyp))
+    p = unname(tablaHyp[2])
+    ```
 + **Ejercicio:** carga esa tabla de valores y comprueba que si elegimos un paciente al azar, la probabilidad de éxito (de que sea hipertenso) es $p \approx$ `r signif(p, 4)`. 
 
 + Para definir una variable binomial vamos a elegir al azar $n = 7$ pacientes y nos preguntamos por el número $X$ de hipertensos que hay entre esos siete. 
@@ -695,18 +715,18 @@ p = unname(tablaHyp[2])
   $(b)$ Escribe código en R para extraer una muestra de 7 pacientes (con remplazamiento) y contar cuántos de ellos son hipertensos (es decir, para calcular $X$ en esa muestra). 
 
   $(c)$  Usa replicate para fabricar 50000 de esas 7-muestras. Llama `X` al vector de 50000 valores de la variable que se obtiene y haz una tabla de frecuencias relativas de valores de `X`. 
-```{r echo=FALSE, results='hide'}
-set.seed(2019)
-n = 7
-N = 50000
-X = replicate(N, {
-  pacientes = sample(fhs$prevalentHyp, n, replace = TRUE)
-  (exitos = (pacientes == 1))
-  sum(exitos)
-})
-prop.table(table(X))
-dbinom(x = 0:n, size = n, prob = p)
-```
+    ```{r echo=FALSE, results='hide'}
+    set.seed(2019)
+    n = 7
+    N = 50000
+    X = replicate(N, {
+      pacientes = sample(fhs$prevalentHyp, n, replace = TRUE)
+      (exitos = (pacientes == 1))
+      sum(exitos)
+    })
+    prop.table(table(X))
+    dbinom(x = 0:n, size = n, prob = p)
+    ```
 
 ## Densidad de probabilidad en la binomial.
 
@@ -740,34 +760,36 @@ $\quad$
 ## La binomial con R.
 
 + Para calcular probabilidades concretas como $P(X = 3)$  en R usamos la función `dbinom` (suponiendo que ya has definido $p$):\small
-  ```{r}
-  dbinom(x = 3, size = 7, prob = p)
-  ```
-  Con `dbinom` podemos calcular a la vez  *todas* las probabilidades de la variable binomial (mostramos tres cifras significativas):\small
-  ```{r}
-  signif(dbinom(x = 0:7, size = 7, prob = p), digits = 3)
-  ```
+    ```{r echo=-1}
+    ## La binomial con R.
+    dbinom(x = 3, size = 7, prob = p)
+    ```
+    Con `dbinom` podemos calcular a la vez  *todas* las probabilidades de la variable binomial (mostramos tres cifras significativas):\small
+    ```{r}
+    signif(dbinom(x = 0:7, size = 7, prob = p), digits = 3)
+    ```
   \normalsize Compara estos valores, que son predicciones teóricas, con las frecuencias relativas empíricas que hemos obtenido tomando muestras.
 
 + La función de distribución $F(k) = P(X\leq k)$ de una binomial se calcula en R con: \small
-  ```{r}
-  signif(pbinom(q = 0:7, size = 7, prob = p), digits = 3)
-  ```
+    ```{r}
+    signif(pbinom(q = 0:7, size = 7, prob = p), digits = 3)
+    ```
 
 + Además R permite simular valores aleatorios de la variable binomial mediante:\small
-  ```{r}
-  rbinom(n = 25, size = 7, prob = p)
-  ```
+    ```{r}
+    rbinom(n = 25, size = 7, prob = p)
+    ```
   \normalsize 
 
 ## Representación gráfica de la variable binomial.
 
-+ Para visualizar la tabla de densidad de probabilidad de una variable binomial con $n$ moderado lo mejor es utilizar un diagrama de barras como este que muestra como se *distribuye* la probabilidad sobre los valores de $0$ a $n$ (hemos reducido a 0 es espacio entre barras por razones que pronto quedarán claras).\small
-  ```{r message=FALSE, fig.align='center', out.width = "50%", echo = -3}
-  probabilidades = dbinom(x = 0:7, size = 7, prob = p)
-  bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:7)
-  arrows(seq(0.5, 7.5, by = 1), 0, seq(0.5, 7.5, by = 1), prop.table(table(X)), col="red", lwd = 2)
-  ```
++ Para visualizar la tabla de densidad de probabilidad de una variable binomial con $n$ moderado lo mejor es utilizar un diagrama de barras como este que muestra como se *distribuye* la probabilidad sobre los valores de $0$ a $n$ (hemos reducido a 0 es espacio entre barras por razones que pronto quedarán claras).\scriptsize
+    ```{r message=FALSE, fig.align='center', out.width = "50%", echo = -1}
+    ## Representación gráfica de la variable binomial.
+    probabilidades = dbinom(x = 0:7, size = 7, prob = p)
+    bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:7)
+    arrows(seq(0.5, 7.5, by = 1), 0, seq(0.5, 7.5, by = 1), prop.table(table(X)), col="red", lwd = 2)
+    ```
   \normalsize Las flechas rojas representan las frecuencias relativas (¡empíricas!) de la muestra de miles de valores de $X$ que hemos construido antes. Como puedes ver el acuerdo entre las predicciones de la teoría que representa el modelo de la variable binomial y los valores empíricos de la muestra es muy alto.
 
 <!-- --- -->
@@ -789,10 +811,11 @@ $\quad$
 ## El zoo de las binomiales.
 
 + Vamos a fijarnos en la forma de las distribuciones binomiales para distintos valores de $n$ y $p$. Empezaremos por pensar en valores moderados de $n$ (como 10) y de $p$ (ni cerca de 0, ni cerca de 1). La siguiente figura muestra, a modo de ejemplo la distribución binomial $B(12, \frac{2}{3})$.
-  ```{r message=FALSE, fig.align='center', out.width = "35%", echo = FALSE}
-  probabilidades = dbinom(x = 0:12, size = 10, prob = 2/3)
-  bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:12)
-  ```
+    ```{r message=FALSE, fig.align='center', out.width = "35%", echo = FALSE}
+    ## El zoo de las binomiales.
+    probabilidades = dbinom(x = 0:12, size = 10, prob = 2/3)
+    bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:12)
+    ```
   En general nos vamos a encontrar con **tres tipos de distribuciones binomiales**:   
   
   $(1)$ Binomiales con **$n$ pequeño**, como la de la anterior figura. En esos casos usamos la binomial directamente para calcular probabilidades. 
@@ -804,10 +827,11 @@ $\quad$
 ## Binomiales con $n$ grande y $p$ moderado.
 
 + Vamos a ver ahora lo que sucede cuando $n$ es grande y mantenemos $p$ moderado (sin acercarlo al $0$ o al $1$). La siguiente figura muestra un diagrama de barras para la binomial $B(100, 1/3)$:
-  ```{r message=FALSE, fig.align='center', out.width = "60%", echo = FALSE}
-  probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
-  bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
-  ```
+    ```{r message=FALSE, fig.align='center', out.width = "60%", echo = FALSE}
+    ## Binomiales con $n$ grande y $p$ moderado.
+    probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
+    bp = barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
+    ```
   Es un diagrama de barras. Pero es evidente que empieza a adivinarse una curva. 
 
 + Y no es una curva cualquiera. Abraham de Moivre descubrió que se trata de la misma curva normal que nos hemos encontrado ya al hablar de la distribución de las medias muestrales. ¿Por qué es útil esa curva?
@@ -821,14 +845,15 @@ P(25 \leq X \leq 35) =
 P(X = 25) + P(X = 26) + \cdots + P(X = 34) + P(X= 35)
 $$
   \normalsize Calcular la probabilidad de ese intervalo equivale a calcular el área sombreada.
-  ```{r probBinomial, message=FALSE, fig.align='center', out.width = "40%", echo = FALSE}
-  probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
-  barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
-  par(new = T)
-  probabilidades[0:25] = 0
-  probabilidades[36:100] = 0
-  barplot(probabilidades/4, space = 0, col="blue", names.arg = 0:100)
-  ```
+    ```{r probBinomial, message=FALSE, fig.align='center', out.width = "40%", echo = FALSE}
+    ## Cálculos de probabilidad en binomiales con $n$ muy grande.
+    probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
+    barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
+    par(new = T)
+    probabilidades[0:25] = 0
+    probabilidades[36:100] = 0
+    barplot(probabilidades/4, space = 0, col="blue", names.arg = 0:100)
+    ```
   Para calcular esa suma de términos hay que calcular, por ejemplo, el término:\small
 $$P(X = 29) = \dbinom{100}{29}\left(\dfrac{1}{3}\right)^{29}\left(\dfrac{2}{3}\right)^{71}$$
   \normalsize Pero \small
@@ -843,14 +868,15 @@ $$
 ## Otra vez la discusión "*discreto frente a continuo*".
 
 + Si volvemos a pensar en la anterior figura del cálculo $P(25\leq X\leq 35)$ en una $X\sim B(n = 100, p=1/3)$)
-  ```{r message=FALSE, fig.align='center', out.width = "40%", echo = FALSE}
-  probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
-  barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
-  par(new = T)
-  probabilidades[0:25] = 0
-  probabilidades[36:100] = 0
-  barplot(probabilidades/4, space = 0, col="blue", names.arg = 0:100)
-  ```
+    ```{r message=FALSE, fig.align='center', out.width = "40%", echo = FALSE}
+    ## Otra vez la discusión "*discreto frente a continuo*".
+    probabilidades = dbinom(x = 0:100, size = 100, prob = 1/3)
+    barplot(probabilidades, space = 0, col="tan", names.arg = 0:100)
+    par(new = T)
+    probabilidades[0:25] = 0
+    probabilidades[36:100] = 0
+    barplot(probabilidades/4, space = 0, col="blue", names.arg = 0:100)
+    ```
   veremos que cada uno de los valores, cada una de las barras que forman ese gráfico, tiene un *peso individual* muy pequeño. Lo que importa es el *área conjunta*. Porque si la variable $X$ puede tomar valores desde 0 hasta 100 entonces en la mayoría de las aplicaciones la diferencia entre $X = 65$ y $X = 66$ será *muy poco relevante*.
 
 + Esta discusión recuerda a la que ya tuvimos al distinguir entre variables discretas y continuas. Cuando una variable toma muchos valores distintos y la diferencia entre valores individuales no es relevante, muchas veces es mejor considerarla continua. **No nos interesa la probabilidad de un valor concreto, sino la de un intervalo**.
@@ -873,6 +899,13 @@ $$P(a \leq X \leq b) \approx \text{área bajo la gráfica de }f = \int_a^bf(x)\,
 + Si crees que integrar es *complicado*, ¡recuerda cómo son los números combinatorios!
 
 # Variables aleatorias continuas.
+
+```{r echo=FALSE}
+######################################################################
+# Variables aleatorias continuas.
+######################################################################
+```
+
 
 ## Función de densidad de probabilidad continua.
 
@@ -988,46 +1021,49 @@ include_graphics("../fig/04-07-CurvasNormalesZoo.png")
 + La función `pnorm` permite calcular en R la función de distribución de una variable normal $X\sim N(\mu, \sigma)$.
 $$P(X < b) = \text{\tt pnorm(b, mean = mu, sd = sigma)}$$ 
 + Si $X$ es de tipo $N(10,2)$ y queremos calcular la probabilidad de una **cola izquierda** $P(X<10.5)$ usaríamos \small
-  ```{r}
-  pnorm(10.5, mean=10, sd=2)
-  ```
+    ```{r echo=-1}
+    ## Distribuciones normales en R.
+    pnorm(10.5, mean=10, sd=2)
+    ```
   \normalsize
   
 + Si lo que queremos calcular es una **cola derecha** $P(X>11)$ usaríamos una de estas dos opciones equivalentes:\small
-  ```{r echo = TRUE, results='hide', purl=TRUE}
-    1 - pnorm(11, mean=10, sd=2)
-    pnorm(11, mean = 10, sd = 2, lower.tail = FALSE)
-  ```  
-  ```{r echo = FALSE, purl=FALSE}
-    pnorm(11, mean = 10, sd = 2, lower.tail = FALSE)
-  ```  
-  ```{r echo = FALSE, fig.align='center', out.width = "90%", purl=FALSE}
-    include_graphics("../fig/04-09-EjemplosProbabilidadNormal01.png")
+    ```{r echo = TRUE, results='hide', purl=TRUE}
+      1 - pnorm(11, mean=10, sd=2)
+      pnorm(11, mean = 10, sd = 2, lower.tail = FALSE)
+    ```  
+    ```{r echo = FALSE, purl=FALSE}
+      pnorm(11, mean = 10, sd = 2, lower.tail = FALSE)
+    ```  
+    ```{r echo = FALSE, fig.align='center', out.width = "90%", purl=FALSE}
+      include_graphics("../fig/04-09-EjemplosProbabilidadNormal01.png")
     ```
   \normalsize
 
 ## Probabilidad de un intervalo con `pnorm`.
 
-+ Si queremos calcular la probabilidad de un **intervalo**, como $P(7<X<12)$ lo expresamos como una diferencia: \small
-  ```{r}
-  pnorm(12, mean=10, sd=2) - pnorm(7, mean=10, sd=2)
-  ```
-  ```{r echo = FALSE, fig.align='center', out.width = "80%", purl=FALSE}
-  include_graphics("../fig/04-09-EjemplosProbabilidadNormal03.png")
-  ```
-  \normalsize
+  + Si queremos calcular la probabilidad de un **intervalo**, como $P(7<X<12)$ lo expresamos como una diferencia: \small
+    ```{r echo = -1}
+    ## Probabilidad de un intervalo con `pnorm`.
+    pnorm(12, mean=10, sd=2) - pnorm(7, mean=10, sd=2)
+    ```
+    ```{r echo = FALSE, fig.align='center', out.width = "80%", purl=FALSE}
+    include_graphics("../fig/04-09-EjemplosProbabilidadNormal03.png")
+    ```
+    \normalsize
 
 ## Problema inverso de probabilidad. La función `qnorm`.
 
 + El *problema inverso* de probabilidad es este: dada una probabilidad $p$  ¿cuál es el valor $b$ tal que $P(X < b) = p$? Es un problema *muy importante para  la Inferencia Estadística*. 
 
 + **Ejemplo** (problema inverso de cola izquierda) dada una distribución normal de tipo $N(10,2)$ ¿cuál es el valor k para el que se cumple $P(X\leq k) = \dfrac{1}{3}$? En R lo obtenemos así:\small
-  ```{r purl=-2}
-  qnorm(p = 1/3, mean = 10, sd=2)
-  ```
-  ```{r echo = FALSE, fig.align='center', out.width = "45%", purl=FALSE}
-  include_graphics("../fig/04-09-EjemplosProbabilidadNormal04.png")
-  ```
+    ```{r echo = -1}
+    ## Problema inverso de probabilidad. La función `qnorm`.
+    qnorm(p = 1/3, mean = 10, sd=2)
+    ```
+```{r echo = FALSE, fig.align='center', out.width = "45%", purl=FALSE}
+include_graphics("../fig/04-09-EjemplosProbabilidadNormal04.png")
+```
   \normalsize
 
 + **Ejercicio importante:** dada una normal $N(0, 1)$, ¿cuál es el valor $k$ para el que se cumple $P(X\geq k) = 0.025$? Volveremos a encontrar esta pregunta cuando hablemos de intervalos de confianza.
@@ -1035,25 +1071,27 @@ $$P(X < b) = \text{\tt pnorm(b, mean = mu, sd = sigma)}$$
 ## Otras funciones para trabajar con normales: `rnorm` y `dnorm`. 
 
 + La función `rnorm` es *muy útil para simulaciones*. Sirve para fabricar una muestra con $n$ valores de una variable $X\sim N(\mu, \sigma)$ mediante:
-  ```{r eval=FALSE, comment=NULL, purl=FALSE}
-  muestra = rnorm(n, mean = mu, sd = sigma)
-  ```
-  **¡Atención!** `mean(muestra)` no es `mu` y `sd(muestra)` no es `sigma`. ¿Ves por qué? Cuando queramos conseguir eso usaremos la función `mvrnorm` de la librería `MASS`.
+    ```{r eval=FALSE, comment=NULL, purl=FALSE}
+    muestra = rnorm(n, mean = mu, sd = sigma)
+    ```
+  **¡Atención!** `mean(muestra)` no es `mu` y `sd(muestra)` no es `sigma`. ¿Ves por qué? Cuando necesitemos garantizar eso en una simulación usaremos la función `mvrnorm` de la librería `MASS`.
 
 + **Ejercicio:** genera vectores `x1` e `y1` cada uno con 1000 valores de una normal $N(0, 1)$. Luego ejecuta este código. \small
-  ```{r echo=-(1:3), eval=FALSE, comment=NULL}
-  set.seed(2019)
-  x1 = rnorm(1000)
-  y1 = rnorm(1000)
-  ggplot(data.frame(x1, y1)) +
-    geom_point(mapping = aes(x1, y1), col="red")
-  ```
-```{r echo=FALSE, eval=FALSE, comment=NULL}
-x2 = runif(1000, min = -1, max = 1)
-y2 = runif(1000, min = -1, max = 1)
-ggplot(data.frame(x2, y2)) +
-  geom_point(mapping = aes(x2, y2), col="blue")
-```
+    ```{r echo=-(1:4), eval=FALSE, comment=NULL}
+    # La función rnorm
+    set.seed(2019)
+    x1 = rnorm(1000)
+    y1 = rnorm(1000)
+    ggplot(data.frame(x1, y1)) +
+      geom_point(mapping = aes(x1, y1), col="red")
+    ```
+    ```{r echo=FALSE, eval=FALSE, comment=NULL}
+    
+    x2 = runif(1000, min = -1, max = 1)
+    y2 = runif(1000, min = -1, max = 1)
+    ggplot(data.frame(x2, y2)) +
+      geom_point(mapping = aes(x2, y2), col="blue")
+    ```
   \normalsize Ahora genera `x2` e `y2` cada uno con 1000 valores de una distribución uniforme en $N(0, 1)$ y ejecuta ese código cambiando `x1` e `y1` por `x2` e `y2`. ¿Ves la diferencia?
 
 + La función `dnorm` es la función de densidad de la variable normal. Es decir, su valor es la altura de la curva normal y *no se debe interpretar directamente en términos de probabilidad*. Sirve casi exclusivamente para dibujar esa curva. 
@@ -1099,13 +1137,14 @@ $$
 N\left(\mu_1+\mu_2,\sqrt{\sigma_1^2+\sigma_2^2}\right).
 $$
 \normalsize Insistimos, la novedad es que *la suma de dos normales independientes sigue siendo normal*.  Ejecuta este código para ver un ejemplo\scriptsize
-  ```{r echo = TRUE, fig.align='center', out.width = "30%"}
-  set.seed(2019)
-  pob1 = rnorm(30000, mean = -3, sd = 1)
-  pob2 = rnorm(30000, mean = 2, sd = 0.5)
-  pobSuma = 3 * pob1 + 4 * pob2
-  plot(density(pobSuma, adjust = 1.6), main="", lwd=5, col="red", xlab="")
-  ```
+    ```{r echo = -1, fig.align='center', out.width = "30%"}
+    ## Suma (y mezcla) de normales independientes.
+    set.seed(2019)
+    pob1 = rnorm(30000, mean = -3, sd = 1)
+    pob2 = rnorm(30000, mean = 2, sd = 0.5)
+    pobSuma = 3 * pob1 + 4 * pob2
+    plot(density(pobSuma, adjust = 1.6), main="", lwd=5, col="red", xlab="")
+    ```
   \normalsize Este resultado se generaliza a la suma de $k$ variables normales independientes, que dan como resultado una normal de tipo
 $N\left(\mu_1+\cdots+\mu_k,\sqrt{\sigma_1^2+\cdots+\sigma_k^2}\right).$  
 La **mezcla** de variables normales es un proceso completamente distinto. A menudo da como resultado distribuciones bimodales o multimodales. 
@@ -1126,19 +1165,19 @@ La **mezcla** de variables normales es un proceso completamente distinto. A menu
 
 + Podemos crear un factor a partir de un vector de strings con la función `factor`:
   \small
-  ```{r echo=-1}
-  options(width = 70)
-  (ardeida = factor(c("martinete", "garzaReal", "avetorillo", "garzaReal",
-                      "cangrejera", "martinete", "martinete"), ))
-  ```
+    ```{r echo=-1}
+    options(width = 70)
+    (ardeida = factor(c("martinete", "garzaReal", "avetorillo", "garzaReal",
+                        "cangrejera", "martinete", "martinete"), ))
+    ```
  \normalsize Dos detalles sobre la salida: fíjate en la ausencia de comillas y en que el orden de los niveles es alfabético. Si quieres otro orden (por ejemplo para las tablas de frecuencia) puedes hacerlo explícito:
   \small
-  ```{r echo=-1}
-  options(width = 70)
-  (ardeida = factor(c("martinete", "garzaReal", "avetorillo", "garzaReal",
-                    "cangrejera", "martinete", "martinete"), 
-  levels = c("garzaReal", "martinete",  "cangrejera", "avetorillo")))  
-  ```
+    ```{r echo=-1}
+    options(width = 70)
+    (ardeida = factor(c("martinete", "garzaReal", "avetorillo", "garzaReal",
+                      "cangrejera", "martinete", "martinete"), 
+    levels = c("garzaReal", "martinete",  "cangrejera", "avetorillo")))  
+    ```
 \normalsize
 
 + El factor puede ser *ordenado* si además incorporamos la opción `ordered = TRUE`. *No se debe confundir con el uso de levels* para fijar un orden "estético"  de los niveles. En un factor ordenado el orden aporta información *relevante* sobre los niveles.
@@ -1150,17 +1189,18 @@ La **mezcla** de variables normales es un proceso completamente distinto. A menu
 
 + La función `gl` sirve para generar factores a medida y es un complemento para otras funciones como `rep`. Un ejemplo en el que fabricamos un factor con tres niveles y 4 repeticiones: 
 \small
-  ```{r echo=-1}
-  options(width = 70)
-  gl(n = 3, k = 4, labels = c("piedra", "papel", "tijera"))
-  ```
+    ```{r echo=-(1:2)}
+    ## Más funciones que generan factores
+    options(width = 70)
+    gl(n = 3, k = 4, labels = c("piedra", "papel", "tijera"))
+    ```
 \normalsize  
 
 + A veces, por cuestiones de diseño del experimento o del conjunto de datos, querremos que los niveles del factor aparezcan intercalados.
 \small
-  ```{r}
-  gl(n = 3, k=1, length = 30, labels = c("piedra", "papel", "tijera"))
-  ```
+    ```{r}
+    gl(n = 3, k=1, length = 30, labels = c("piedra", "papel", "tijera"))
+    ```
 \normalsize
 
 + Puedes consultar el Capítulo 7 de [@Boehmke2016], el \link{https://r4ds.had.co.nz/factors.html}{Capítulo 12 (15 en la versión online)} de [@Wickham2016], o el Capítulo 6 de [@Matloff2011].
@@ -1169,39 +1209,42 @@ La **mezcla** de variables normales es un proceso completamente distinto. A menu
 
 + Para trabajar sobre un ejemplo concreto, vamos a colocar los números del 1 al 36 en una matriz de R, llamada `M`, de 4 filas y 9 columnas (diremos que es una matriz $4\times 9$). El código es este:
   \scriptsize
-  ```{r}
-  (M = matrix(1:36, nrow=4) )
-  ```
+    ```{r echo = -1}
+    ## Matrices
+    
+    (M = matrix(1:36, nrow=4) )
+    ```
   \normalsize Fíjate en que R rellena la matriz columna por columna. Para rellenar por filas:
     \scriptsize
-  ```{r}
-  (M = matrix(1:36, nrow=4, byrow = TRUE) )
-  ```
+    ```{r}
+    (M = matrix(1:36, nrow=4, byrow = TRUE) )
+    ```
   \normalsize 
   
 + Podemos usar `dim` para cambiar las dimensiones de la matriz:
     \scriptsize
-  ```{r}
-  dim(M) = c(3, 12)
-  M
-  ```
+    ```{r}
+    dim(M) = c(3, 12)
+    M
+    ```
   \normalsize 
 
 ## Operaciones con matrices.
 
 + Podemos convertir matrices en vectores aplicándoles la función `c`. Esta operación es útil para modificar el orden de los elementos de un vector (especialmente de uno que no hemos generado nosotros). Por ejemplo, dado este vector:
     \small
-  ```{r echo  = FALSE, comment=NULL}
-  v = rep(c(1, 2, 3), each=6)
-  cat(paste0("v = c(", paste0(v,collapse = ", "), ")"))
-  ```
+    ```{r echo  = -1}
+    ## Operaciones con matrices.
+    v = rep(c(1, 2, 3), each=6)
+    cat(paste0("v = c(", paste0(v,collapse = ", "), ")"))
+    ```
   \normalsize
   Si queremos intercalar los unos y doses hacemos:
   \small
-  ```{r }
-  Mv = matrix(v, nrow=3, byrow = TRUE)
-  (v = c(Mv))
-  ```
+    ```{r }
+    Mv = matrix(v, nrow=3, byrow = TRUE)
+    (v = c(Mv))
+    ```
   \normalsize
     
 
@@ -1276,9 +1319,9 @@ La **mezcla** de variables normales es un proceso completamente distinto. A menu
 + La función `filter` realiza selección por filas en una tabla. Por ejemplo, para ver las observaciones correspondientes a España:
 \small
     ```{r echo = -1}
-      # dplyr: filter
-      
-      gapminder %>% 
+    # dplyr: filter
+    
+    gapminder %>%
       filter(country == 'Spain') %>%
       head(4)
     ```
@@ -1394,8 +1437,11 @@ ScriptName = paste0(sessionName,"-comandos.R")
 lnkScriptGitHub = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", ScriptName)
 knitr::purl(RmdName, output = paste0("../scripts/", ScriptName), documentation = 0)
 codigo = readLines(paste0("../scripts/", ScriptName))
-datosOk = gsub(pattern = '../datos', replacement= "./datos", codigo, fixed=TRUE)
-writeLines(datosOk, paste0("../scripts/", ScriptName))
+codigo = gsub(pattern = '../datos', replacement= "./datos", codigo, fixed=TRUE)
+(empty_lines = grepl('^\\s*$', codigo))
+(dobleBlanco = empty_lines[-1] * empty_lines[-length(empty_lines)])
+codigo = codigo[!dobleBlanco]
+writeLines(codigo, paste0("../scripts/", ScriptName))
 ```
 
 
