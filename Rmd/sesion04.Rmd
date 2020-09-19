@@ -72,24 +72,26 @@ include_graphics("../fig/03-fig01-inferenciaPoblacionMuestra.png")
 
 ## Poblaciones y muestras aleatorias simples con vectores usando R.
 
+\small
 + Al estudiar una población nos interesan determinadas características individuales, que pueden cambiar de un individuo a otro y que constituyen las *variables de interés*. Cuando tomamos una muestra obtenemos los valores de esas variables en algunos individuos de la población. 
 
 + Para que la muestra sea representativa lo mejor es que sea una **muestra aleatoria simple**: elegimos a los individuos al azar y con remplazamiento (podemos incluir al mismo individuo más de una vez en la muestra). 
+    
+    ```{r echo=-1}
+    ## Poblaciones y muestras aleatorias simples con vectores usando R.
+    set.seed(2019)
+    N = 158000
+    poblacion = as.integer(2 * rchisq(N, df = 13), 0)
+    ```
+    
 
-```{r echo=-1, comment=NULL, fig.align='center', out.width = "30%", size="small"}
-## Poblaciones y muestras aleatorias simples con vectores usando R.
-set.seed(2019)
-N = 158000
-poblacion = as.integer(2 * rchisq(N, df = 13), 0)
-```
++ Para entenderlo mejor  haremos un experimento con R. En este caso vamos a suponer una población de $N = 158000$ individuos. Por ejemplo, los viajeros que pasan por un aeropuerto en un día y sea la variable de interés su edad. El código de esta sesión construye un vector `poblacion` con las edades de los viajeros. Vamos a hacer una pequeña trampa y mostraremos el histograma de las edades. La línea de puntos indica *la media poblacional de la edad.* ¿Cuál crees que es? 
+    ```{r echo=FALSE, fig.align='center', out.width = "40%"}
+    hist(poblacion, main="", col="orange")
+    abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
+    ```
 
-+ Para entenderlo mejor  haremos un experimento con R. En este caso vamos a suponer una población de $N = 158000$ individuos. Por ejemplo, los viajeros que pasan por un aeropuerto en un día y sea la variable de interés su edad. El código de esta sesión construye un vector `poblacion` con las edades de los viajeros. Vamos a hacer una pequeña trampa y mostraremos el histograma de las edades. La línea de puntos indica *la media poblacional de la edad.* ¿Cuál crees que es? \small
-```{r echo=FALSE, comment=NULL, fig.align='center', out.width = "40%", purl=FALSE}
-# summary(poblacion)
-hist(poblacion, main="", col="orange")
-abline(v = mean(poblacion), lty=2, lwd=5, col="blue")
-```
-\normalsize
+\normalsize    
 
 ---
 
