@@ -513,7 +513,7 @@ $$
 \hline
 \end{tabular}
 
-+ Vamos a usar este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion03-03-TablasContingencia.R}{script de R} para aprender algo más de lenguaje sobre tablas de contingencia y de como manejarlas con R.
++ Vamos a usar este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion04-TablasContingencia.R}{script de R} para aprender algo más de lenguaje sobre tablas de contingencia y de como manejarlas con R.
 
 + Una prueba diagnóstica es un *clasificador* de pacientes. Más adelante vamos a encontrar muchos algoritmos clasificadores, porque \link{https://en.wikipedia.org/wiki/Statistical_classification}{clasificar} es una de las tareas básicas en *Machine Learning*. Veremos entonces que en ese contexto se usa mucho el vocabulario de pruebas diagnósticas.
 

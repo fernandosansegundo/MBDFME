@@ -300,3 +300,21 @@ if(!file.exists(scriptName)){
 
 ```
 
+### Tablas de contingencia
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "sesion04-TablasContingencia.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
+

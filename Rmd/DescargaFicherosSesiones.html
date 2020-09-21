@@ -365,7 +365,7 @@ summary {
 <h1 class="title toc-ignore">Código para la descarga de ficheros desde RStudio</h1>
 <h3 class="subtitle">ICAI. Master en Big Data. Fundamentos matemáticos del análisis de datos.</h3>
 <h4 class="author">Fernando San Segundo</h4>
-<h4 class="date">Curso 2020-21. Última actualización: 2020-09-17</h4>
+<h4 class="date">Curso 2020-21. Última actualización: 2020-09-21</h4>
 
 </div>
 
@@ -387,6 +387,7 @@ summary {
 <li><a href="#código-de-esta-sesión-2">Código de esta sesión</a></li>
 <li><a href="#los-juegos-del-caballero-de-méré">Los juegos del Caballero de Méré</a></li>
 <li><a href="#probabilidad-geométrica">Probabilidad geométrica</a></li>
+<li><a href="#tablas-de-contingencia">Tablas de contingencia</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -640,6 +641,21 @@ if(!file.exists(scriptName)){
 getwd()
 
 scriptName = &quot;ProbabilidadGeometrica.R&quot;
+
+scriptURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/&quot;, scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0(&quot;Cuidado: el fichero &quot;, scriptName, &quot; ya existe&quot;))
+}</code></pre>
+</div>
+<div id="tablas-de-contingencia" class="section level3">
+<h3>Tablas de contingencia</h3>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+
+scriptName = &quot;sesion04-TablasContingencia.R&quot;
 
 scriptURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/&quot;, scriptName)
 
