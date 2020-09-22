@@ -270,7 +270,7 @@ if(!file.exists(scriptName)){
 # Directorio de trabajo
 getwd()
 
-scriptName = "JuegosDeMere.R"
+scriptName = "sesion04-01-JuegosDeMere.R"
 
 scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
 
@@ -288,7 +288,7 @@ if(!file.exists(scriptName)){
 # Directorio de trabajo
 getwd()
 
-scriptName = "ProbabilidadGeometrica.R"
+scriptName = "sesion04-02-ProbabilidadGeometrica.R"
 
 scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
 

@@ -293,7 +293,7 @@ desvTipPob / sqrt(Tmuestra)
     
   Así que en principio ambas apuestas parecen iguales,
 
-+ Vamos a usar R para jugar a estos dos juegos sin tener que jugarnos el dinero. Descarga este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion03-01-JuegosDeMere.R}{fichero de código} y ejecútalo. 
++ Vamos a usar R para jugar a estos dos juegos sin tener que jugarnos el dinero. Descarga este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion04-01-JuegosDeMere.R}{fichero de código} y ejecútalo. 
 
 
 ## La paradoja del cumpleaños.
@@ -343,7 +343,7 @@ $$
   
 + Pero es necesario entender que la Regla de Laplace *no es una definición de Probabilidad*. En primer lugar porque sería una definición circular. Y en segundo lugar porque no sirve para responder a preguntas sencillas que tienen respuestas intuitivamente obvias como esta:  
   
-  - Si elegimos al azar un número real $x$ en el intervalo $[0,1]$, ¿cuál es la probabilidad de que sea $1/3\leq x\leq 2/3$? ¿Qué dice (a gritos) la intuición? Y ahora trata de pensar en este problema usando la regla de Laplace. ¿Cuántos casos posibles (valores de $x$) hay? ¿Cuántos son los casos favorables? Experimenta con este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion03-02-ProbabilidadGeometrica}{fichero de código R}.
+  - Si elegimos al azar un número real $x$ en el intervalo $[0,1]$, ¿cuál es la probabilidad de que sea $1/3\leq x\leq 2/3$? ¿Qué dice (a gritos) la intuición? Y ahora trata de pensar en este problema usando la regla de Laplace. ¿Cuántos casos posibles (valores de $x$) hay? ¿Cuántos son los casos favorables? Experimenta con este \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion04-02-ProbabilidadGeometrica.R}{fichero de código R}.
   
   La Regla de Laplace no se diseñó para tratar con valores continuos, como el $x$ de este ejemplo. Necesitamos una noción de Probabilidad más general.
 
@@ -1446,7 +1446,7 @@ writeLines(codigo, paste0("../scripts/", ScriptName))
 
 
 
-- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/03-PoblacionesMuestrasProbabilidad.R}{Código de esta sesión}
+- \link{https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/sesion04-comandos.R}{Código de esta sesión}
 
 
 
