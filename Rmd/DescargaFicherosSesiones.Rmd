@@ -318,3 +318,43 @@ if(!file.exists(scriptName)){
 
 ```
 
+## Sesión 5
+
+### Código de esta sesión
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+scriptName = "sesion05-comandos.R"
+
+scriptURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/", scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0("Cuidado: el fichero ", scriptName, " ya existe"))
+}
+
+```
+
+### Ficheros de datos
+
+#### Fichero 05-IntervConfNormalGrande.csv
+
+```{r eval=FALSE, comment=NULL}
+# Directorio de trabajo
+getwd()
+
+if(!dir.exists("datos"))stop("La carpeta datos no existe")
+
+dataFile = "05-IntervConfNormalGrande.csv"
+
+dataURL = paste0("https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/", dataFile)
+
+if(!file.exists(dataFile)){
+  download.file(dataURL, destfile = paste0("./datos/", dataFile))
+} else {
+  warning(paste0("Cuidado: el fichero de datos", dataFile, " ya existe en tu carpeta de datos"))
+}
+````

@@ -365,7 +365,7 @@ summary {
 <h1 class="title toc-ignore">Código para la descarga de ficheros desde RStudio</h1>
 <h3 class="subtitle">ICAI. Master en Big Data. Fundamentos matemáticos del análisis de datos.</h3>
 <h4 class="author">Fernando San Segundo</h4>
-<h4 class="date">Curso 2020-21. Última actualización: 2020-09-22</h4>
+<h4 class="date">Curso 2020-21. Última actualización: 2020-09-23</h4>
 
 </div>
 
@@ -388,6 +388,10 @@ summary {
 <li><a href="#los-juegos-del-caballero-de-méré">Los juegos del Caballero de Méré</a></li>
 <li><a href="#probabilidad-geométrica">Probabilidad geométrica</a></li>
 <li><a href="#tablas-de-contingencia">Tablas de contingencia</a></li>
+</ul></li>
+<li><a href="#sesión-5">Sesión 5</a><ul>
+<li><a href="#código-de-esta-sesión-3">Código de esta sesión</a></li>
+<li><a href="#ficheros-de-datos-2">Ficheros de datos</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -664,6 +668,44 @@ if(!file.exists(scriptName)){
 } else {
   warning(paste0(&quot;Cuidado: el fichero &quot;, scriptName, &quot; ya existe&quot;))
 }</code></pre>
+</div>
+</div>
+<div id="sesión-5" class="section level2">
+<h2>Sesión 5</h2>
+<div id="código-de-esta-sesión-3" class="section level3">
+<h3>Código de esta sesión</h3>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+
+scriptName = &quot;sesion05-comandos.R&quot;
+
+scriptURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/scripts/&quot;, scriptName)
+
+if(!file.exists(scriptName)){
+  download.file(scriptURL, destfile = scriptName)
+} else {
+  warning(paste0(&quot;Cuidado: el fichero &quot;, scriptName, &quot; ya existe&quot;))
+}</code></pre>
+</div>
+<div id="ficheros-de-datos-2" class="section level3">
+<h3>Ficheros de datos</h3>
+<div id="fichero-05-intervconfnormalgrande.csv" class="section level4">
+<h4>Fichero 05-IntervConfNormalGrande.csv</h4>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+
+if(!dir.exists(&quot;datos&quot;))stop(&quot;La carpeta datos no existe&quot;)
+
+dataFile = &quot;05-IntervConfNormalGrande.csv&quot;
+
+dataURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/&quot;, dataFile)
+
+if(!file.exists(dataFile)){
+  download.file(dataURL, destfile = paste0(&quot;./datos/&quot;, dataFile))
+} else {
+  warning(paste0(&quot;Cuidado: el fichero de datos&quot;, dataFile, &quot; ya existe en tu carpeta de datos&quot;))
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
