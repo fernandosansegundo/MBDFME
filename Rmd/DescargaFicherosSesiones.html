@@ -365,7 +365,7 @@ summary {
 <h1 class="title toc-ignore">Código para la descarga de ficheros desde RStudio</h1>
 <h3 class="subtitle">ICAI. Master en Big Data. Fundamentos matemáticos del análisis de datos.</h3>
 <h4 class="author">Fernando San Segundo</h4>
-<h4 class="date">Curso 2020-21. Última actualización: 2020-09-23</h4>
+<h4 class="date">Curso 2020-21. Última actualización: 2020-09-24</h4>
 
 </div>
 
@@ -697,6 +697,40 @@ getwd()
 if(!dir.exists(&quot;datos&quot;))stop(&quot;La carpeta datos no existe&quot;)
 
 dataFile = &quot;05-IntervConfNormalGrande.csv&quot;
+
+dataURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/&quot;, dataFile)
+
+if(!file.exists(dataFile)){
+  download.file(dataURL, destfile = paste0(&quot;./datos/&quot;, dataFile))
+} else {
+  warning(paste0(&quot;Cuidado: el fichero de datos&quot;, dataFile, &quot; ya existe en tu carpeta de datos&quot;))
+}</code></pre>
+</div>
+<div id="fichero-skewdata.csv" class="section level4">
+<h4>Fichero skewdata.csv</h4>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+
+if(!dir.exists(&quot;datos&quot;))stop(&quot;La carpeta datos no existe&quot;)
+
+dataFile = &quot;skewdata.csv&quot;
+
+dataURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/&quot;, dataFile)
+
+if(!file.exists(dataFile)){
+  download.file(dataURL, destfile = paste0(&quot;./datos/&quot;, dataFile))
+} else {
+  warning(paste0(&quot;Cuidado: el fichero de datos&quot;, dataFile, &quot; ya existe en tu carpeta de datos&quot;))
+}</code></pre>
+</div>
+<div id="fichero-students3.csv" class="section level4">
+<h4>Fichero students3.csv</h4>
+<pre class="r"><code># Directorio de trabajo
+getwd()
+
+if(!dir.exists(&quot;datos&quot;))stop(&quot;La carpeta datos no existe&quot;)
+
+dataFile = &quot;students3.csv&quot;
 
 dataURL = paste0(&quot;https://raw.githubusercontent.com/fernandosansegundo/MBDFME/master/datos/&quot;, dataFile)
 
