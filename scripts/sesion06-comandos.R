@@ -29,7 +29,7 @@ ggplot(mpg) +
 
 # Invirtiendo los papeles de $X$ y $F$
 library(lattice)
-mpg$class = reorder(mpg$class, mpg$hwy, FUN = mean)
+mpg$class = reorder(mpg$class, mpg$cty, FUN = mean)
 dotplot(class ~ cty, data = mpg, lwd= 2)
 
 # Dos factores., mosaicplot
@@ -38,6 +38,11 @@ mosaicplot(Tabla, col=terrain.colors(nlevels(mpg$class)), las = 1)
 
 # La función `table` para dos factores
 table(mpg$cyl, mpg$class, dnn = c("Cilindros", "Tipo"))
+
+# Usando CrossTable
+
+require(gmodels)
+CrossTable(mpg$year, mpg$cyl)
 
 # Matrices de gráficos de correlación.
 library(GGally)

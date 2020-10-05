@@ -96,7 +96,7 @@ donde $X$ es la **variable explicativa**, mientras que $Y$ es la **variable resp
 
 ## Una variable continua $X$ y un factor $F$.
 
-+ Para este tipo de situaciones podemos emplear varios recursos gráficos. Puesto que la variable $X$ es continua sus valores se pueden representar mediantes boxplots, histogramas, curvas de dnesidad, etc. Para ilustrar la relación con $F$ mostramos esos diagramas para cada nivel del factor $F$. 
++ Para este tipo de situaciones podemos emplear varios recursos gráficos. Puesto que la variable $X$ es continua sus valores se pueden representar mediantes boxplots, histogramas, curvas de densidad, etc. Para ilustrar la relación con $F$ mostramos esos diagramas para cada nivel del factor $F$. 
 
 + Por ejemplo, para ilustrar la relación entre $X =$ `cty` y el factor `class` de `mpg` dibujamos boxplots (o violinplots) paralelos por niveles y añadimos los puntos de las poblaciones.\small  
     ```{r echo=-1, message=FALSE, fig.align='center', out.width = "50%"}
@@ -125,7 +125,7 @@ donde $X$ es la **variable explicativa**, mientras que $Y$ es la **variable resp
     ```{r echo=-1, message=FALSE, fig.align='center', out.width = "50%"}
     # Invirtiendo los papeles de $X$ y $F$
     library(lattice)
-    mpg$class = reorder(mpg$class, mpg$hwy, FUN = mean)
+    mpg$class = reorder(mpg$class, mpg$cty, FUN = mean)
     dotplot(class ~ cty, data = mpg, lwd= 2)
     ```
   \normalsize Hemos aprovechado para ordenar los niveles según el valor medio de $X$ para hacer más fácil la visualización. 
@@ -149,7 +149,7 @@ donde $X$ es la **variable explicativa**, mientras que $Y$ es la **variable resp
     ```
     \normalsize
 + Aunque `table` está bien, hay varias librerías de R que extienden mucho su funcionalidad y la información. Por ejemplo, prueba a instalar la librería `gmodels` y luego ejecuta estos comandos para ver la cantidad de información que puedes obtener :\small
-    ```{r eval = FALSE, purl=FALSE, comment=NULL, echo = -(1:2)}
+    ```{r eval = FALSE, comment=NULL, echo = -(1:2)}
     # Usando CrossTable
     
     require(gmodels)
@@ -385,6 +385,13 @@ $$e_1 = y_1 - \hat y_1,\, e_2 = y_2 - \hat y_2, \ldots, \,e_n = y_n - \hat y_n $
     plt
     ```
     \normalsize
+
+    ```{r echo=FALSE, eval=FALSE, comment=NULL}
+    # Otra forma
+    geom_smooth(aes(cty, y), 
+                method=lm, se=FALSE, fill= "gold3")
+    ```
+
 
 ## Predicción.
 
