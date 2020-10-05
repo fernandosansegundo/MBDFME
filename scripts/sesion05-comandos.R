@@ -216,6 +216,11 @@ stripchart(noNormales, method = "jitter",
 title("No normal")
 par(mfrow = c(1, 1))
 
+# Violinplot con ggplot
+ggplot(diamonds, aes(x = cut, y = depth, color=cut)) + 
+  geom_violin(show.legend = FALSE) + 
+  geom_boxplot(width=0.2, show.legend = FALSE)
+
 ## QQplots.
 
 par(mfrow = c(1, 2))
