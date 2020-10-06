@@ -88,6 +88,10 @@ plt +
   geom_abline(intercept = b0, slope = b1, color="blue", size = 1.5)
 plt
 
+# Otra forma
+plt +geom_smooth(aes(hwy, cty), 
+            method=lm, se=FALSE, fill= "gold3")
+
 # Predicción con el modelo lineal.
 
 newHwy = 24.5

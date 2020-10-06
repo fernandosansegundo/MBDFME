@@ -388,7 +388,7 @@ $$e_1 = y_1 - \hat y_1,\, e_2 = y_2 - \hat y_2, \ldots, \,e_n = y_n - \hat y_n $
 
     ```{r echo=FALSE, eval=FALSE, comment=NULL}
     # Otra forma
-    geom_smooth(aes(cty, y), 
+    plt +geom_smooth(aes(hwy, cty), 
                 method=lm, se=FALSE, fill= "gold3")
     ```
 
